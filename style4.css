@@ -1,0 +1,113 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 115px;
+    border-bottom: 2px rgb(79, 79, 254) solid;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+}
+
+body {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+label {
+    display: block;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+}
+
+h3,
+h2,
+.navlist ul li a {
+    color: rgb(79, 79, 254);
+    font-size: large;
+    text-decoration: none;
+}
+
+h3 {
+    padding: 20px 0 0 20px;
+    font-weight: 100;
+}
+
+button {
+    border: rgb(79, 79, 254) solid;
+    background-color: rgb(79, 79, 254);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    padding: 5px
+}
+
+input {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    border: #ffffff;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.navlist select {
+    color: rgb(79, 79, 254);
+    border: none;
+    font-size: 12px;
+    width: 150px;
+}
+
+
+.navlist ul {
+    display: flex;
+    gap: 1.5em;
+}
+
+#menu{
+    font-size: large;
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.container-2 {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: rgb(255, 255, 255) solid;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    max-width: 1500px;
+    margin: 50px;
+}
+
+.datos {
+    font-family: arial, sans serif;
+    font-size: small;
+    margin: 20px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+#select {
+    padding-right: 200px;
+    padding-bottom: 8px;
+}

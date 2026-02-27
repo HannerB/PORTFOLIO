@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm create vite@latest . -- --template react 2>&1)",
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && echo \"y\" | npm create vite@latest . -- --template react 2>&1)",
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npx --yes create-vite@latest . --template react 2>&1)",
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm init -y 2>&1)",
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm install react react-dom 2>&1 && npm install -D vite @vitejs/plugin-react 2>&1)",
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npx vite --version 2>&1)",
+      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm install -D tailwindcss @tailwindcss/vite 2>&1)",
+      "Bash(git ls-remote:*)",
+      "Bash(git:*)"
+    ]
+  }
+}

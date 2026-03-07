@@ -9,7 +9,11 @@
       "Bash(cd /c/xampp/htdocs/PORTFOLIO && npx vite --version 2>&1)",
       "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm install -D tailwindcss @tailwindcss/vite 2>&1)",
       "Bash(git ls-remote:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "WebFetch(domain:m.aliexpress.com)",
+      "WebSearch",
+      "WebFetch(domain:www.iemranking.com)",
+      "WebFetch(domain:kz-audio.com)"
     ]
   }
 }

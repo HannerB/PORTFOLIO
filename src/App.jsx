@@ -5,15 +5,15 @@ import 'aos/dist/aos.css'
 function App() {
   useEffect(() => {
     AOS.init({
-      duration:1000,
+      duration: 1000,
     })
-  },[])
- return (
+  }, [])
+  return (
 
-  <main className='bg-gray-950'>
-   <Hero/>
-  </main>
- )
+    <main className='bg-gray-950'>
+      <Hero />
+    </main>
+  )
 }
 
 export default App

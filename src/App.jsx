@@ -1,6 +1,7 @@
 import { React, useEffect } from 'react';
 import Hero from './components/Hero'
 import About from './components/About'
+import Skills from './components/Skills'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <main className='bg-gray-950'>
       <Hero />
       <About />
+      <Skills />
     </main>
   )
 }

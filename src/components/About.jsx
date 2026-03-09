@@ -1,5 +1,5 @@
 import React from "react";
-import img_about from '/img_about1.png';
+import img_about from "/img_about1.png";
 // import img_about from '/img_about1.png';
 // import img_about from '/img_about1.png';
 
@@ -16,14 +16,14 @@ export default function About() {
           className="flex flex-wrap justify-center gap-4 relative"
         >
           <div
-            className="h-[200px] sm:h-[300px] w-[300px] sm-w-[400px] lg:h-[300px] lg:w-[300px] bg-gradient-to-l from-[#6d2897] via-[#6c95f5] to-[#bb61c5] absolute
+            className="h-[200px] sm:h-[300px] w-[300px] sm:w-[400px] lg:h-[300px] lg:w-[500px] bg-gradient-to-l from-[#6d2897] via-[#6c95f5] to-[#bb61c5] absolute
                     transform rotate-12 z-0 right-5 -top-2 md:top-10 rounded-full"
           ></div>
 
           <img
             src={img_about}
             alt="about picture 1"
-            className="absolute -top-2 left-5 sm:left-10 transform -translate-y-12 z-20 w-24 h-24 sm:w-32 sm:g-32 rounded-3xl shadow-lg"
+            className="absolute -top-2 left-5 sm:left-10 transform -translate-y-12 z-20 w-24 h-24 sm:w-32 sm:h-32 rounded-3xl shadow-lg"
           />
 
           <img
@@ -42,7 +42,7 @@ export default function About() {
         <article
           data-aos="fade-left"
           data-aos-delay="500"
-          className="text-center lg:text-left realtive"
+          className="text-center lg:text-left relative"
         >
           <div className="absolute z-0 w-40 h-40 sm:w-60 sm:h-60 bg-[#cd3cf5] rounded-full blur-3xl opacity-50 -top-5 left-10"></div>
           <header>

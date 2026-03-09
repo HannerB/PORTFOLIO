@@ -14,7 +14,8 @@
       "WebSearch",
       "WebFetch(domain:www.iemranking.com)",
       "WebFetch(domain:kz-audio.com)",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "WebFetch(domain:unsplash.com)"
     ]
   }
 }

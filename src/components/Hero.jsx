@@ -31,7 +31,7 @@ export default function Hero() {
                         <a href="https://www.linkedin.com/in/hannerb-undefined-95a3572a7/" target="_blank" rel="noopener noreferrer">
                             <FaLinkedin className='text-white hover:text-purple-400 transition-colors duration-300' size={28} />
                         </a>
-                        <a href="https://fiverr.com/tu-usuario" target="_blank" rel="noopener noreferrer" className='hover:opacity-70 transition-opacity duration-300'>
+                        <a href="https://es.fiverr.com/s/WEWAovE" target="_blank" rel="noopener noreferrer" className='hover:opacity-70 transition-opacity duration-300'>
                             <img src="https://cdn.simpleicons.org/fiverr/ffffff" alt="Fiverr" className='w-7 h-7' />
                         </a>
                     </div>

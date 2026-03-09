@@ -13,7 +13,8 @@
       "WebFetch(domain:m.aliexpress.com)",
       "WebSearch",
       "WebFetch(domain:www.iemranking.com)",
-      "WebFetch(domain:kz-audio.com)"
+      "WebFetch(domain:kz-audio.com)",
+      "Bash(gh auth:*)"
     ]
   }
 }

@@ -1,9 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import imghero from '/imghero.png'
-// import github from '/imghero.png'
-// import linkedin from '/imghero.png'
-// import instagram from '/imghero.png'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import Hanner from '/hanner.pdf'
 
 export default function Hero() {
@@ -27,11 +25,14 @@ export default function Hero() {
                         nam dolor praesentium fugiat iusto a, delectus unde error vel quo et consequatur nostrum natus neque.
                     </p>
                     <div className='flex items-center space-x-4 mb-6'>
-                        <a href="#">
-                            <img src="{github}" alt="github" className='w-11 h-11' />
+                        <a href="https://github.com/HannerB" target="_blank" rel="noopener noreferrer">
+                            <FaGithub className='text-white hover:text-purple-400 transition-colors duration-300' size={28} />
                         </a>
-                        <a href="#">
-                            <img src="{linkedin}" alt="linkedin" className='w-11 h-11' />
+                        <a href="https://www.linkedin.com/in/hannerb-undefined-95a3572a7/" target="_blank" rel="noopener noreferrer">
+                            <FaLinkedin className='text-white hover:text-purple-400 transition-colors duration-300' size={28} />
+                        </a>
+                        <a href="https://fiverr.com/tu-usuario" target="_blank" rel="noopener noreferrer" className='hover:opacity-70 transition-opacity duration-300'>
+                            <img src="https://cdn.simpleicons.org/fiverr/ffffff" alt="Fiverr" className='w-7 h-7' />
                         </a>
                     </div>
 

@@ -4,6 +4,7 @@ import imghero from "/imghero.png";
 export default function Contact() {
   return (
     <section
+      id="contact"
       data-aos="fade-up"
       data-aos-delay="300"
       className="min-h-screen overflow-hidden justify-center flex items-center p-6 mt-10 relative"

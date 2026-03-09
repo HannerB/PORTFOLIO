@@ -2,6 +2,7 @@ import { React, useEffect } from 'react';
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
+import Projects from './components/Projects'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Hero />
       <About />
       <Skills />
+      <Projects />
     </main>
   )
 }

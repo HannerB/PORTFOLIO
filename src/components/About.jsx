@@ -2,7 +2,7 @@ import React from "react"
 import aboutAvatar from "/about-avatar.png"
 
 const stats = [
-    { label: 'location', value: 'Venezuela' },
+    { label: 'location', value: 'Colombia' },
     { label: 'experience', value: '2+ years' },
     { label: 'specialty', value: 'FullStack' },
     { label: 'status', value: 'Available' },

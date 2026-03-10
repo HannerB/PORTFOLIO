@@ -27,7 +27,7 @@ export default function Navbar() {
             <div className='container mx-auto flex items-center justify-between px-6 py-4'>
                 <a href="#home" className='flex items-center gap-1.5'>
                     <span className='font-mono text-purple-400 text-sm select-none'>&gt;_</span>
-                    <span className='text-xl font-bold italic text-white'>Portfolio</span>
+                    <span className='text-xl font-bold italic text-white'>hanner.dev</span>
                 </a>
 
                 <button className='md:hidden focus:outline-none' onClick={() => setIsOpen(!isOpen)}>

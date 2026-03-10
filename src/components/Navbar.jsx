@@ -30,7 +30,7 @@ export default function Navbar() {
                     <span className='text-xl font-bold italic text-white'>hanner.dev</span>
                 </a>
 
-                <button className='md:hidden focus:outline-none' onClick={() => setIsOpen(!isOpen)}>
+                <button className='md:hidden focus:outline-none cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
                     <FiMenu className='w-6 h-6 text-white' />
                 </button>
 
@@ -55,7 +55,7 @@ export default function Navbar() {
 
             {/* Mobile menu */}
             <div className={`${isOpen ? 'flex' : 'hidden'} md:hidden bg-gray-950/95 backdrop-blur-sm absolute top-0 left-0 w-full h-screen flex-col items-center justify-center space-y-7`}>
-                <button className='absolute top-5 right-5 text-white' onClick={() => setIsOpen(false)}>
+                <button className='absolute top-5 right-5 text-white cursor-pointer' onClick={() => setIsOpen(false)}>
                     <FiX className='w-6 h-6' />
                 </button>
 

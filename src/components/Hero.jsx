@@ -85,7 +85,7 @@ export default function Hero() {
                     </div>
 
                     <a href={Hanner} download>
-                        <button className='inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300'>
+                        <button className='inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300 cursor-pointer'>
                             <span className='text-purple-400'>$</span> download_cv
                         </button>
                     </a>

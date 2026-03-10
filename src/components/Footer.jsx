@@ -49,7 +49,7 @@ export default function Footer() {
                     transform: showTop ? 'translateY(0)' : 'translateY(12px)',
                     transition: 'opacity 0.3s, transform 0.3s',
                 }}
-                className="fixed bottom-8 right-8 z-50 w-10 h-10 rounded-full bg-purple-700 hover:bg-purple-500 text-white flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:shadow-[0_0_30px_rgba(139,92,246,0.7)]"
+                className="fixed bottom-8 right-8 z-50 w-10 h-10 rounded-full bg-purple-700 hover:bg-purple-500 text-white flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:shadow-[0_0_30px_rgba(139,92,246,0.7)] cursor-pointer"
             >
                 <FaArrowUp size={13} />
             </button>

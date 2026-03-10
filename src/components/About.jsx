@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import aboutAvatar from "/about-avatar.png"
+import ExperienceModal from "./ExperienceModal"
 
 const stats = [
     { label: 'location', value: 'Colombia' },
@@ -9,7 +10,10 @@ const stats = [
 ]
 
 export default function About() {
+    const [showModal, setShowModal] = useState(false)
+
     return (
+        <>
         <section
             id="about"
             className="min-h-screen overflow-hidden flex items-center justify-center text-white px-4 sm:px-6 py-20 relative"
@@ -81,7 +85,10 @@ export default function About() {
                         </div>
 
                         <footer>
-                            <button className="inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300">
+                            <button
+                                onClick={() => setShowModal(true)}
+                                className="inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300 cursor-pointer"
+                            >
                                 <span className="text-purple-400">$</span> learn_more
                             </button>
                         </footer>
@@ -89,5 +96,8 @@ export default function About() {
                 </article>
             </div>
         </section>
+
+        {showModal && <ExperienceModal onClose={() => setShowModal(false)} />}
+        </>
     )
 }

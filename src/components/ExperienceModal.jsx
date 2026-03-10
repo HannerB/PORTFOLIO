@@ -74,8 +74,9 @@ const freelance = [
     {
         slug: "wedoitweb",
         title: "WeDoItBranding",
-        desc: "AI-powered brand identity SaaS with Three.js WebGL hero, GSAP animations and a 13-step questionnaire.",
-        tags: ["React", "Three.js", "GSAP", "Vite"],
+        period: "Dec 2025 – Jan 2026",
+        desc: "Built from reference sites alone — no designs or wireframes. Client initially dissatisfied with first delivery; rebuilt with custom Three.js WebGL hero, scroll-driven interactions and split-screen AI questionnaire. Final verdict: 'the result was excellent.'",
+        tags: ["React", "Three.js", "Framer Motion", "Vite"],
     },
     {
         slug: "sistema-contable-pr",
@@ -260,9 +261,14 @@ export default function ExperienceModal({ onClose }) {
                                     className="group border border-gray-800 hover:border-purple-600/60 bg-gray-900/30 hover:bg-gray-900/60 rounded p-4 transition-all duration-200 flex flex-col gap-2"
                                 >
                                     <div className="flex items-center justify-between">
-                                        <h3 className="text-white text-sm font-semibold group-hover:text-purple-300 transition-colors duration-200">
-                                            {item.title}
-                                        </h3>
+                                        <div>
+                                            <h3 className="text-white text-sm font-semibold group-hover:text-purple-300 transition-colors duration-200">
+                                                {item.title}
+                                            </h3>
+                                            {item.period && (
+                                                <span className="font-mono text-[9px] text-gray-600">{item.period}</span>
+                                            )}
+                                        </div>
                                         <FaArrowRight size={9} className="text-gray-700 group-hover:text-purple-400 transition-colors duration-200" />
                                     </div>
                                     <p className="text-gray-600 text-[11px] leading-relaxed flex-1">{item.desc}</p>

@@ -88,9 +88,14 @@ export default function Navbar() {
                     <a
                         key={link.id}
                         href={link.link}
-                        className='text-gray-300 hover:text-white text-lg transition-colors duration-200'
                         onClick={() => setIsOpen(false)}
+                        className={`text-lg transition-colors duration-200 ${
+                            activeSection === link.section ? 'text-white' : 'text-gray-400 hover:text-white'
+                        }`}
                     >
+                        {activeSection === link.section && (
+                            <span className="text-purple-400 mr-2 font-mono text-sm">▸</span>
+                        )}
                         {link.name}
                     </a>
                 ))}

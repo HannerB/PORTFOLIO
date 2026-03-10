@@ -148,7 +148,7 @@ export default function ExperienceModal({ onClose }) {
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
 
             <div
-                className="relative z-10 w-full max-w-2xl max-h-[88vh] overflow-y-auto bg-gray-950 border border-gray-800 rounded-lg shadow-2xl"
+                className="modal-scroll relative z-10 w-full max-w-2xl max-h-[88vh] overflow-y-auto bg-gray-950 border border-gray-800 rounded-lg shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Terminal header */}

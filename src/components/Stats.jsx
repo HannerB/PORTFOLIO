@@ -4,7 +4,7 @@ const stats = [
     { value: 18, suffix: "+", label: "Projects Shipped" },
     { value: 25, suffix: "",  label: "Technologies" },
     { value: 3,  suffix: "",  label: "Companies" },
-    { value: 4,  suffix: "+", label: "Years Coding" },
+    { value: 2,  suffix: "+", label: "Years Coding" },
 ]
 
 function Counter({ value, suffix }) {

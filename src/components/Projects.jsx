@@ -15,6 +15,47 @@ const CATEGORY_DOT = {
     landing: "bg-emerald-500",
 }
 
+const PLACEHOLDER_STYLES = {
+    platform: { bg: "from-purple-950 to-gray-900", text: "text-purple-400", border: "border-purple-900/40" },
+    webapp:   { bg: "from-blue-950 to-gray-900",   text: "text-blue-400",   border: "border-blue-900/40"   },
+    landing:  { bg: "from-emerald-950 to-gray-900", text: "text-emerald-400", border: "border-emerald-900/40" },
+}
+
+const ProjectPlaceholder = ({ title, category, tags }) => {
+    const s = PLACEHOLDER_STYLES[category]
+    return (
+        <figure className="relative overflow-hidden shrink-0">
+            <div className={`w-full h-44 bg-gradient-to-br ${s.bg} flex flex-col items-center justify-center gap-3 px-6 relative`}>
+                <div
+                    className="absolute inset-0 opacity-[0.04]"
+                    style={{
+                        backgroundImage: "linear-gradient(rgba(139,92,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,1) 1px, transparent 1px)",
+                        backgroundSize: "32px 32px",
+                    }}
+                />
+                <span className={`font-mono text-[9px] uppercase tracking-[0.25em] ${s.text} opacity-60`}>
+                    {category}
+                </span>
+                <h3 className="text-white font-bold text-sm text-center leading-snug relative z-10">
+                    {title}
+                </h3>
+                <div className="flex flex-wrap justify-center gap-1.5 relative z-10">
+                    {tags.slice(0, 3).map((tag) => (
+                        <span key={tag} className={`font-mono text-[9px] ${s.text} border ${s.border} px-2 py-0.5 rounded opacity-80`}>
+                            {tag}
+                        </span>
+                    ))}
+                </div>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
+                    → view project
+                </span>
+            </div>
+        </figure>
+    )
+}
+
 const ProjectCard = ({ slug, image, title, tagline, tags, category, index }) => (
     <Link
         to={`/projects/${slug}`}
@@ -30,19 +71,23 @@ const ProjectCard = ({ slug, image, title, tagline, tags, category, index }) => 
             </span>
         </div>
 
-        {/* Image */}
-        <figure className="relative overflow-hidden shrink-0">
-            <img
-                src={image}
-                alt={title}
-                className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
-                    → view project
-                </span>
-            </div>
-        </figure>
+        {/* Image or styled placeholder */}
+        {image && !image.includes("picsum") ? (
+            <figure className="relative overflow-hidden shrink-0">
+                <img
+                    src={image}
+                    alt={title}
+                    className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
+                        → view project
+                    </span>
+                </div>
+            </figure>
+        ) : (
+            <ProjectPlaceholder title={title} category={category} tags={tags} />
+        )}
 
         {/* Content */}
         <div className="px-5 py-4 flex flex-col gap-2 flex-1">
@@ -96,7 +141,7 @@ export default function Projects() {
                 {/* Header */}
                 <header data-aos="fade-up" data-aos-delay="300" className="text-center mb-10">
                     <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                        // 03 — projects
+                        // 04 — projects
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-bold mt-2 tracking-tight">
                         My <span className="text-purple-400">Projects</span>

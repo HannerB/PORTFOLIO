@@ -240,7 +240,7 @@ export default function Skills() {
                 {/* Header */}
                 <header data-aos="fade-up" data-aos-delay="300" className="text-center mb-10">
                     <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                        // 02 — skills
+                        // 03 — skills
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-bold mt-2 tracking-tight">
                         My Expertise &amp; <span className="text-purple-400">Skills</span>

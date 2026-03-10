@@ -36,7 +36,7 @@ export default function Hero() {
     const typedTitle = useTyping()
 
     return (
-        <div className='relative overflow-hidden min-h-[550px] sm:min-h-[600px] flex flex-col items-center bg-gray-950'>
+        <div className='relative overflow-hidden min-h-[100svh] sm:min-h-[600px] flex flex-col items-center bg-gray-950'>
             {/* Grid texture */}
             <div
                 className='absolute inset-0 opacity-[0.04]'
@@ -54,10 +54,10 @@ export default function Hero() {
 
             <main
                 id='home'
-                className='flex flex-col md:flex-row items-center justify-center w-full px-4 md:px-52 pb-4 md:pb-24 md:pt-32 pt-24 mt-14 md:mt-0 z-10'
+                className='flex flex-col md:flex-row items-center justify-center w-full px-4 md:px-52 pb-4 md:pb-24 md:pt-32 pt-14 mt-6 md:mt-0 z-10'
             >
                 <section
-                    className='flex-1 md:mr-28 md:text-left mt-10 md:mt-0 relative'
+                    className='flex-1 md:mr-28 md:text-left mt-4 md:mt-0 relative'
                     data-aos='fade-up'
                     data-aos-delay='500'
                 >
@@ -81,13 +81,13 @@ export default function Hero() {
                         </div>
                     </header>
 
-                    <p className='text-base md:text-lg text-gray-400 mb-6 leading-relaxed max-w-md'>
+                    <p className='text-base md:text-lg text-gray-300 mb-4 md:mb-6 leading-relaxed max-w-md'>
                         Full Stack Developer with 2+ years of experience building production-ready web platforms.
                         Specialized in React, NestJS and TypeScript — from REST APIs and Stripe integrations
                         to relational databases and clean, responsive UIs.
                     </p>
 
-                    <div className='flex items-center space-x-3 mb-7'>
+                    <div className='flex items-center space-x-3 mb-4 md:mb-7'>
                         <a
                             href="https://github.com/HannerB"
                             target="_blank"
@@ -124,12 +124,12 @@ export default function Hero() {
                 <figure
                     data-aos='fade-up'
                     data-aos-delay='600'
-                    className='flex-1 flex justify-center md:justify-end mt-8 md:mt-0'
+                    className='flex-1 flex justify-center md:justify-end mt-4 md:mt-0'
                 >
                     <img
                         src={imghero}
                         alt="Hanner Barros — Full Stack Developer"
-                        className='h-[300px] sm:h-[400px] md:h-[485px] w-[250px] sm:w-[480px] object-cover'
+                        className='h-[270px] sm:h-[400px] md:h-[485px] w-[220px] sm:w-[480px] object-cover'
                     />
                 </figure>
             </main>

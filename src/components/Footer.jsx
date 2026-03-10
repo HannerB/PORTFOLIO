@@ -21,7 +21,7 @@ const socialLinks = [
     },
     {
         label: 'Fiverr',
-        href: 'https://es.fiverr.com/s/WEWAovE',
+        href: 'https://es.fiverr.com/hannerv?public_mode=true',
         icon: <img src="https://cdn.simpleicons.org/fiverr/ffffff" alt="Fiverr" className="w-[15px] h-[15px]" />,
     },
 ]

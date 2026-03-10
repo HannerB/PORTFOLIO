@@ -1,10 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from './Navbar'
 import imghero from '/imghero.png'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import Hanner from '/hanner.pdf'
 
+const TITLES = ['FullStack Developer', 'Frontend Developer', 'Backend Developer']
+
+function useTyping() {
+    const [titleIndex, setTitleIndex] = useState(0)
+    const [displayed, setDisplayed] = useState('')
+    const [deleting, setDeleting] = useState(false)
+
+    useEffect(() => {
+        const current = TITLES[titleIndex]
+        let timeout
+
+        if (!deleting && displayed.length < current.length) {
+            timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80)
+        } else if (!deleting && displayed.length === current.length) {
+            timeout = setTimeout(() => setDeleting(true), 2000)
+        } else if (deleting && displayed.length > 0) {
+            timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), 45)
+        } else if (deleting && displayed.length === 0) {
+            setDeleting(false)
+            setTitleIndex((i) => (i + 1) % TITLES.length)
+        }
+
+        return () => clearTimeout(timeout)
+    }, [displayed, deleting, titleIndex])
+
+    return displayed
+}
+
 export default function Hero() {
+    const typedTitle = useTyping()
+
     return (
         <div className='relative overflow-hidden min-h-[550px] sm:min-h-[600px] flex flex-col items-center bg-gray-950'>
             {/* Grid texture */}
@@ -45,7 +75,7 @@ export default function Hero() {
                         <div className='flex items-center gap-2 mb-5'>
                             <span className='font-mono text-xs text-gray-600 select-none'>&gt;_</span>
                             <h2 className='text-xl md:text-2xl font-mono text-purple-400'>
-                                FullStack Developer
+                                {typedTitle}
                             </h2>
                             <span className='w-0.5 h-5 bg-purple-400 animate-pulse' />
                         </div>

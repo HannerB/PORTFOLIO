@@ -52,9 +52,9 @@ export default function Hero() {
                     </header>
 
                     <p className='text-base md:text-lg text-gray-400 mb-6 leading-relaxed max-w-md'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates facilis illo
-                        at quia perferendis nam dolor praesentium fugiat iusto a, delectus unde error vel
-                        quo et consequatur nostrum natus neque.
+                        Full Stack Developer with 2+ years of experience building production-ready web platforms.
+                        Specialized in React, NestJS and TypeScript — from REST APIs and Stripe integrations
+                        to relational databases and clean, responsive UIs.
                     </p>
 
                     <div className='flex items-center space-x-3 mb-7'>
@@ -75,7 +75,7 @@ export default function Hero() {
                             <FaLinkedin className='text-gray-400 hover:text-white transition-colors' size={16} />
                         </a>
                         <a
-                            href="https://es.fiverr.com/s/WEWAovE"
+                            href="https://es.fiverr.com/hannerv?public_mode=true"
                             target="_blank"
                             rel="noopener noreferrer"
                             className='w-9 h-9 border border-gray-800 hover:border-purple-600 hover:bg-purple-900/30 rounded flex items-center justify-center transition-all duration-200'
@@ -98,7 +98,7 @@ export default function Hero() {
                 >
                     <img
                         src={imghero}
-                        alt="Hero Image"
+                        alt="Hanner Barros — Full Stack Developer"
                         className='h-[300px] sm:h-[400px] md:h-[485px] w-[250px] sm:w-[480px] object-cover'
                     />
                 </figure>

@@ -59,9 +59,10 @@ export default function About() {
                         </header>
 
                         <p className="text-base sm:text-lg text-gray-400 mb-7 leading-relaxed">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa officia
-                            necessitatibus id eum, molestias possimus vitae inventore sed pariatur quidem
-                            sunt quia explicabo numquam doloribus. Commodi velit adipisci architecto.
+                            I'm a Full Stack Developer with hands-on experience building real-world applications
+                            from scratch. I've developed educational platforms, B2B marketplaces and academic
+                            management systems using React, NestJS, TypeScript, PostgreSQL and MySQL — working
+                            across the entire stack, from scalable API design to clean, responsive interfaces.
                         </p>
 
                         {/* Stats grid */}

@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { getProjectBySlug } from "../data/projects"
 import { FiArrowLeft, FiGithub, FiExternalLink, FiCode, FiLayers, FiZap, FiStar } from "react-icons/fi"
 
@@ -60,9 +60,27 @@ export default function ProjectDetail() {
     const navigate = useNavigate()
     const project = getProjectBySlug(slug)
 
+    const metaDescRef = useRef(document.querySelector('meta[name="description"]'))
+
     useEffect(() => {
         window.scrollTo(0, 0)
-    }, [slug])
+        if (!project) return
+
+        const prevTitle = document.title
+        const prevDesc = metaDescRef.current?.getAttribute('content') ?? ''
+
+        document.title = `${project.title} | Hanner Barros`
+        if (metaDescRef.current) {
+            metaDescRef.current.setAttribute('content', project.tagline)
+        }
+
+        return () => {
+            document.title = prevTitle
+            if (metaDescRef.current) {
+                metaDescRef.current.setAttribute('content', prevDesc)
+            }
+        }
+    }, [slug, project])
 
     if (!project) {
         return (

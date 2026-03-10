@@ -5,11 +5,11 @@ import { FaTimes, FaBriefcase, FaGraduationCap, FaCertificate, FaArrowRight, FaC
 const experience = [
     {
         company: "Fullstack Labs — Tecnoparque, SENA",
-        role: "Desarrollador Full Stack · Prácticas Profesionales",
-        period: "Jul 2025 – Ene 2026",
+        role: "Full Stack Developer · Professional Internship",
+        period: "Jul 2025 – Jan 2026",
         bullets: [
-            "Desarrollé ECPL, sistema de certificación de competencias laborales con gestión de candidatos, proyectos y normas NCL.",
-            "Implementé VIVU, plataforma académica SENA con dashboard ejecutivo, verificación de usuarios y generador de QR para cursos.",
+            "Built ECPL, a labor competency certification system with candidate, project and NCL standards management.",
+            "Implemented VIVU, the SENA academic management platform with executive dashboard, user verification and QR code generator for courses.",
         ],
         tags: ["Laravel", "PHP", "MySQL", "Livewire"],
         projects: [
@@ -19,12 +19,12 @@ const experience = [
     },
     {
         company: "Akademia",
-        role: "Desarrollador Full Stack · Remoto",
-        period: "Dic 2024 – Jun 2025",
+        role: "Full Stack Developer · Remote",
+        period: "Dec 2024 – Jun 2025",
         bullets: [
-            "Generador automático de horarios académicos con validación multi-restricción y algoritmos de optimización.",
-            "Integración bidireccional con sistema legacy Oracle para gestión de datos académicos.",
-            "Diagnóstico automático de conflictos y reportes en tiempo real de ocupación de recursos.",
+            "Automatic academic schedule generator with multi-constraint validation and optimization algorithms.",
+            "Bidirectional integration with a legacy Oracle system for academic data management.",
+            "Automatic conflict detection and real-time resource occupancy reports.",
         ],
         tags: ["Laravel", "Livewire", "MySQL", "Oracle"],
         projects: [
@@ -33,12 +33,12 @@ const experience = [
     },
     {
         company: "Proveify",
-        role: "Desarrollador Backend · Remoto",
-        period: "Abr 2024 – Dic 2025",
+        role: "Backend Developer · Remote",
+        period: "Apr 2024 – Dec 2025",
         bullets: [
-            "Marketplace B2B con API REST, autenticación JWT con refresh tokens e integración Google Cloud Storage.",
-            "Sistema de categorización multi-nivel y suite completa de tests unitarios con Jest.",
-            "WebSockets en tiempo real para envío y seguimiento de cotizaciones.",
+            "B2B marketplace REST API with JWT authentication, refresh token rotation and Google Cloud Storage integration.",
+            "Multi-level categorization system and full Jest unit test suite across all modules.",
+            "Real-time WebSockets for quote submission and status tracking.",
         ],
         tags: ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "GCS"],
         projects: [
@@ -47,12 +47,12 @@ const experience = [
     },
     {
         company: "Semillero — Tecnoparque, SENA",
-        role: "Desarrollador Web",
-        period: "Abr 2024 – Sep 2024",
+        role: "Web Developer",
+        period: "Apr 2024 – Sep 2024",
         bullets: [
-            "Desarrollé múltiples aplicaciones y landings para proyectos internos del semillero tecnológico.",
-            "Lab Sensorial SENA: sistema de gestión de laboratorios con control de inventario y reservas.",
-            "Proyectos web para emprendimientos y entidades: Agrosena, CONTEB, TVD, Alerta Roja.",
+            "Developed multiple web apps and landing pages for internal tech incubator projects.",
+            "Lab Sensorial SENA: laboratory management system with inventory control and reservations.",
+            "Web projects for startups and organizations: Agrosena, CONTEB, TVD, Alerta Roja.",
         ],
         tags: ["PHP", "HTML", "CSS", "JavaScript", "MySQL"],
         projects: [
@@ -68,63 +68,63 @@ const freelance = [
     {
         slug: "1tomilion",
         title: "1TOMILLION",
-        desc: "Plataforma educativa con Stripe, JWT, CI/CD a VPS y biblioteca de PDFs.",
+        desc: "Educational platform with Stripe payments, JWT auth, CI/CD to VPS and a PDF book library.",
         tags: ["NestJS", "React", "Supabase", "Stripe"],
     },
     {
         slug: "wedoitweb",
         title: "WeDoItBranding",
-        desc: "SaaS de identidad de marca con IA, Three.js, GSAP y cuestionario de 13 pasos.",
+        desc: "AI-powered brand identity SaaS with Three.js WebGL hero, GSAP animations and a 13-step questionnaire.",
         tags: ["React", "Three.js", "GSAP", "Vite"],
     },
     {
         slug: "sistema-contable-pr",
         title: "Sistema Contable PR",
-        desc: "15+ tipos de cotejos fiscales, gestión de clientes y tests E2E con Playwright.",
+        desc: "Accounting platform with 15+ fiscal cotejo types, client management and full Playwright E2E test suite.",
         tags: ["Next.js", "Prisma", "PostgreSQL", "Playwright"],
     },
     {
         slug: "greythium",
         title: "GREYTHIUM",
-        desc: "Plataforma B2B/B2C con dual payment gateway (Stripe + PayPal) y 51 jurisdicciones fiscales.",
+        desc: "B2B/B2C international trade platform with dual payment gateway (Stripe + PayPal) across 51 tax jurisdictions.",
         tags: ["PHP", "MySQL", "Stripe", "PayPal"],
     },
     {
         slug: "school-management-app",
         title: "School Management",
-        desc: "Sistema de gestión escolar multi-módulo con calendario, portal de padres y nómina.",
+        desc: "Multi-module school management system with academic calendar, parent portal and payroll processing.",
         tags: ["React", "NestJS", "PostgreSQL", "ApexCharts"],
     },
     {
         slug: "crystalberylmedia",
         title: "CrystalBeryl Media",
-        desc: "Landing para agencia de medios con identidad de marca, animaciones y formulario de contacto.",
+        desc: "Landing page for a media agency with brand identity design, scroll animations and contact form.",
         tags: ["React", "Tailwind", "Vite"],
     },
 ]
 
 const education = [
     {
-        title: "Análisis y Desarrollo de Software",
+        title: "Software Analysis & Development",
         institution: "SENA",
         period: "2023 – 2025",
-        note: "Técnico · Full Stack, APIs REST, bases de datos relacionales, Git, Docker",
+        note: "Technical Degree · Full Stack, REST APIs, relational databases, Git, Docker",
     },
     {
-        title: "Programación de Software",
+        title: "Software Programming",
         institution: "SENA",
         period: "2020 – 2021",
-        note: "Media Técnica · Java, MySQL, NetBeans",
+        note: "Technical High School · Java, MySQL, NetBeans",
     },
 ]
 
 const certifications = [
     { name: "Power BI", issuer: "SENA", year: "2024" },
-    { name: "Ofimática", issuer: "SENA", year: "2024" },
+    { name: "Office Suite", issuer: "SENA", year: "2024" },
 ]
 
 const languages = [
-    { name: "Español", level: "Nativo", bar: 100 },
+    { name: "Spanish", level: "Native", bar: 100 },
     { name: "English", level: "B2 — Upper Intermediate", bar: 72 },
 ]
 

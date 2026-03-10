@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* ── Hide default scrollbar (keep scroll functional) ────── */
+html {
+    scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Modal scrollbar ─────────────────────────────────────── */
+.modal-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.modal-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.35);
+    border-radius: 999px;
+}
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.7);
+}

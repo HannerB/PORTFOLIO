@@ -4,18 +4,34 @@ import { FiMenu, FiX } from 'react-icons/fi'
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
+    const [activeSection, setActiveSection] = useState('home')
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20)
-        window.addEventListener('scroll', onScroll)
+        window.addEventListener('scroll', onScroll, { passive: true })
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
+    useEffect(() => {
+        const sections = ['home', 'about', 'skills', 'projects', 'contact']
+        const observers = sections.map((id) => {
+            const el = document.getElementById(id)
+            if (!el) return null
+            const obs = new IntersectionObserver(
+                ([entry]) => { if (entry.isIntersecting) setActiveSection(id) },
+                { threshold: 0.3 }
+            )
+            obs.observe(el)
+            return obs
+        })
+        return () => observers.forEach((obs) => obs?.disconnect())
+    }, [])
+
     const NavbarLinks = [
-        { id: 1, name: 'Home', link: '#home' },
-        { id: 2, name: 'About', link: '#about' },
-        { id: 3, name: 'Skills', link: '#skills' },
-        { id: 4, name: 'Projects', link: '#projects' },
+        { id: 1, name: 'Home', link: '#home', section: 'home' },
+        { id: 2, name: 'About', link: '#about', section: 'about' },
+        { id: 3, name: 'Skills', link: '#skills', section: 'skills' },
+        { id: 4, name: 'Projects', link: '#projects', section: 'projects' },
     ]
 
     return (
@@ -39,9 +55,16 @@ export default function Navbar() {
                         <a
                             key={link.id}
                             href={link.link}
-                            className='text-gray-400 hover:text-white text-sm transition-colors duration-200'
+                            className={`text-sm transition-colors duration-200 relative group ${
+                                activeSection === link.section
+                                    ? 'text-white'
+                                    : 'text-gray-400 hover:text-white'
+                            }`}
                         >
                             {link.name}
+                            <span className={`absolute -bottom-1 left-0 h-px bg-purple-400 transition-all duration-300 ${
+                                activeSection === link.section ? 'w-full' : 'w-0 group-hover:w-full'
+                            }`} />
                         </a>
                     ))}
                     <a

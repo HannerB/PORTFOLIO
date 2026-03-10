@@ -1,5 +1,6 @@
 import Hero from '../components/Hero'
 import About from '../components/About'
+import Stats from '../components/Stats'
 import Skills from '../components/Skills'
 import Projects from '../components/Projects'
 import Contact from '../components/Contact'
@@ -10,6 +11,7 @@ export default function HomePage() {
         <>
             <Hero />
             <About />
+            <Stats />
             <Skills />
             <Projects />
             <Contact />

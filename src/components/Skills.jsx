@@ -1,101 +1,296 @@
-import React from "react"
+import { useState } from "react"
 
-const skillsData = [
+const CATEGORIES = [
+    { id: "all", label: "All" },
+    { id: "frontend", label: "Frontend" },
+    { id: "backend", label: "Backend" },
+    { id: "database", label: "Database & ORM" },
+    { id: "devops", label: "DevOps & Tools" },
+]
+
+const skills = [
+    // ── FRONTEND ────────────────────────────────────────────────────
     {
-        id: 1,
-        image: "https://cdn.simpleicons.org/vuedotjs/4FC08D",
-        title: "Vue.js",
-        description: "Progressive JS framework for building reactive user interfaces and single-page applications.",
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/react/61DAFB",
+        name: "React",
+        level: "Advanced",
+        note: "v18 & v19 — hooks, context, lazy loading, Suspense",
     },
     {
-        id: 2,
-        image: "https://cdn.simpleicons.org/react/61DAFB",
-        title: "React",
-        description: "Component-based library for building fast, scalable frontend applications and UIs.",
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/nextdotjs/FFFFFF",
+        name: "Next.js",
+        level: "Advanced",
+        note: "App Router, API routes, server components, Turbopack",
     },
     {
-        id: 3,
-        image: "https://cdn.simpleicons.org/tailwindcss/06B6D4",
-        title: "Tailwind CSS",
-        description: "Utility-first CSS framework for rapid and consistent UI development.",
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/typescript/3178C6",
+        name: "TypeScript",
+        level: "Advanced",
+        note: "Strict typing, generics, Zod schemas, type-safe APIs",
     },
     {
-        id: 4,
-        image: "https://cdn.simpleicons.org/laravel/FF2D20",
-        title: "Laravel",
-        description: "Elegant PHP framework for building robust backend systems and REST APIs.",
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/tailwindcss/06B6D4",
+        name: "Tailwind CSS",
+        level: "Advanced",
+        note: "v3 & v4, custom config, responsive design systems",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/vite/646CFF",
+        name: "Vite",
+        level: "Advanced",
+        note: "SWC compiler, manual chunk splitting, asset optimization",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/framermotion/0055FF",
+        name: "Framer Motion",
+        level: "Intermediate",
+        note: "Scroll animations, transitions, gesture interactions",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/threedotjs/FFFFFF",
+        name: "Three.js",
+        level: "Intermediate",
+        note: "WebGL scenes, particle systems, mouse-interactive 3D",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/greensock/88CE02",
+        name: "GSAP",
+        level: "Intermediate",
+        note: "ScrollTrigger, timelines, RAF-throttled animations",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/bootstrap/7952B3",
+        name: "Bootstrap",
+        level: "Advanced",
+        note: "Grid system, components, SASS customization",
+    },
+
+    // ── BACKEND ─────────────────────────────────────────────────────
+    {
+        category: "backend",
+        icon: "https://cdn.simpleicons.org/nestjs/E0234E",
+        name: "NestJS",
+        level: "Advanced",
+        note: "Modules, guards, interceptors, WebSockets, Swagger",
+    },
+    {
+        category: "backend",
+        icon: "https://cdn.simpleicons.org/laravel/FF2D20",
+        name: "Laravel",
+        level: "Advanced",
+        note: "Livewire, Eloquent, Artisan commands, Excel exports",
+    },
+    {
+        category: "backend",
+        icon: "https://cdn.simpleicons.org/php/777BB4",
+        name: "PHP",
+        level: "Advanced",
+        note: "Custom MVC, FPDF, PHPMailer, PHPRunner extensions",
+    },
+    {
+        category: "backend",
+        icon: "https://cdn.simpleicons.org/dotnet/512BD4",
+        name: "C# / .NET",
+        level: "Intermediate",
+        note: "ASP.NET Core Web API, DTOs, Entity Framework migrations",
+    },
+    {
+        category: "backend",
+        icon: "https://cdn.simpleicons.org/nodedotjs/339933",
+        name: "Node.js",
+        level: "Advanced",
+        note: "REST APIs, Express, Multer file uploads, pm2",
+    },
+
+    // ── DATABASE ────────────────────────────────────────────────────
+    {
+        category: "database",
+        icon: "https://cdn.simpleicons.org/postgresql/4169E1",
+        name: "PostgreSQL",
+        level: "Advanced",
+        note: "Relational schemas, RLS policies, triggers, migrations",
+    },
+    {
+        category: "database",
+        icon: "https://cdn.simpleicons.org/mysql/4479A1",
+        name: "MySQL",
+        level: "Advanced",
+        note: "Complex joins, migrations, procedure-driven constraints",
+    },
+    {
+        category: "database",
+        icon: "https://cdn.simpleicons.org/prisma/2D3748",
+        name: "Prisma ORM",
+        level: "Advanced",
+        note: "Split schema, migrations, seeding, repository pattern",
+    },
+    {
+        category: "database",
+        icon: "https://cdn.simpleicons.org/supabase/3ECF8E",
+        name: "Supabase",
+        level: "Advanced",
+        note: "Auth, RLS, realtime, storage, SQL migrations",
+    },
+
+    // ── DEVOPS & TOOLS ──────────────────────────────────────────────
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/docker/2496ED",
+        name: "Docker",
+        level: "Intermediate",
+        note: "Dockerfile, docker-compose, multi-service stacks",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/githubactions/2088FF",
+        name: "GitHub Actions",
+        level: "Intermediate",
+        note: "CI/CD pipelines for staging and production deploys",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/stripe/635BFF",
+        name: "Stripe",
+        level: "Intermediate",
+        note: "Payments, webhooks, subscription lifecycle management",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/vercel/FFFFFF",
+        name: "Vercel",
+        level: "Intermediate",
+        note: "Deployments, Speed Insights, environment management",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/git/F05032",
+        name: "Git",
+        level: "Advanced",
+        note: "Branching strategies, Husky hooks, conventional commits",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/googlecloud/4285F4",
+        name: "Google Cloud",
+        level: "Intermediate",
+        note: "Cloud Storage buckets, structured file upload pipelines",
     },
 ]
 
-const SkillCard = ({ image, title, description, index }) => (
-    <article className="relative border border-gray-800 hover:border-purple-600 bg-gray-900/40 hover:bg-gray-900/80 rounded p-5 transition-all duration-300 group">
-        {/* Terminal window chrome */}
-        <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-gray-800/60">
-            <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-red-500 transition-colors duration-300" />
-            <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-yellow-400 transition-colors duration-300" />
-            <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-green-400 transition-colors duration-300" />
-            <span className="ml-auto font-mono text-[10px] text-gray-700">
-                skill_{String(index + 1).padStart(2, '0')}.js
-            </span>
+const LEVEL_STYLE = {
+    Advanced: "text-purple-400 border-purple-800/60 bg-purple-950/30",
+    Intermediate: "text-blue-400 border-blue-800/60 bg-blue-950/30",
+}
+
+const SkillCard = ({ icon, name, level, note, index }) => (
+    <article className="relative border border-gray-800 hover:border-purple-600/60 bg-gray-900/30 hover:bg-gray-900/60 rounded p-4 transition-all duration-300 group flex gap-3 items-start">
+        <img src={icon} alt={name} className="w-7 h-7 shrink-0 mt-0.5" />
+        <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+                <h3 className="text-white text-sm font-semibold group-hover:text-purple-300 transition-colors duration-200">
+                    {name}
+                </h3>
+                <span className={`font-mono text-[9px] border px-1.5 py-0.5 rounded shrink-0 ${LEVEL_STYLE[level]}`}>
+                    {level}
+                </span>
+            </div>
+            <p className="text-gray-600 text-[11px] leading-relaxed">{note}</p>
         </div>
-
-        <figure className="flex justify-start mb-3">
-            <img src={image} alt={title} className="w-9 h-9" />
-        </figure>
-
-        <header className="mb-2">
-            <h3 className="text-sm font-bold text-white group-hover:text-purple-300 transition-colors duration-200">
-                {title}
-            </h3>
-        </header>
-
-        <p className="text-gray-600 text-xs leading-relaxed">{description}</p>
+        <span className="font-mono text-[9px] text-gray-800 shrink-0 mt-0.5">
+            {String(index + 1).padStart(2, "0")}
+        </span>
     </article>
 )
 
 export default function Skills() {
+    const [active, setActive] = useState("all")
+
+    const filtered = active === "all" ? skills : skills.filter((s) => s.category === active)
+
+    const counts = Object.fromEntries(
+        CATEGORIES.map((c) => [c.id, c.id === "all" ? skills.length : skills.filter((s) => s.category === c.id).length])
+    )
+
     return (
         <section
             id="skills"
-            className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-white px-4 py-20"
+            className="relative overflow-hidden text-white px-4 py-20"
         >
             {/* Grid texture */}
             <div
                 className="absolute inset-0 opacity-[0.025]"
                 style={{
                     backgroundImage:
-                        'linear-gradient(rgba(139,92,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,1) 1px, transparent 1px)',
-                    backgroundSize: '48px 48px',
+                        "linear-gradient(rgba(139,92,246,1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,1) 1px, transparent 1px)",
+                    backgroundSize: "48px 48px",
                 }}
             />
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 w-72 h-36 bg-[#cd3cf5] rounded-full blur-3xl opacity-10" />
 
-            <div className="absolute top-10 left-1/2 -translate-x-1/2 w-72 h-36 bg-[#cd3cf5] rounded-full blur-3xl opacity-15" />
-
-            <div
-                data-aos="fade-up"
-                data-aos-delay="300"
-                className="relative z-10 text-center space-y-10 w-full max-w-4xl"
-            >
-                <header>
+            <div className="relative z-10 max-w-6xl mx-auto">
+                {/* Header */}
+                <header data-aos="fade-up" data-aos-delay="300" className="text-center mb-10">
                     <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
                         // 02 — skills
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-bold mt-2 tracking-tight">
-                        My Expertise &amp;{' '}
-                        <span className="text-purple-400">Skills</span>
+                        My Expertise &amp; <span className="text-purple-400">Skills</span>
                     </h2>
                     <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-xl mx-auto">
-                        Technologies I use to build full-stack applications from idea to deployment.
+                        Technologies I use across the full stack — from interactive UIs to production infrastructure.
                     </p>
                 </header>
 
+                {/* Filters */}
+                <div data-aos="fade-up" data-aos-delay="400" className="flex flex-wrap justify-center gap-2 mb-8">
+                    {CATEGORIES.map((cat) => (
+                        <button
+                            key={cat.id}
+                            onClick={() => setActive(cat.id)}
+                            className={`font-mono text-xs px-4 py-2 rounded border transition-all duration-200 ${
+                                active === cat.id
+                                    ? "border-purple-500 bg-purple-600/20 text-purple-300"
+                                    : "border-gray-700 text-gray-500 hover:border-gray-500 hover:text-gray-300"
+                            }`}
+                        >
+                            {cat.label}
+                            <span className="ml-2 text-[10px] opacity-50">({counts[cat.id]})</span>
+                        </button>
+                    ))}
+                </div>
+
+                {/* Grid */}
                 <div
                     data-aos="fade-up"
                     data-aos-delay="500"
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
                 >
-                    {skillsData.map((skill, i) => (
-                        <SkillCard key={skill.id} {...skill} index={i} />
+                    {filtered.map((skill, i) => (
+                        <SkillCard key={skill.name} {...skill} index={i} />
+                    ))}
+                </div>
+
+                {/* Summary bar */}
+                <div data-aos="fade-up" data-aos-delay="600" className="mt-10 border border-gray-800 bg-gray-900/30 rounded p-4 flex flex-wrap justify-center gap-6">
+                    {[
+                        { label: "Frontend", count: skills.filter(s => s.category === "frontend").length },
+                        { label: "Backend", count: skills.filter(s => s.category === "backend").length },
+                        { label: "Database", count: skills.filter(s => s.category === "database").length },
+                        { label: "DevOps & Tools", count: skills.filter(s => s.category === "devops").length },
+                    ].map(({ label, count }) => (
+                        <div key={label} className="text-center">
+                            <span className="block text-2xl font-bold text-purple-400">{count}</span>
+                            <span className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">{label}</span>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -15,7 +15,18 @@
       "WebFetch(domain:www.iemranking.com)",
       "WebFetch(domain:kz-audio.com)",
       "Bash(gh auth:*)",
-      "WebFetch(domain:unsplash.com)"
+      "WebFetch(domain:unsplash.com)",
+      "Bash(curl:*)",
+      "Bash(cmdkey:*)",
+      "Bash(grep \"\"path\"\":*)",
+      "Bash(do:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:tld-list.com)",
+      "WebFetch(domain:domaintyper.com)",
+      "WebFetch(domain:tldprice.org)",
+      "WebFetch(domain:tldes.com)",
+      "WebFetch(domain:www.domnest.com)"
     ]
   }
 }

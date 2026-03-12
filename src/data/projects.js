@@ -419,29 +419,57 @@ export const projects = [
     {
         slug: "tvd",
         category: "landing",
-        year: "2023",
-        title: "TVD — Corporate Website",
-        tagline: "Fully responsive corporate website with custom CSS system",
-        image: "https://picsum.photos/seed/tvdsite/1200/600",
+        year: "Apr 9 – Apr 25, 2024",
+        title: "Tu Vale Digital",
+        tagline: "Landing page para una plataforma fintech colombiana que digitaliza el sistema de préstamos entre tenderos y clientes.",
+        image: "https://picsum.photos/seed/tuvale/1200/600",
         screenshots: [],
-        github: "https://github.com/HannerB/TVD",
-        githubPrivate: false,
-        link: "",
-        tags: ["HTML", "CSS", "Bootstrap", "JavaScript"],
+        github: PROFILE,
+        githubPrivate: true,
+        link: "https://tvd.hanner.dev",
+        tags: ["HTML5", "CSS3", "Bootstrap 4", "JavaScript", "jQuery", "AOS", "Font Awesome"],
         overview:
-            "A multi-page corporate website with a custom CSS architecture built on top of Bootstrap. Features a full brand identity system, structured page hierarchy and a responsive layout tested across multiple breakpoints.",
-        problem: "Deliver a professional multi-page corporate presence with consistent branding and full responsiveness without a JS framework.",
-        role: "Frontend developer. Structured the HTML page hierarchy, built the custom CSS layer for brand styling, and ensured responsiveness across desktop, tablet and mobile breakpoints.",
+            "Landing page desarrollada para Tu Vale Digital, una startup fintech colombiana que reemplaza los vales físicos de crédito con una aplicación móvil. El sitio comunica la propuesta de valor de la plataforma, guía al usuario a través del proceso de registro y descarga de la app, y presenta métricas de impacto: más de 55,000 clientes y $249M+ en transacciones procesadas.\n\nEl diseño está orientado a tenderos colombianos, con un lenguaje claro y accesible. Incluye secciones de visión/misión, proceso de uso en 4 pasos, tabla de tarifas, preguntas frecuentes y carrusel de testimonios.",
+        problem:
+            "Tu Vale Digital necesitaba una presencia web que explicara su producto a un público no técnico (pequeños comerciantes), transmitiera confianza como plataforma financiera e impulsara las descargas de su app en Google Play. No existía un sitio que articulara claramente la diferencia entre el sistema físico de vales y la solución digital.",
+        role: "Desarrollé el landing completo desde cero: maquetación multi-página responsive con Bootstrap, animaciones de scroll con AOS, contador animado de estadísticas, acordeón de FAQ, carrusel de testimonios, tabla de precios y formularios de registro y login.",
         features: [
-            { title: "Multi-page structure", description: "Separate HTML pages for home, about, services and contact — each consistent with the brand system." },
-            { title: "Custom CSS architecture", description: "Three-layer CSS approach: Bootstrap grid foundation, custom style.css for brand, and special-classes.css for utility overrides." },
-            { title: "Responsive design", description: "Dedicated responsive.css file handling layout adjustments across multiple breakpoints." },
-            { title: "Brand identity integration", description: "Custom logo variants (SVG, PNG) and brand colors applied consistently across all pages." },
+            {
+                title: "Diseño responsive multi-página",
+                description: "10 páginas interconectadas (home, about, servicios, precios, FAQ, contacto, equipo, login, registro, coming soon) con navegación y estilos consistentes.",
+            },
+            {
+                title: "Animaciones de scroll (AOS)",
+                description: "Elementos con efectos fade-up, fade-right y fade-down activados al hacer scroll, mejorando la experiencia de lectura del contenido.",
+            },
+            {
+                title: "Contador animado de métricas",
+                description: "Contador jQuery que anima los números de impacto (55,000+ clientes, $249M+ en transacciones) al entrar en el viewport.",
+            },
+            {
+                title: "FAQ con acordeón",
+                description: "Preguntas frecuentes organizadas por categorías (métodos de pago, metodología de préstamos, alianzas) usando el componente collapse de Bootstrap.",
+            },
+            {
+                title: "Tabla de tarifas",
+                description: "Página de precios con los distintos métodos de pago disponibles y sus comisiones, presentada de forma clara y comparativa.",
+            },
+            {
+                title: "Integración con Google Play",
+                description: "CTA directo hacia la descarga de la app en Google Play Store, objetivo principal de conversión del sitio.",
+            },
         ],
-        stack: { frontend: ["HTML5", "CSS3", "Bootstrap 5", "JavaScript"] },
+        stack: {
+            base: ["HTML5", "CSS3"],
+            styling: ["Bootstrap 4.5", "CSS Variables", "Google Fonts (Barlow, Jost, Oxygen)"],
+            animation: ["AOS 2.3.1", "Magnific Popup 1.1.0"],
+            scripts: ["jQuery 3.6.0", "Bootstrap JS"],
+            ui: ["Font Awesome 6.1.1"],
+        },
         highlights: [
-            "Three-file CSS architecture keeps concerns separated: base brand styles, layout rules and utility overrides — making future style changes predictable.",
-            "SVG logo files enable crisp rendering at any screen size or resolution without quality loss.",
+            "Arquitectura multi-página con assets compartidos entre todas las vistas, manteniendo consistencia visual sin framework de componentes.",
+            "Paleta de color definida con CSS custom properties para consistencia de marca en las 10 páginas.",
+            "Contador jQuery activado solo cuando los elementos son visibles en el viewport, evitando animaciones perdidas en carga inicial.",
         ],
     },
     {
@@ -602,62 +630,6 @@ export const projects = [
         },
         highlights: [
             "Parallel file naming convention (*.html / *-e.html) makes language version management straightforward without a CMS or i18n library.",
-        ],
-    },
-    {
-        slug: "tu-vale-digital",
-        category: "landing",
-        year: "Apr 9 – Apr 25, 2024",
-        title: "Tu Vale Digital",
-        tagline: "Landing page para una plataforma fintech colombiana que digitaliza el sistema de préstamos entre tenderos y clientes.",
-        image: "https://picsum.photos/seed/tuvale/1200/600",
-        screenshots: [],
-        github: PROFILE,
-        githubPrivate: true,
-        link: "https://tvd.hanner.dev",
-        tags: ["HTML5", "CSS3", "Bootstrap 4", "JavaScript", "jQuery", "AOS", "Font Awesome"],
-        overview:
-            "Landing page desarrollada para Tu Vale Digital, una startup fintech colombiana que reemplaza los vales físicos de crédito con una aplicación móvil. El sitio comunica la propuesta de valor de la plataforma, guía al usuario a través del proceso de registro y descarga de la app, y presenta métricas de impacto: más de 55,000 clientes y $249M+ en transacciones procesadas.\n\nEl diseño está orientado a tenderos colombianos, con un lenguaje claro y accesible. Incluye secciones de visión/misión, proceso de uso en 4 pasos, tabla de tarifas, preguntas frecuentes y carrusel de testimonios.",
-        problem:
-            "Tu Vale Digital necesitaba una presencia web que explicara su producto a un público no técnico (pequeños comerciantes), transmitiera confianza como plataforma financiera e impulsara las descargas de su app en Google Play. No existía un sitio que articulara claramente la diferencia entre el sistema físico de vales y la solución digital.",
-        role: "Desarrollé el landing completo desde cero: maquetación multi-página responsive con Bootstrap, animaciones de scroll con AOS, contador animado de estadísticas, acordeón de FAQ, carrusel de testimonios, tabla de precios y formularios de registro y login.",
-        features: [
-            {
-                title: "Diseño responsive multi-página",
-                description: "10 páginas interconectadas (home, about, servicios, precios, FAQ, contacto, equipo, login, registro, coming soon) con navegación y estilos consistentes.",
-            },
-            {
-                title: "Animaciones de scroll (AOS)",
-                description: "Elementos con efectos fade-up, fade-right y fade-down activados al hacer scroll, mejorando la experiencia de lectura del contenido.",
-            },
-            {
-                title: "Contador animado de métricas",
-                description: "Contador jQuery que anima los números de impacto (55,000+ clientes, $249M+ en transacciones) al entrar en el viewport.",
-            },
-            {
-                title: "FAQ con acordeón",
-                description: "Preguntas frecuentes organizadas por categorías (métodos de pago, metodología de préstamos, alianzas) usando el componente collapse de Bootstrap.",
-            },
-            {
-                title: "Tabla de tarifas",
-                description: "Página de precios con los distintos métodos de pago disponibles y sus comisiones, presentada de forma clara y comparativa.",
-            },
-            {
-                title: "Integración con Google Play",
-                description: "CTA directo hacia la descarga de la app en Google Play Store, objetivo principal de conversión del sitio.",
-            },
-        ],
-        stack: {
-            base: ["HTML5", "CSS3"],
-            styling: ["Bootstrap 4.5", "CSS Variables", "Google Fonts (Barlow, Jost, Oxygen)"],
-            animation: ["AOS 2.3.1", "Magnific Popup 1.1.0"],
-            scripts: ["jQuery 3.6.0", "Bootstrap JS"],
-            ui: ["Font Awesome 6.1.1"],
-        },
-        highlights: [
-            "Arquitectura multi-página con assets compartidos entre todas las vistas, manteniendo consistencia visual sin framework de componentes.",
-            "Paleta de color definida con CSS custom properties para consistencia de marca en las 10 páginas.",
-            "Contador jQuery activado solo cuando los elementos son visibles en el viewport, evitando animaciones perdidas en carga inicial.",
         ],
     },
     {

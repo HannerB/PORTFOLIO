@@ -90,7 +90,8 @@ del directorio raíz `/var/www/` donde están los proyectos de producción.
 
 | Plataforma | Tipos | Motivo |
 |-----------|-------|--------|
-| **Vercel** | Tipo A (static) + Tipo B (SPA) | CDN global, HTTPS automático, auto-deploy desde GitHub, sin gestión de servidor |
+| **GitHub Pages** | Tipo A (HTML estático puro, sin package.json) | Gratis, HTTPS automático, sin gestión de servidor, directo desde repo público |
+| **Vercel** | Tipo A (con build) + Tipo B (SPA) | CDN global, HTTPS automático, auto-deploy desde GitHub, sin gestión de servidor |
 | **VPS**    | Tipo C (fullstack) | Necesitan proceso Node.js persistente que Vercel no soporta en free tier |
 
 ---
@@ -333,18 +334,137 @@ cp -r src/assets/logos/ public/logos/
 
 ### Tipo A — Landing / Sitio Estático
 
-Sin backend. Nginx sirve los archivos directamente.
-Si no tiene `package.json`, se sirve la raíz del repo. Si tiene build, genera `/dist`.
+**HTML puro (sin package.json):** GitHub Pages — CNAME + subdominio `[slug].hanner.dev`.
+**Con build (package.json):** Vercel — mismo flujo que Tipo B.
 
-| Slug                | Título             | Repo público | Estado    |
-|---------------------|--------------------|:------------:|-----------|
-| `alerta-roja`       | Alerta Roja        | ✅           | pendiente |
-| `tvd`               | TVD                | ✅           | pendiente |
-| `conteb`            | CONTEB             | ✅           | pendiente |
-| `agrosena`          | Agrosena           | ✅           | pendiente |
-| `cafe-mekaddesh`    | Café Mekaddesh     | ✅           | pendiente |
-| `plataforma-50`     | Plataforma 50      | ✅           | pendiente |
-| `crystalberylmedia` | CrystalBeryl Media | ❌ privado   | pendiente |
+#### Tipo A en GitHub Pages — Proceso completo
+
+**Paso 0 — Verificar el `build_type` del repo**
+
+```bash
+curl -s "https://api.github.com/repos/HannerB/<REPO>/pages" \
+  -H "Authorization: Bearer $GH_TOKEN" | grep '"build_type"'
+```
+
+- `"legacy"` → GitHub gestiona el deploy directamente desde la rama (sin Actions propio)
+- `"workflow"` → el repo tiene un `.github/workflows/` que hace el deploy via Actions
+
+El `build_type` determina qué trick usar si el SSL no se emite.
+
+**Paso 1 — Crear `CNAME` y hacer push**
+
+```bash
+echo "<slug>.hanner.dev" > CNAME
+git add CNAME && git commit -m "config: add CNAME for <slug>.hanner.dev"
+git push origin main
+```
+
+**Paso 2 — Configurar custom domain via API**
+
+```bash
+curl -s -X PUT "https://api.github.com/repos/HannerB/<REPO>/pages" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"cname": "<slug>.hanner.dev"}'
+```
+
+**Paso 3 — DNS en Cloudflare**
+
+| Tipo | Name | Value | Proxy |
+|------|------|-------|-------|
+| `CNAME` | `<slug>` | `hannerb.github.io` | **OFF** (DNS only) |
+
+> Proxy debe estar **OFF**. Con proxy ON, GitHub no puede emitir el certificado SSL.
+
+**Paso 4 — Verificar estado del cert**
+
+```bash
+curl -s "https://api.github.com/repos/HannerB/<REPO>/pages/health" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "Accept: application/vnd.github.switcheroo-preview+json" \
+  | grep -E '"responds_to_https"|"https_error"|"is_https_eligible"'
+```
+
+- `is_https_eligible: true` → todo bien, GitHub puede emitir el cert
+- `responds_to_https: true` → cert emitido, listo para activar
+- `https_error: "peer_failed_verification"` → cert aún no emitido (esperar o usar fix abajo)
+
+**Paso 5 — Si el SSL no se emite (fix según `build_type`)**
+
+**`build_type: legacy`** — El trigger es forzar Delete + Create CNAME vía API.
+GitHub hace auto-commits en el repo que disparan un rebuild fresco, lo que inicia la emisión del cert:
+
+```bash
+# 1. Delete
+curl -s -X PUT "https://api.github.com/repos/HannerB/<REPO>/pages" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"cname": null}'
+
+# 2. Esperar 4-5 segundos
+
+# 3. Re-add
+curl -s -X PUT "https://api.github.com/repos/HannerB/<REPO>/pages" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"cname": "<slug>.hanner.dev"}'
+
+# Verificar que GitHub hizo los auto-commits:
+curl -s "https://api.github.com/repos/HannerB/<REPO>/commits?per_page=3" \
+  -H "Authorization: Bearer $GH_TOKEN" | grep '"message"'
+# Debe aparecer "Delete CNAME" y "Create CNAME" hechos por GitHub
+```
+
+> Confirmado funcionando en: `cafe-mekaddesh`, `tvd`.
+> El cert aparece ~5–10 min después del Delete/Create.
+
+**`build_type: workflow`** — No hay auto-commits. El trigger es re-disparar el workflow manualmente:
+
+```bash
+# 1. Obtener workflow ID
+curl -s "https://api.github.com/repos/HannerB/<REPO>/actions/workflows" \
+  -H "Authorization: Bearer $GH_TOKEN" | grep -E '"id"|"name"'
+
+# 2. Dispatch manual
+curl -s -X POST "https://api.github.com/repos/HannerB/<REPO>/actions/workflows/<WORKFLOW_ID>/dispatches" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"ref": "main"}'
+
+# 3. Verificar que arrancó
+curl -s "https://api.github.com/repos/HannerB/<REPO>/actions/runs?per_page=1" \
+  -H "Authorization: Bearer $GH_TOKEN" | grep -E '"status"|"conclusion"'
+```
+
+> Si el workflow dispatch tampoco funciona, el cert puede simplemente tardar más.
+> Esperar 15–30 min y volver a verificar con el health endpoint.
+> En último caso: hacer un push vacío para forzar un nuevo run del workflow.
+
+**Paso 6 — Activar HTTPS una vez que `responds_to_https: true`**
+
+```bash
+curl -s -X PUT "https://api.github.com/repos/HannerB/<REPO>/pages" \
+  -H "Authorization: Bearer $GH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"https_enforced": true}'
+
+# Verificar
+curl -s "https://api.github.com/repos/HannerB/<REPO>/pages" \
+  -H "Authorization: Bearer $GH_TOKEN" | grep -E '"https_enforced"|"html_url"'
+# html_url debe mostrar https://
+```
+
+> Token de GitHub: guardado en `SECRETS.md`
+
+| Slug                | Título             | Plataforma     | Repo público | Estado    |
+|---------------------|--------------------|----------------|:------------:|-----------|
+| `cafe-mekaddesh`    | Café Mekaddesh     | GitHub Pages   | ✅           | ✅ live — cafe-mekaddesh.hanner.dev |
+| `tvd`               | TVD                | GitHub Pages   | ✅           | ✅ live — tvd.hanner.dev |
+| `alerta-roja`       | Alerta Roja        | GitHub Pages   | ✅           | pendiente |
+| `conteb`            | CONTEB             | GitHub Pages   | ✅           | ✅ live — conteb.hanner.dev |
+| `agrosena`          | Agrosena           | GitHub Pages   | ✅           | pendiente |
+| `plataforma-50`     | Plataforma 50      | GitHub Pages   | ✅           | pendiente |
+| `crystalberylmedia` | CrystalBeryl Media | GitHub Pages   | ❌ privado   | pendiente |
 
 ### Tipo B — SPA (sin backend)
 
@@ -522,7 +642,10 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 - [x] Script `/root/deploy.sh` en VPS con documentación completa
 
 ### Deployments pendientes
-- [ ] **Fase 1** — alerta-roja, tvd, conteb, agrosena, cafe-mekaddesh, plataforma-50
+- [x] **cafe-mekaddesh** — live en GitHub Pages (cafe-mekaddesh.hanner.dev)
+- [x] **tvd** — live en GitHub Pages (tvd.hanner.dev)
+- [x] **conteb** — live en GitHub Pages (conteb.hanner.dev)
+- [ ] **Fase 1 restante** — alerta-roja, agrosena, plataforma-50
 - [ ] **Fase 2** — lab-sensorial-sena
 - [ ] **Fase 3** — proveify
 - [ ] **Fase 4** — greythium, ecpl, app-akadem-ia

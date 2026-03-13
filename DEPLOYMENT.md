@@ -460,11 +460,11 @@ curl -s "https://api.github.com/repos/HannerB/<REPO>/pages" \
 |---------------------|--------------------|----------------|:------------:|-----------|
 | `cafe-mekaddesh`    | Café Mekaddesh     | GitHub Pages   | ✅           | ✅ live — cafe-mekaddesh.hanner.dev |
 | `tvd`               | TVD                | GitHub Pages   | ✅           | ✅ live — tvd.hanner.dev |
-| `alerta-roja`       | Alerta Roja        | GitHub Pages   | ✅           | pendiente |
+| `alerta-roja`       | Alerta Roja        | GitHub Pages   | ✅           | ✅ live — alerta-roja.hanner.dev |
 | `conteb`            | CONTEB             | GitHub Pages   | ✅           | ✅ live — conteb.hanner.dev |
 | `agrosena`          | Agrosena           | GitHub Pages   | ✅           | pendiente |
-| `plataforma-50`     | Plataforma 50      | GitHub Pages   | ✅           | pendiente |
-| `crystalberylmedia` | CrystalBeryl Media | GitHub Pages   | ❌ privado   | pendiente |
+| `plataforma-50`     | Plataforma 50      | GitHub Pages   | ✅           | ✅ live — plataforma-50.hanner.dev |
+| `crystalberylmedia` | CrystalBeryl Media | GitHub Pages   | ❌ privado   | ✅ live — crystalberylmedia.hanner.dev |
 
 ### Tipo B — SPA (sin backend)
 
@@ -645,13 +645,13 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 - [x] **cafe-mekaddesh** — live en GitHub Pages (cafe-mekaddesh.hanner.dev)
 - [x] **tvd** — live en GitHub Pages (tvd.hanner.dev)
 - [x] **conteb** — live en GitHub Pages (conteb.hanner.dev)
-- [ ] **Fase 1 restante** — alerta-roja, agrosena, plataforma-50
+- [ ] **Fase 1 restante** — agrosena
 - [ ] **Fase 2** — lab-sensorial-sena
 - [ ] **Fase 3** — proveify
 - [ ] **Fase 4** — greythium, ecpl, app-akadem-ia
 - [x] **wedoitweb** — live en Vercel (wedoitweb.hanner.dev) — Dec 2025
 - [ ] **Fase 5** — sistema-contable-pr, school-management-app, vivu
-- [ ] **Fase 6** — crystalberylmedia
+- [x] **crystalberylmedia** — live en GitHub Pages (crystalberylmedia.hanner.dev)
 - [ ] **Pendiente** — seguros-abc (cuando concluya prueba técnica)
 
 ### Post-deployment

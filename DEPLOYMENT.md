@@ -473,7 +473,6 @@ Build del framework, Nginx sirve la carpeta `/dist`. Sin proceso PM2.
 | Slug                 | Título                 | Framework | Repo público | Estado    |
 |----------------------|------------------------|-----------|:------------:|-----------|
 | `seguros-abc`        | Seguros ABC Management | Angular   | ✅           | ⚠️ en uso como prueba técnica — no modificar |
-| `lab-sensorial-sena` | Lab Sensorial SENA     | React     | ✅           | pendiente |
 | `greythium`          | GREYTHIUM              | React     | ❌           | pendiente |
 | `ecpl`               | ECPL                   | React     | ❌           | pendiente |
 | `app-akadem-ia`      | app-akadem-ia          | React     | ❌           | pendiente |
@@ -481,6 +480,18 @@ Build del framework, Nginx sirve la carpeta `/dist`. Sin proceso PM2.
 > **Nota `seguros-abc`:** dist path personalizado:
 > `frontend/seguros-abc-app/dist/seguros-abc-app/browser` (Angular SSR).
 > Los demás React/Vite usan el path estándar `dist`.
+
+### Tipo D — Laravel (PHP + MySQL)
+
+PHP-FPM + Nginx + MySQL. Sin PM2. Nginx sirve desde `/public` con `fastcgi_pass` a PHP-FPM.
+
+| Slug                 | Título             | PHP  | Repo público | DB                          | Estado |
+|----------------------|--------------------|------|--------------|-----------------------------|--------|
+| `lab-sensorial-sena` | Lab Sensorial SENA | 8.2  | ✅           | `laravel_lab_sensorial_sena` | ✅ live — lab-sensorial-sena.hanner.dev |
+
+> Credenciales DB en el `.env` del VPS: `/var/www/previews/lab-sensorial-sena/.env`
+>
+> Para actualizar: `ssh root@72.62.23.134` → `cd /var/www/previews/lab-sensorial-sena && git pull && composer install --no-dev --optimize-autoloader && npm run build && php8.2 artisan migrate --force && php8.2 artisan config:cache`
 
 ### Tipo C — Full-stack (frontend + backend + PM2)
 
@@ -646,7 +657,7 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 - [x] **tvd** — live en GitHub Pages (tvd.hanner.dev)
 - [x] **conteb** — live en GitHub Pages (conteb.hanner.dev)
 - [ ] **Fase 1 restante** — agrosena
-- [ ] **Fase 2** — lab-sensorial-sena
+- [x] **Fase 2** — lab-sensorial-sena — live en VPS (lab-sensorial-sena.hanner.dev) — Mar 2026
 - [ ] **Fase 3** — proveify
 - [ ] **Fase 4** — greythium, ecpl, app-akadem-ia
 - [x] **wedoitweb** — live en Vercel (wedoitweb.hanner.dev) — Dec 2025

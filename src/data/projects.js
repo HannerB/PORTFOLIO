@@ -680,7 +680,7 @@ export const projects = [
         screenshots: [],
         github: "https://github.com/HannerB/LAB-SENSORIAL-SENA",
         githubPrivate: false,
-        link: "",
+        link: "https://lab-sensorial-sena.hanner.dev",
         tags: ["Laravel 10", "PHP 8.2", "MySQL", "Tailwind CSS", "Excel Export"],
         demoNote: {
             status: "Currently in active use at SENA Cedagro, Centro de Valor Agregado.",

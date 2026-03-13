@@ -168,7 +168,7 @@ export const projects = [
     {
         slug: "school-management-app",
         category: "webapp",
-        year: "2025",
+        year: "Jul – Aug 2025",
         title: "School Management App",
         tagline: "React ERP scaffold with role-based routing for admin, teacher, student, parent and support",
         image: "https://picsum.photos/seed/schoolmgmt/1200/600",

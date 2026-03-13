@@ -196,9 +196,34 @@ export default function ProjectDetail() {
                 {/* ── OVERVIEW ─────────────────────────────────── */}
                 <section className="space-y-4">
                     <SectionLabel icon={<FiLayers size={13} />} label="Overview" />
-                    <p className="text-gray-300 leading-relaxed text-base max-w-3xl">
+                    <p className="text-gray-300 leading-relaxed text-base max-w-3xl whitespace-pre-line">
                         {project.overview}
                     </p>
+
+                    {project.demoNote && (
+                        <div className="border border-purple-800/40 bg-purple-950/20 rounded-lg p-5 space-y-4 max-w-3xl">
+                            <div className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                                <span className="font-mono text-[11px] text-purple-400 uppercase tracking-widest">
+                                    live demo
+                                </span>
+                            </div>
+                            <p className="text-sm text-gray-300">{project.demoNote.status}</p>
+                            <div className="space-y-3">
+                                {project.demoNote.steps.map((step, i) => (
+                                    <div key={i} className="flex gap-3 text-sm">
+                                        <span className="font-mono text-purple-500 shrink-0 text-xs mt-0.5">
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <div>
+                                            <span className="text-white font-medium">{step.label} — </span>
+                                            <span className="text-gray-400">{step.detail}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </section>
 
                 {/* ── THE CHALLENGE + MY ROLE ──────────────────── */}

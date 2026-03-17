@@ -86,7 +86,7 @@ por lo que el portafolio en Vercel no se ve afectado.
 | p01 | lab-sensorial-sena   | D    | lab-sensorial-sena.hanner.dev       | ✅ live |
 | p02 | proveify             | C    | proveify.hanner.dev                 | pendiente |
 | p03 | greythium            | B    | greythium.hanner.dev                | pendiente |
-| p04 | ecpl                 | E    | ecpl.hanner.dev                     | pendiente |
+| p04 | ecpl                 | E    | ecpl.hanner.dev                     | ✅ live   |
 | p05 | app-akadem-ia        | B    | app-akadem-ia.hanner.dev            | pendiente |
 | p06 | sistema-contable-pr  | C    | sistema-contable-pr.hanner.dev      | pendiente |
 | p07 | school-management-app| C    | school-management-app.hanner.dev    | pendiente |
@@ -648,7 +648,199 @@ certbot --nginx -d ecpl.hanner.dev --non-interactive --agree-tos -m hannerb48@gm
 > - `templates_c/` necesita permisos de escritura (Smarty compila templates ahí)
 > - `pdf/` necesita escritura para guardar PDFs generados
 > - No importar `ecpl_db_backup.sql` en el VPS de preview — solo estructura + ubicaciones
-> - Para demo: crear un usuario admin manualmente en la tabla `usuarios` con contraseña hasheada
+> - Para demo: crear un usuario admin manualmente en la tabla `usuarios` con contraseña en texto plano
+
+---
+
+## Proyecto de Referencia — ECPL (Tipo E completado)
+
+Primer proyecto PHP puro / PHPRunner deployado. Sirve como referencia para futuros proyectos de este tipo.
+
+| Campo | Valor |
+|-------|-------|
+| Slug | `ecpl` |
+| Ruta VPS | `/home/srvp/p04/` |
+| URL | `https://ecpl.hanner.dev` |
+| DB | `ecpl_db` (MySQL 8.0) |
+| Framework | PHPRunner (generado) + módulos custom MVC |
+| Deployed | Mar 2026 |
+
+### Arquitectura del proyecto PHPRunner + módulos custom
+
+PHPRunner genera una capa base de admin panel en el directorio `output/`. ECPL la extiende con 5 módulos MVC propios en `output/ECPL/modules/` (candidates, projects, normas, dashboard, assets). Cada módulo sigue el patrón Controller → Service → Page.
+
+**Cómo se integran los módulos custom con PHPRunner:**
+- PHPRunner tiene páginas propias (`candidatos_list.php`, `proyectos_list.php`, etc.) en la raíz de `output/`
+- Esas páginas usan `events.php` para inyectar contenido custom en la zona "above-grid"
+- El contenido custom se incrusta como **iframe** apuntando a `ECPL/modules/.../pages/...`
+- El iframe y la página padre son dominios iguales → sin CORS, pero el JS del iframe corre aislado del JS de la página padre
+
+```php
+// include/events.php — así PHPRunner inyecta el módulo custom como iframe
+function event_candidatos_snippet(&$params) {
+    echo '<iframe src="ECPL\modules\candidates\pages\candidate_list.php"
+        width="100%" height="1550px" scrolling="auto" style="border:none;"></iframe>';
+}
+```
+
+**Implicación clave:** cuando el usuario está en `ecpl.hanner.dev/candidatos_list.php`, el HTML real con la lógica vive DENTRO del iframe, no en la página padre de PHPRunner.
+
+### Mapping de rutas: local vs VPS
+
+El directorio local `output/` mapea directamente a la raíz de `p04/` en el VPS:
+
+| Local | VPS |
+|-------|-----|
+| `output/ECPL/modules/candidates/js/candidate_list.js` | `/home/srvp/p04/ECPL/modules/candidates/js/candidate_list.js` |
+| `output/connections/ConnectionManager.php` | `/home/srvp/p04/connections/ConnectionManager.php` |
+| `output/candidatos_list.php` | `/home/srvp/p04/candidatos_list.php` |
+
+> **NO** existe `output/` como directorio dentro de `/home/srvp/p04/`. `output/` es solo la carpeta local.
+
+### Importar la BD — problemas y soluciones
+
+phpMyAdmin genera un `.sql` con varios problemas al exportar bases de datos que tienen VIEWs:
+
+**Problema 1: VIEWs exportadas como tablas vacías**
+
+phpMyAdmin crea stand-ins `CREATE TABLE \`nombre_vista\` (\n);` para cada VIEW. Al importar, MySQL los acepta como tablas vacías, corrompiendo el esquema.
+
+**Problema 2: VIEWs con columnas de esquema antiguo**
+
+Las vistas `CREATE ALGORITHM=UNDEFINED...` pueden referenciar columnas que ya no existen, causando errores.
+
+**Solución — filtrar antes de importar con Python en el VPS:**
+
+```python
+import re, sys
+
+sql = open('ecpl_db.sql').read()
+
+# Eliminar stand-ins de vistas (CREATE TABLE vacíos de 1-2 líneas)
+sql = re.sub(
+    r'CREATE TABLE `[^`]+` \(\n\);',
+    '',
+    sql
+)
+
+# Eliminar todas las VIEWs (referencian columnas de esquema antiguo)
+sql = re.sub(
+    r'CREATE ALGORITHM=UNDEFINED.*?;\n',
+    '',
+    sql,
+    flags=re.DOTALL
+)
+
+open('ecpl_db_clean.sql', 'w').write(sql)
+print("Listo")
+```
+
+```bash
+python3 - << 'PYEOF'
+# (pegar script arriba)
+PYEOF
+mysql ecpl_db < ecpl_db_clean.sql
+```
+
+**Problema 3: Data truncation en columnas ENUM**
+
+Las columnas `estado_civil`, `tipo_vivienda`, etc. tienen ENUMs estrictos. Insertar un valor fuera del ENUM produce `ERROR 1265: Data truncated`. Verificar los valores válidos antes de insertar datos de demo:
+
+```sql
+SHOW COLUMNS FROM candidatos LIKE 'estado_civil';
+-- El campo Type muestra los valores válidos del enum
+```
+
+### ConnectionManager.php — actualizar credenciales
+
+Las credenciales de BD están hardcodeadas en `output/connections/ConnectionManager.php`. Al deployar en VPS, cambiar el usuario `root`/`""` por el usuario `srvp` con su contraseña:
+
+```php
+// Línea ~126 y ~142-146 en ConnectionManager.php
+$connInfo[0] = "localhost";
+$connInfo[1] = "srvp";          // ← usuario MySQL
+$connInfo[2] = "TU_PASSWORD";  // ← contraseña
+$connInfo[3] = "ecpl_db";       // ← nombre de la DB
+```
+
+Las constantes `ODBCUID`, `ODBCPWD` y `ODBCString` también usan estas credenciales — actualizar todas.
+
+> En ECPL live: usuario `srvp`, contraseña en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md`.
+
+### Tablas many-to-many importantes
+
+Los candidatos tienen relaciones N:N con proyectos, NCLs y tipos de población:
+
+| Tabla | Relación |
+|-------|----------|
+| `candidatos_proyectos` | candidato ↔ proyecto |
+| `candidatos_ncl` | candidato ↔ norma de competencia |
+| `candidatos_tipos_poblacion` | candidato ↔ tipo de población |
+
+**Error frecuente:** buscar `FROM candidatos WHERE proyecto_id = X` → falla porque `candidatos` no tiene `proyecto_id`. Siempre usar `FROM candidatos_proyectos WHERE proyecto_id = X`.
+
+### Datos de demo — notas
+
+- Contraseñas en **texto plano** en la tabla `usuarios` (PHPRunner así lo implementa, no hay hash)
+- Usuarios creados para demo: `admin` / `admin2024` (Administrador), `formulador` / `formulador2024` (Formulador)
+- Candidatos de demo: 28 total en 4 proyectos, con NCLs y regionales asignadas
+- Al insertar candidatos de demo, poblar también las tablas junction (`candidatos_proyectos`, `candidatos_ncl`)
+
+### Bugs encontrados y solucionados
+
+**1. SQL: tabla equivocada en conteo de candidatos por proyecto**
+
+`project_service.php` usaba `FROM candidatos WHERE proyecto_id` — esa columna no existe en `candidatos`, la relación es N:N vía `candidatos_proyectos`.
+
+```php
+// ❌ Antes
+(SELECT COUNT(*) FROM candidatos WHERE proyecto_id = p.id)
+// ✅ Después
+(SELECT COUNT(*) FROM candidatos_proyectos WHERE proyecto_id = p.id)
+```
+
+Afectaba: `obtenerProyectosConPaginacion()` y `tieneCandidatos()` en `project_service.php`.
+
+**2. JS pisaba el total renderizado por PHP**
+
+`calcularEstadisticas()` en `candidate_list.js` contaba solo las filas visibles en la página actual (10) y sobreescribía `#totalCandidatos`, ignorando el total real del servidor.
+
+```javascript
+// ❌ Línea eliminada de calcularEstadisticas():
+document.getElementById('totalCandidatos').textContent = filasVisibles.length;
+```
+
+El valor correcto viene del PHP: `<?php echo $totalRegistros; ?>` donde `$totalRegistros` = `COUNT(DISTINCT c.id)` de la DB completa.
+
+**3. Caché del navegador servía el JS viejo**
+
+Incluso después de subir el JS corregido al VPS, el navegador seguía usando la versión cacheada que tenía el bug. El fix visible: PHP mostraba 28 brevemente, luego el JS cacheado lo pisaba con 10.
+
+**Solución: cache-busting con query param en el script:**
+
+```php
+// candidate_list.php
+$pageScripts = [
+    'modules/candidates/js/candidate_list.js?v=3',  // ← versión bumpeada
+    'modules/candidates/js/candidate_projects.js'
+];
+```
+
+> **Regla para futuros proyectos PHPRunner:** cada vez que se modifique un JS custom, incrementar la versión `?v=X` en el `$pageScripts` del PHP correspondiente. Sin esto, los usuarios con caché verán el comportamiento viejo.
+
+### Subir archivos al VPS (sin rsync)
+
+`rsync` no está disponible por defecto localmente en Windows. Usar `scp`:
+
+```bash
+# Subir un archivo
+scp -i ~/.ssh/id_ed25519 -P 2277 local/path/file.php root@72.60.214.49:/home/srvp/p04/ruta/destino/
+
+# Subir directorio completo
+scp -i ~/.ssh/id_ed25519 -P 2277 -r local/directorio/ root@72.60.214.49:/home/srvp/p04/ruta/destino/
+```
+
+> Recordar: local `output/archivo.php` → VPS `/home/srvp/p04/archivo.php` (sin el prefijo `output/`).
 
 ---
 

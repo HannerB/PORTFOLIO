@@ -347,10 +347,10 @@ export const projects = [
         link: "https://ecpl.hanner.dev",
         tags: ["PHP", "MySQL", "PHPRunner", "PhpSpreadsheet", "FPDF", "jQuery", "Tailwind CSS"],
         demoNote: {
-            status: "Live demo with pre-loaded test data — 28 candidates across 4 projects, 24 labor competency norms and full Colombia geography. Two roles available to explore. Login field is 'documento' (ID number).",
+            status: "Live demo with pre-loaded test data — 28 candidates across 4 projects, 24 labor competency norms and full Colombia geography. Two roles available to explore. Login field is 'documento' (national ID).",
             steps: [
-                { label: "Administrador", detail: "documento: admin · contraseña: admin2024 — full access: candidates, projects, NCL catalog, users, audit trail and dashboards" },
-                { label: "Formulador", detail: "documento: formulador · contraseña: formulador2024 — restricted view: own assigned candidates and projects only" },
+                { label: "Administrator", detail: "documento: admin · password: admin2024 — full access: candidates, projects, NCL catalog, users, audit trail and dashboards" },
+                { label: "Formulador", detail: "documento: formulador · password: formulador2024 — restricted view: own assigned candidates and projects only" },
             ],
         },
         overview:

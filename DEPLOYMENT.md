@@ -4,14 +4,19 @@
 
 ```
 hanner.dev               →  Portafolio (Vercel) — NO TOCAR
-[slug].hanner.dev        →  Previews de proyectos (VPS 72.62.23.134)
-1tomillion.com           →  1TOMILION producción (VPS, ya existe)
-1tomillion-drive.com     →  1TOMILION staging (VPS, ya existe)
+[slug].hanner.dev        →  Previews de proyectos (VPS 72.60.214.49)
+1tomillion.com           →  1TOMILION producción (VPS 72.60.214.49)
 ```
 
 El portafolio vive en Vercel y se despliega automáticamente desde GitHub.
 Cada proyecto del portafolio tiene su propio subdominio en el VPS, completamente
 separado del espacio de producción de 1TOMILION.
+
+> ⚠️ **Incidente 2026-03-15:** El VPS anterior (72.62.23.134) fue comprometido por
+> SSH brute force — el atacante instaló un minero XMRig. Hostinger lo detuvo.
+> Se migró todo al nuevo VPS (72.60.214.49) con SSH hardening completo.
+> La causa NO fueron los proyectos sino una contraseña débil en SSH.
+> Ver detalles en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md`.
 
 ---
 
@@ -23,7 +28,7 @@ Estado actual de los records DNS:
 |-------|------------|----------------------------------------|-------|
 | A     | `hanner.dev` | `216.198.79.1` (Vercel — no cambiar) | ON    |
 | CNAME | `www`      | `9970e45010c841d1.vercel-dns-017.com`  | ON    |
-| A     | `*`        | `72.62.23.134` (VPS) ✅ configurado    | ON    |
+| A     | `*`        | `72.60.214.49` (VPS nuevo) ✅          | ON    |
 
 El wildcard `*` cubre automáticamente todos los subdominios hacia el VPS.
 Los records de `hanner.dev` y `www` tienen prioridad sobre el wildcard,
@@ -33,56 +38,60 @@ por lo que el portafolio en Vercel no se ve afectado.
 
 ## VPS
 
-| Detalle  | Valor                   |
-|----------|-------------------------|
-| IP       | 72.62.23.134            |
-| OS       | Ubuntu 24.04 LTS        |
-| SSH      | `ssh root@72.62.23.134` |
-| Provider | Hostinger               |
-| RAM      | 7.8 GB (780 MB usados)  |
-| Disco    | 96 GB (7.4 GB usados)   |
-| Nginx    | activo                  |
-| Node     | v20.19.6                |
-| Password | W.r5BJX5fU4uM           |
+| Detalle      | Valor                                                        |
+|--------------|--------------------------------------------------------------|
+| IP           | `72.60.214.49`                                               |
+| Puerto SSH   | `2277` (no el default 22)                                    |
+| OS           | Ubuntu 24.04 LTS                                             |
+| SSH          | `ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49`        |
+| Provider     | Hostinger KVM 8                                              |
+| RAM          | 32 GB                                                        |
+| Auth         | Solo clave SSH — contraseña desactivada                      |
 
-> Credenciales completas en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md`
+> Credenciales y claves completas en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md`
 
-> **IMPORTANTE (Claude):** Antes de cualquier comando SSH ejecutar:
-> `export SSH_ASKPASS="/c/Program Files/Git/mingw64/bin/git-askpass.exe" SSH_ASKPASS_REQUIRE=force`
+> **IMPORTANTE (Claude):** Usar la clave `/tmp/github_actions_key` para conectar:
+> `ssh -i /tmp/github_actions_key -p 2277 -o StrictHostKeyChecking=no root@72.60.214.49`
 
 ---
 
 ## Estructura de Directorios en el VPS
 
-Los proyectos preview viven en `/var/www/previews/`, completamente separados
-del directorio raíz `/var/www/` donde están los proyectos de producción.
-
 ```
 /var/www/
-├── 1tomilion/              # ✅ producción — 1tomillion.com       (no tocar)
-├── 1tomilion-staging/      # ✅ staging   — 1tomillion-drive.com  (no tocar)
-├── seguros-abc/            # ⚠️ prueba técnica en curso            (no tocar)
-│
-└── previews/               # ✅ espacio dedicado para los proyectos del portafolio
-    ├── alerta-roja/        # se crea al clonar
-    ├── tvd/
-    ├── conteb/
-    ├── agrosena/
-    ├── cafe-mekaddesh/
-    ├── plataforma-50/
-    ├── lab-sensorial-sena/
-    ├── greythium/
-    ├── ecpl/
-    ├── app-akadem-ia/
-    ├── proveify/
-    ├── wedoitweb/
-    ├── sistema-contable-pr/
-    ├── school-management-app/
-    ├── vivu/
-    └── crystalberylmedia/
+└── 1tomilion/    # producción — 1tomillion.com (NO TOCAR)
+
+/home/srvp/       # todos los previews del portafolio — usuario srvp
+├── p01/          # lab-sensorial-sena  ✅ live
+├── p02/          # proveify
+├── p03/          # greythium
+├── p04/          # ecpl
+├── p05/          # app-akadem-ia
+├── p06/          # sistema-contable-pr
+├── p07/          # school-management-app
+├── p08/          # vivu
+└── p09/          # seguros-abc
 ```
 
-> Las carpetas dentro de `previews/` se crean automáticamente al correr el script de deploy.
+> Todos los proyectos preview viven bajo `/home/srvp/` — no son identificables desde
+> `/var/www/` ni desde `ps aux`. El pool PHP-FPM aparece como `srvp`, sin revelar qué proyecto es.
+> Los configs de Nginx se llaman `p01`, `p02`, etc. (sin nombre de proyecto).
+>
+> **Proyectos en GitHub Pages / Vercel** (Tipo A estático) no tienen carpeta en el VPS.
+
+### Tabla de mapping
+
+| ID  | Proyecto             | Tipo | Subdominio                          | Estado  |
+|-----|----------------------|------|-------------------------------------|---------|
+| p01 | lab-sensorial-sena   | D    | lab-sensorial-sena.hanner.dev       | ✅ live |
+| p02 | proveify             | C    | proveify.hanner.dev                 | pendiente |
+| p03 | greythium            | B    | greythium.hanner.dev                | pendiente |
+| p04 | ecpl                 | E    | ecpl.hanner.dev                     | pendiente |
+| p05 | app-akadem-ia        | B    | app-akadem-ia.hanner.dev            | pendiente |
+| p06 | sistema-contable-pr  | C    | sistema-contable-pr.hanner.dev      | pendiente |
+| p07 | school-management-app| C    | school-management-app.hanner.dev    | pendiente |
+| p08 | vivu                 | B    | vivu.hanner.dev                     | pendiente |
+| p09 | seguros-abc          | B    | seguros-abc.hanner.dev              | pendiente (prueba técnica) |
 
 ---
 
@@ -92,7 +101,27 @@ del directorio raíz `/var/www/` donde están los proyectos de producción.
 |-----------|-------|--------|
 | **GitHub Pages** | Tipo A (HTML estático puro, sin package.json) | Gratis, HTTPS automático, sin gestión de servidor, directo desde repo público |
 | **Vercel** | Tipo A (con build) + Tipo B (SPA) | CDN global, HTTPS automático, auto-deploy desde GitHub, sin gestión de servidor |
-| **VPS**    | Tipo C (fullstack) | Necesitan proceso Node.js persistente que Vercel no soporta en free tier |
+| **VPS**    | Tipo C (fullstack) + Tipo D (Laravel) | Necesitan proceso persistente o PHP-FPM que Vercel no soporta en free tier |
+
+## Stack instalado en el VPS (nuevo)
+
+| Componente | Versión | Uso |
+|------------|---------|-----|
+| PHP        | 8.2     | Laravel (Tipo D) |
+| PHP-FPM    | 8.2     | Pool `labsrv` para el lab |
+| MySQL      | 8.0     | DB del lab (`laravel_lab_sensorial_sena`) |
+| Composer   | 2.9.5   | Dependencias PHP |
+| Node.js    | 20.x    | Build de frontends |
+| Nginx      | —       | Proxy + static files |
+| Certbot    | —       | SSL automático |
+| PM2        | 6.x     | Backend Node.js (1tomillion) |
+| fail2ban   | —       | Protección SSH |
+| UFW        | —       | Firewall (puertos: 2277, 80, 443) |
+
+### Backup automático
+
+Cron diario a las 3am: comprime `uploads/` de 1tomillion y guarda en `/root/backups/`.
+Retención: 7 días. Script en `/root/backup-diario.sh`.
 
 ---
 
@@ -474,7 +503,6 @@ Build del framework, Nginx sirve la carpeta `/dist`. Sin proceso PM2.
 |----------------------|------------------------|-----------|:------------:|-----------|
 | `seguros-abc`        | Seguros ABC Management | Angular   | ✅           | ⚠️ en uso como prueba técnica — no modificar |
 | `greythium`          | GREYTHIUM              | React     | ❌           | pendiente |
-| `ecpl`               | ECPL                   | React     | ❌           | pendiente |
 | `app-akadem-ia`      | app-akadem-ia          | React     | ❌           | pendiente |
 
 > **Nota `seguros-abc`:** dist path personalizado:
@@ -483,15 +511,146 @@ Build del framework, Nginx sirve la carpeta `/dist`. Sin proceso PM2.
 
 ### Tipo D — Laravel (PHP + MySQL)
 
-PHP-FPM + Nginx + MySQL. Sin PM2. Nginx sirve desde `/public` con `fastcgi_pass` a PHP-FPM.
+PHP-FPM + Nginx + MySQL. Sin PM2. Nginx sirve desde `/public` con `fastcgi_pass` al socket de PHP-FPM.
+Corre bajo el usuario `labsrv` con su propio pool (`/etc/php/8.2/fpm/pool.d/labsrv.conf`).
 
-| Slug                 | Título             | PHP  | Repo público | DB                          | Estado |
-|----------------------|--------------------|------|--------------|-----------------------------|--------|
+| Slug                 | Título             | PHP  | Repo público | DB                           | Estado |
+|----------------------|--------------------|------|--------------|------------------------------|--------|
 | `lab-sensorial-sena` | Lab Sensorial SENA | 8.2  | ✅           | `laravel_lab_sensorial_sena` | ✅ live — lab-sensorial-sena.hanner.dev |
 
-> Credenciales DB en el `.env` del VPS: `/var/www/previews/lab-sensorial-sena/.env`
->
-> Para actualizar: `ssh root@72.62.23.134` → `cd /var/www/previews/lab-sensorial-sena && git pull && composer install --no-dev --optimize-autoloader && npm run build && php8.2 artisan migrate --force && php8.2 artisan config:cache`
+**Ruta en VPS:** `/home/srvp/p01/`
+**Config Nginx:** `/etc/nginx/sites-available/p01`
+**PHP-FPM socket:** `/run/php/php8.2-srvp.sock` (pool compartido `srvp`)
+**DB:** `laravel_lab_sensorial_sena` — credenciales en `/home/srvp/p01/.env`
+
+**Para actualizar p01 (lab-sensorial-sena):**
+```bash
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49
+cd /home/srvp/p01
+git pull
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+npm install && npm run build && rm -rf node_modules
+php8.2 artisan migrate --force
+php8.2 artisan config:cache && php8.2 artisan route:cache
+```
+
+> Siempre borrar `node_modules` después del build. Los assets quedan en `public/build/`.
+
+**Para deployar un nuevo proyecto Laravel (Tipo D) en pXX:**
+```bash
+# 1. Clonar en la carpeta asignada
+git clone --depth=1 https://github.com/HannerB/<repo> /home/srvp/pXX
+
+# 2. Configurar .env, instalar dependencias
+cd /home/srvp/pXX
+cp .env.example .env
+# editar .env con DB, APP_URL, etc.
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+php8.2 artisan key:generate
+npm install && npm run build && rm -rf node_modules
+php8.2 artisan migrate --force
+php8.2 artisan config:cache && php8.2 artisan route:cache
+
+# 3. Permisos
+chown -R srvp:www-data /home/srvp/pXX
+chmod -R 775 /home/srvp/pXX/storage /home/srvp/pXX/bootstrap/cache
+
+# 4. Config Nginx (nombre del archivo: pXX, sin revelar el proyecto)
+cat > /etc/nginx/sites-available/pXX << 'EOF'
+server {
+    listen 80;
+    server_name <slug>.hanner.dev;
+    root /home/srvp/pXX/public;
+    index index.php;
+    location / { try_files $uri $uri/ /index.php?$query_string; }
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.2-srvp.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    location ~ /\.(?!well-known).* { deny all; }
+}
+EOF
+ln -s /etc/nginx/sites-available/pXX /etc/nginx/sites-enabled/
+nginx -t && systemctl reload nginx
+
+# 5. SSL
+certbot --nginx -d <slug>.hanner.dev --non-interactive --agree-tos -m hannerb48@gmail.com
+
+# 6. Crear DB si aplica
+mysql -e "CREATE DATABASE IF NOT EXISTS <dbname> CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -e "GRANT ALL PRIVILEGES ON <dbname>.* TO 'srvp'@'localhost';"
+```
+
+### Tipo E — PHP puro (PHPRunner / sin framework)
+
+PHP-FPM + Nginx + MySQL. Sin PM2, sin artisan. Nginx sirve directamente desde el directorio `output/` del proyecto.
+Web root: `output/` (contiene los archivos PHPRunner generados + módulos custom en `output/ECPL/`).
+Conexión a BD hardcodeada en `output/connections/ConnectionManager.php` — actualizar credenciales al deployar.
+
+| Slug   | Título | PHP | Repo público | DB         | Estado    |
+|--------|--------|-----|:------------:|------------|-----------|
+| `ecpl` | ECPL   | 8.2 | ❌           | `ecpl_db`  | pendiente |
+
+**Ruta en VPS:** `/home/srvp/p04/`
+**Web root Nginx:** `/home/srvp/p04/output`
+**Config Nginx:** `/etc/nginx/sites-available/p04`
+**PHP-FPM socket:** `/run/php/php8.2-srvp.sock`
+**DB:** `ecpl_db` — credenciales en `output/connections/ConnectionManager.php`
+
+**Para deployar ECPL (p04):**
+```bash
+# 1. Clonar repo privado
+git clone --depth=1 git@github.com:HannerB/ECPL.git /home/srvp/p04
+
+# 2. Crear DB e importar estructura + datos geográficos
+mysql -e "CREATE DATABASE IF NOT EXISTS ecpl_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -e "CREATE USER IF NOT EXISTS 'ecpl_user'@'localhost' IDENTIFIED BY '<password>';"
+mysql -e "GRANT ALL PRIVILEGES ON ecpl_db.* TO 'ecpl_user'@'localhost'; FLUSH PRIVILEGES;"
+mysql ecpl_db < /home/srvp/p04/database/ecpl_db_structure.sql
+mysql ecpl_db < /home/srvp/p04/database/ubicaciones_colombia.sql
+# NO importar ecpl_db_backup.sql — contiene datos reales de candidatos
+
+# 3. Actualizar credenciales DB en ConnectionManager.php
+# Cambiar: root / "" → ecpl_user / <password>
+# Archivo: /home/srvp/p04/output/connections/ConnectionManager.php línea ~126 y ~142-146
+
+# 4. Permisos
+chown -R srvp:www-data /home/srvp/p04
+chmod -R 755 /home/srvp/p04
+chmod -R 775 /home/srvp/p04/output/pdf /home/srvp/p04/output/templates_c
+
+# 5. Config Nginx
+cat > /etc/nginx/sites-available/p04 << 'EOF'
+server {
+    listen 80;
+    server_name ecpl.hanner.dev;
+    root /home/srvp/p04/output;
+    index index.htm index.php;
+    location / { try_files $uri $uri/ /index.htm; }
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.2-srvp.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    location ~ /\.(?!well-known).* { deny all; }
+}
+EOF
+ln -s /etc/nginx/sites-available/p04 /etc/nginx/sites-enabled/
+nginx -t && systemctl reload nginx
+
+# 6. SSL
+certbot --nginx -d ecpl.hanner.dev --non-interactive --agree-tos -m hannerb48@gmail.com
+```
+
+> **Notas ECPL:**
+> - El web root es `output/` — no la raíz del repo
+> - `templates_c/` necesita permisos de escritura (Smarty compila templates ahí)
+> - `pdf/` necesita escritura para guardar PDFs generados
+> - No importar `ecpl_db_backup.sql` en el VPS de preview — solo estructura + ubicaciones
+> - Para demo: crear un usuario admin manualmente en la tabla `usuarios` con contraseña hasheada
+
+---
 
 ### Tipo C — Full-stack (frontend + backend + PM2)
 
@@ -531,63 +690,49 @@ Los previews fullstack empiezan desde el 4000.
 
 ## Script de Deploy — `/root/deploy.sh`
 
-El script está en el VPS en `/root/deploy.sh` y automatiza el proceso completo:
-clonar/actualizar repo → build → config Nginx → SSL con Let's Encrypt.
+> ⚠️ Pendiente recrear en el nuevo VPS. El script del VPS viejo usaba `/var/www/previews/`
+> y debe actualizarse para usar `/home/srvp/pXX/`.
+
+El script automatiza: clonar/actualizar repo → build → config Nginx (como `pXX`) → SSL.
 
 ```bash
 # Conectar al VPS
-ssh root@72.62.23.134
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49
 
 # Uso del script
-./deploy.sh <slug> <repo> <type> [dist_path] [port]
+./deploy.sh <id> <slug> <repo> <type> [dist_path] [port]
 ```
 
 ### Parámetros
 
-| Parámetro   | Descripción                                                   | Default |
-|-------------|---------------------------------------------------------------|---------|
-| `slug`      | Nombre del proyecto. Se usa como subdominio y como carpeta en `/var/www/previews/` | — |
-| `repo`      | Nombre exacto del repo en GitHub bajo `HannerB`               | — |
-| `type`      | `static` \| `spa` \| `fullstack`                              | — |
-| `dist_path` | Ruta relativa al output del build (solo spa/fullstack)        | `dist`  |
-| `port`      | Puerto del backend PM2 (solo fullstack)                       | `4000`  |
+| Parámetro   | Descripción                                                    | Default |
+|-------------|----------------------------------------------------------------|---------|
+| `id`        | ID asignado (`p02`, `p03`...). Carpeta en `/home/srvp/` y nombre del config Nginx | — |
+| `slug`      | Subdominio: `<slug>.hanner.dev`                                | — |
+| `repo`      | Nombre exacto del repo en GitHub bajo `HannerB`                | — |
+| `type`      | `static` \| `spa` \| `fullstack`                               | — |
+| `dist_path` | Ruta relativa al output del build (solo spa/fullstack)         | `dist`  |
+| `port`      | Puerto del backend PM2 (solo fullstack)                        | `4000`  |
 
 ### Ejemplos de uso
 
 ```bash
-# Landing HTML pura (sin build)
-./deploy.sh alerta-roja alerta-roja static
-
-# Landing con build
-./deploy.sh cafe-mekaddesh cafe-mekaddesh static
-
-# SPA React/Vite (dist estándar)
-./deploy.sh lab-sensorial-sena lab-sensorial-sena spa
+# SPA React/Vite
+./deploy.sh p03 greythium greythium spa
 
 # SPA Angular con dist path personalizado
-./deploy.sh seguros-abc seguros-abc spa "frontend/app/dist/app/browser"
+./deploy.sh p09 seguros-abc seguros-abc spa "frontend/seguros-abc-app/dist/seguros-abc-app/browser"
 
 # Fullstack en puerto 4002
-./deploy.sh proveify proveify fullstack dist 4002
-```
-
-### Actualizar un proyecto ya desplegado
-
-El script detecta si el repo ya existe y hace `git pull` en lugar de clonar de nuevo.
-Solo vuelve a correr el mismo comando:
-
-```bash
-./deploy.sh alerta-roja alerta-roja static
+./deploy.sh p02 proveify proveify fullstack dist 4002
 ```
 
 ### Pasos que ejecuta el script
 
-1. **Repositorio** — Clona desde `github.com/HannerB/<repo>` o hace `git pull` si ya existe
-2. **Build** — `npm install && npm run build` (omitido en static sin `package.json`)
-3. **Nginx** — Crea config en `/etc/nginx/sites-available/`, activa symlink, recarga nginx
-4. **SSL** — Certbot obtiene certificado HTTPS y configura redirección HTTP → HTTPS
-
-> El script usa `set -e`: si cualquier paso falla, se detiene para no dejar el deploy a medias.
+1. **Repositorio** — Clona en `/home/srvp/<id>/` o hace `git pull` si ya existe
+2. **Build** — `npm install && npm run build && rm -rf node_modules`
+3. **Nginx** — Config en `/etc/nginx/sites-available/<id>` (nombre neutro, sin revelar proyecto)
+4. **SSL** — Certbot obtiene certificado para `<slug>.hanner.dev`
 
 ---
 
@@ -604,7 +749,10 @@ Fase 3 — Full-stack público (Tipo C)
   proveify
 
 Fase 4 — SPAs privadas (Tipo B)
-  greythium, ecpl, app-akadem-ia
+  greythium, app-akadem-ia
+
+Fase 4b — PHP puro privado (Tipo E)
+  ecpl
 
 Fase 5 — Full-stack privados (Tipo C)
   wedoitweb, sistema-contable-pr, school-management-app, vivu
@@ -647,23 +795,28 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 
 ## Checklist
 
-### Infraestructura (completado)
-- [x] DNS wildcard `A * → 72.62.23.134` configurado en Sav
-- [x] `/var/www/previews/` creado en VPS — separado de producción
-- [x] Script `/root/deploy.sh` en VPS con documentación completa
+### Infraestructura
+- [x] VPS nuevo hardeneado (SSH port 2277, solo clave, fail2ban, UFW)
+- [x] DNS wildcard `A * → 72.60.214.49` actualizado en Cloudflare
+- [x] PHP 8.2 + MySQL + Composer + PHP-FPM instalados
+- [ ] **`/var/www/previews/`** — pendiente crear en nuevo VPS
+- [ ] **Script `/root/deploy.sh`** — pendiente recrear en nuevo VPS (para Tipo A/B/C)
 
-### Deployments pendientes
-- [x] **cafe-mekaddesh** — live en GitHub Pages (cafe-mekaddesh.hanner.dev)
-- [x] **tvd** — live en GitHub Pages (tvd.hanner.dev)
-- [x] **conteb** — live en GitHub Pages (conteb.hanner.dev)
-- [ ] **Fase 1 restante** — agrosena
-- [x] **Fase 2** — lab-sensorial-sena — live en VPS (lab-sensorial-sena.hanner.dev) — Mar 2026
-- [ ] **Fase 3** — proveify
-- [ ] **Fase 4** — greythium, ecpl, app-akadem-ia
-- [x] **wedoitweb** — live en Vercel (wedoitweb.hanner.dev) — Dec 2025
-- [ ] **Fase 5** — sistema-contable-pr, school-management-app, vivu
-- [x] **crystalberylmedia** — live en GitHub Pages (crystalberylmedia.hanner.dev)
-- [ ] **Pendiente** — seguros-abc (cuando concluya prueba técnica)
+### Deployments
+- [x] **cafe-mekaddesh** — GitHub Pages (cafe-mekaddesh.hanner.dev) ✅
+- [x] **tvd** — GitHub Pages (tvd.hanner.dev) ✅
+- [x] **alerta-roja** — GitHub Pages (alerta-roja.hanner.dev) ✅
+- [x] **conteb** — GitHub Pages (conteb.hanner.dev) ✅
+- [x] **plataforma-50** — GitHub Pages (plataforma-50.hanner.dev) ✅
+- [x] **crystalberylmedia** — GitHub Pages (crystalberylmedia.hanner.dev) ✅
+- [x] **wedoitweb** — Vercel (wedoitweb.hanner.dev) ✅
+- [x] **lab-sensorial-sena** — VPS nuevo (lab-sensorial-sena.hanner.dev) ✅ — Mar 2026
+- [ ] **agrosena** — GitHub Pages — pendiente
+- [ ] **proveify** — VPS Tipo C — pendiente
+- [ ] **greythium, app-akadem-ia** — VPS Tipo B — pendiente
+- [x] **ecpl** — VPS Tipo E (PHP puro / PHPRunner) — ✅ live — ecpl.hanner.dev
+- [ ] **sistema-contable-pr, school-management-app, vivu** — VPS Tipo C — pendiente
+- [ ] **seguros-abc** — VPS Tipo B — pendiente (cuando concluya prueba técnica)
 
 ### Post-deployment
 - [ ] Actualizar `link:` en `src/data/projects.js` por cada proyecto deployado
@@ -671,24 +824,53 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 
 ---
 
+## Gestión de Espacio en Disco
+
+El principal consumidor al deployar proyectos es `node_modules`. Regla:
+
+```bash
+# Siempre borrar node_modules tras el build en el VPS
+npm install && npm run build && rm -rf node_modules
+```
+
+Limpieza general cuando el disco crezca:
+```bash
+# Cache de APT (paquetes instalados)
+apt-get clean && apt-get autoremove -y
+
+# Logs de Nginx viejos
+find /var/log/nginx/ -name "*.gz" -delete
+
+# Ver top consumidores
+du -sh /* 2>/dev/null | sort -rh | head -15
+```
+
+---
+
 ## Comandos Útiles
 
 ```bash
-# Estado general del VPS
-ssh root@72.62.23.134 "pm2 status && systemctl is-active nginx"
+# Conectar al VPS
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49
 
-# Ver qué sitios tiene Nginx activos
-ssh root@72.62.23.134 "ls /etc/nginx/sites-enabled/"
+# Estado general
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "pm2 status && systemctl is-active nginx php8.2-fpm"
 
-# Ver logs de error de un proyecto específico
-ssh root@72.62.23.134 "tail -50 /var/log/nginx/[slug]-error.log"
+# Sitios Nginx activos
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "ls /etc/nginx/sites-enabled/"
 
-# Recursos del servidor (RAM y disco)
-ssh root@72.62.23.134 "free -h && df -h /"
+# Logs de error de un proyecto
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "tail -50 /var/log/nginx/error.log"
 
-# Validar y recargar nginx tras cambios manuales
-ssh root@72.62.23.134 "nginx -t && systemctl reload nginx"
+# Logs del lab-sensorial (Laravel)
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "tail -50 /home/labsrv/app/storage/logs/laravel.log"
 
-# Ver proyectos desplegados en previews
-ssh root@72.62.23.134 "ls /var/www/previews/"
+# RAM y disco
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "free -h && df -h /"
+
+# Recargar Nginx
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "nginx -t && systemctl reload nginx"
+
+# Proyectos en previews
+ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "ls /var/www/previews/"
 ```

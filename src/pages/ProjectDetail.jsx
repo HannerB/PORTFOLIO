@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { getProjectBySlug } from "../data/projects"
-import { FiArrowLeft, FiGithub, FiExternalLink, FiCode, FiLayers, FiZap, FiStar } from "react-icons/fi"
+import { FiArrowLeft, FiGithub, FiExternalLink, FiCode, FiLayers, FiZap, FiStar, FiChevronLeft, FiChevronRight } from "react-icons/fi"
 
 const CATEGORY_LABELS = {
     platform: "Full-Stack Platform",
@@ -51,6 +51,114 @@ const StackSection = ({ stack }) => {
                     </div>
                 </div>
             ))}
+        </div>
+    )
+}
+
+function ScreenshotViewer({ project }) {
+    const shots = project.screenshots ?? []
+    const [current, setCurrent] = useState(0)
+    const [imgFailed, setImgFailed] = useState(false)
+
+    const prev = () => setCurrent((c) => (c - 1 + shots.length) % shots.length)
+    const next = () => setCurrent((c) => (c + 1) % shots.length)
+
+    if (shots.length > 0) {
+        return (
+            <div className="rounded-lg overflow-hidden border border-gray-800 bg-gray-900/40">
+                {/* Terminal chrome */}
+                <div className="flex items-center gap-1.5 px-4 py-2.5 bg-gray-900/80 border-b border-gray-800/60">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
+                    <span className="ml-auto font-mono text-[10px] text-gray-600">
+                        {project.slug} — {current + 1}/{shots.length}
+                    </span>
+                </div>
+
+                {/* Main image */}
+                <div className="relative">
+                    <img
+                        key={shots[current]}
+                        src={shots[current]}
+                        alt={`${project.title} screenshot ${current + 1}`}
+                        className="w-full object-cover"
+                    />
+                    {shots.length > 1 && (
+                        <>
+                            <button
+                                onClick={prev}
+                                className="absolute left-3 top-1/2 -translate-y-1/2 bg-gray-950/80 hover:bg-gray-900 border border-gray-700 rounded-full p-2 text-gray-300 hover:text-white transition-colors"
+                            >
+                                <FiChevronLeft size={16} />
+                            </button>
+                            <button
+                                onClick={next}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-950/80 hover:bg-gray-900 border border-gray-700 rounded-full p-2 text-gray-300 hover:text-white transition-colors"
+                            >
+                                <FiChevronRight size={16} />
+                            </button>
+                        </>
+                    )}
+                </div>
+
+                {/* Dot indicators */}
+                {shots.length > 1 && (
+                    <div className="flex justify-center gap-1.5 py-3 bg-gray-900/60">
+                        {shots.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setCurrent(i)}
+                                className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                                    i === current ? "bg-purple-400" : "bg-gray-700 hover:bg-gray-500"
+                                }`}
+                            />
+                        ))}
+                    </div>
+                )}
+
+                {/* Thumbnail strip */}
+                {shots.length > 1 && (
+                    <div className="flex gap-1.5 p-3 bg-gray-900/60 border-t border-gray-800/60 overflow-x-auto">
+                        {shots.map((src, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setCurrent(i)}
+                                className={`shrink-0 rounded overflow-hidden border-2 transition-colors ${
+                                    i === current ? "border-purple-500" : "border-transparent opacity-50 hover:opacity-80"
+                                }`}
+                            >
+                                <img src={src} alt="" className="h-14 w-24 object-cover" />
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+        )
+    }
+
+    // No screenshots — show thumbnail or placeholder
+    return (
+        <div className="rounded-lg overflow-hidden border border-gray-800 bg-gray-900/40">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 bg-gray-900/80 border-b border-gray-800/60">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
+                <span className="ml-auto font-mono text-[10px] text-gray-600">{project.slug}</span>
+            </div>
+            {project.image && !imgFailed ? (
+                <img
+                    src={project.image}
+                    alt={project.title}
+                    onError={() => setImgFailed(true)}
+                    className="w-full h-64 sm:h-80 object-cover"
+                />
+            ) : (
+                <div className="relative h-64 sm:h-80 flex flex-col items-center justify-center gap-2">
+                    <span className="font-mono text-xs text-gray-600">// screenshots coming soon</span>
+                    <span className="font-mono text-[10px] text-gray-700">project is deployed — visuals being captured</span>
+                </div>
+            )}
         </div>
     )
 }
@@ -173,33 +281,7 @@ export default function ProjectDetail() {
                 </header>
 
                 {/* ── HERO IMAGE / SCREENSHOTS ─────────────────── */}
-                <div className="rounded-lg overflow-hidden border border-gray-800 bg-gray-900/40">
-                    {/* Terminal chrome */}
-                    <div className="flex items-center gap-1.5 px-4 py-2.5 bg-gray-900/80 border-b border-gray-800/60">
-                        <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
-                        <span className="ml-auto font-mono text-[10px] text-gray-600">{project.slug}</span>
-                    </div>
-
-                    {project.screenshots.length > 0 ? (
-                        <div className="grid gap-0.5">
-                            {project.screenshots.map((src, i) => (
-                                <img key={i} src={src} alt={`${project.title} screenshot ${i + 1}`}
-                                    className="w-full object-cover" />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="relative">
-                            <img src={project.image} alt={project.title}
-                                className="w-full h-64 sm:h-80 object-cover opacity-40" />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                                <span className="font-mono text-xs text-gray-600">// screenshots coming soon</span>
-                                <span className="font-mono text-[10px] text-gray-700">project is deployed — visuals being captured</span>
-                            </div>
-                        </div>
-                    )}
-                </div>
+                <ScreenshotViewer project={project} />
 
                 {/* ── OVERVIEW ─────────────────────────────────── */}
                 <section className="space-y-4">

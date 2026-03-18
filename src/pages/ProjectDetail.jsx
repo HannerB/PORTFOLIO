@@ -82,7 +82,7 @@ function ScreenshotViewer({ project }) {
                         key={shots[current]}
                         src={shots[current]}
                         alt={`${project.title} screenshot ${current + 1}`}
-                        className="w-full object-cover"
+                        className="w-full block"
                     />
                     {shots.length > 1 && (
                         <>
@@ -151,7 +151,7 @@ function ScreenshotViewer({ project }) {
                     src={project.image}
                     alt={project.title}
                     onError={() => setImgFailed(true)}
-                    className="w-full h-64 sm:h-80 object-cover"
+                    className="w-full block"
                 />
             ) : (
                 <div className="relative h-64 sm:h-80 flex flex-col items-center justify-center gap-2">

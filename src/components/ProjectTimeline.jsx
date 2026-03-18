@@ -141,35 +141,30 @@ function TimelineCard({ slug, image, title, tagline, tags, category, index }) {
 
 export default function ProjectTimeline() {
     return (
-        <div className="relative">
-            {/* Vertical spine */}
-            <div className="absolute left-[7px] top-0 bottom-0 w-px bg-gray-800" />
-
+        <div className="space-y-10">
             {GROUPS.map((group) => (
-                <div key={`${group.year}-${group.month}`} className="mb-10 relative">
+                <div key={`${group.year}-${group.month}`}>
 
-                    {/* Year marker */}
+                    {/* Year separator */}
                     {group.isNewYear && (
-                        <div className="flex items-center gap-3 mb-5 pl-0">
-                            <div className="w-4 h-4 rounded-full bg-gray-900 border-2 border-gray-500 shrink-0 z-10" />
-                            <span className="font-mono text-base font-bold text-gray-300">{group.year}</span>
+                        <div className="flex items-center gap-3 mb-6">
+                            <span className="font-mono text-xs font-bold text-gray-400 shrink-0">{group.year}</span>
                             <div className="flex-1 h-px bg-gray-700" />
                         </div>
                     )}
 
-                    {/* Month marker */}
-                    <div className="flex items-center gap-3 mb-4 pl-0">
-                        <div className="w-4 h-4 flex items-center justify-center shrink-0 z-10">
-                            <div className="w-2 h-2 rounded-full bg-gray-600" />
-                        </div>
-                        <span className="font-mono text-[11px] text-gray-500 uppercase tracking-widest">
+                    {/* Month header with horizontal line */}
+                    <div className="flex items-center gap-3 mb-5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0" />
+                        <span className="font-mono text-[11px] text-gray-500 uppercase tracking-widest shrink-0">
                             {group.month} {group.year}
                         </span>
+                        <div className="flex-1 h-px bg-gray-800" />
                     </div>
 
                     {/* Cards */}
-                    <div className="pl-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {group.projects.map((p, i) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {group.projects.map((p) => (
                             <TimelineCard key={p.slug} {...p} index={sorted.indexOf(p)} />
                         ))}
                     </div>

@@ -88,9 +88,9 @@ por lo que el portafolio en Vercel no se ve afectado.
 | p03 | greythium            | B    | greythium.hanner.dev                | pendiente |
 | p04 | ecpl                 | E    | ecpl.hanner.dev                     | ✅ live   |
 | p05 | app-akadem-ia        | B    | app-akadem-ia.hanner.dev            | pendiente |
-| p06 | sistema-contable-pr  | C    | sistema-contable-pr.hanner.dev      | pendiente |
+| p06 | sistema-contable-pr  | C    | sistema-contable-pr.hanner.dev      | ✅ live   |
 | p07 | school-management-app| C    | school-management-app.hanner.dev    | pendiente |
-| p08 | vivu                 | B    | vivu.hanner.dev                     | pendiente |
+| p08 | vivu                 | E    | vivu.hanner.dev                     | ✅ live   |
 | p09 | seguros-abc          | B    | seguros-abc.hanner.dev              | pendiente (prueba técnica) |
 
 ---
@@ -590,7 +590,8 @@ Conexión a BD hardcodeada en `output/connections/ConnectionManager.php` — act
 
 | Slug   | Título | PHP | Repo público | DB         | Estado    |
 |--------|--------|-----|:------------:|------------|-----------|
-| `ecpl` | ECPL   | 8.2 | ❌           | `ecpl_db`  | pendiente |
+| `ecpl` | ECPL   | 8.2 | ❌           | `ecpl_db`  | ✅ live — ecpl.hanner.dev |
+| `vivu` | VIVU   | 8.2 | ❌           | `vivu_db`  | ✅ live — vivu.hanner.dev |
 
 **Ruta en VPS:** `/home/srvp/p04/`
 **Web root Nginx:** `/home/srvp/p04/output`
@@ -1007,7 +1008,9 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 - [ ] **proveify** — VPS Tipo C — pendiente
 - [ ] **greythium, app-akadem-ia** — VPS Tipo B — pendiente
 - [x] **ecpl** — VPS Tipo E (PHP puro / PHPRunner) — ✅ live — ecpl.hanner.dev
-- [ ] **sistema-contable-pr, school-management-app, vivu** — VPS Tipo C — pendiente
+- [x] **vivu** — VPS Tipo E (PHP puro / PHPRunner) — ✅ live — vivu.hanner.dev — Mar 2026
+- [x] **sistema-contable-pr** — VPS Tipo C (Docker) — ✅ live — sistema-contable-pr.hanner.dev — Mar 2026
+- [ ] **school-management-app** — VPS Tipo C — pendiente
 - [ ] **seguros-abc** — VPS Tipo B — pendiente (cuando concluya prueba técnica)
 
 ### Post-deployment

@@ -805,6 +805,89 @@ export const projects = [
             "Ordering test attribute configuration bulk-updates all samples of a product in a single operation via MuestraController::actualizarAtributo(), keeping attribute sets consistent across all samples of the same product.",
         ],
     },
+    // ─────────────────────────────────────────────────────────────────
+    // FULL-STACK PLATFORMS (continued)
+    // ─────────────────────────────────────────────────────────────────
+    {
+        slug: "sistema-contable-pr",
+        category: "platform",
+        year: "9 Dec 2025 – 14 Feb 2026",
+        title: "Sistema Contable PR",
+        tagline: "Client-commissioned SaaS for CPA firms — translated a 10-page spec into a full production platform covering 19 Puerto Rico tax types",
+        image: "https://picsum.photos/seed/contablepr/1200/600",
+        screenshots: [],
+        github: PROFILE,
+        githubPrivate: true,
+        link: "https://sistema-contable-pr.hanner.dev",
+        tags: ["Next.js 15", "NestJS 11", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS", "Radix UI", "Stripe", "Docker", "Playwright", "JWT"],
+        overview:
+            "A client — a CPA professional who identified a gap in the Puerto Rico accounting software market — commissioned this platform with a 10-page requirements document: exact module descriptions, 19 cotejo types with their individual column sets, role definitions, UI layouts, subscription pricing ($12/month · $120/year), and user flows from registration through Stripe checkout to dashboard.\n\nMy job was to take that domain-knowledge-rich spec and make every technical decision from scratch: database schema, API architecture, authentication model, frontend routing, billing integration, notification engine, and deployment pipeline. No designs were provided — only written specifications.\n\nThe result is a production-grade multi-tenant SaaS where each accounting firm has its own isolated workspace: clients, cotejos, users, and exports are all scoped per company. Accountants track every client's filing status across all 19 Puerto Rican tax obligations, receive automated deadline alerts, manage team permissions, and export data to Excel and PDF — exactly as the client envisioned.",
+        problem:
+            "Puerto Rico's tax calendar is unusually fragmented: a single corporate client can generate obligations across Hacienda, IRS, CRIM, DTRH, and municipal agencies — monthly IVU, quarterly payroll planillas (499R, 941, DTRH, Choferil), annual informativas (W-2, W-3, 480.6A–G, 480.7 series), estimated payments, and more. No affordable tool existed that understood this landscape specifically.\n\nThe client — a CPA professional — was managing this across spreadsheets and manual reminders. As the client base grew, that system broke down: deadlines were missed, workload across team members was uneven, and there was no single place to see the full picture of what was pending, overdue, or completed for each client. The vision was to build a commercial SaaS to solve this — both for their own firm and as a product for the broader Puerto Rico CPA market.",
+        role: "Sole full-stack developer working from a client-provided requirements document. Translated domain specifications into every layer of the system: designed the PostgreSQL schema from the client's entity descriptions, architected the NestJS module structure, built all 19 cotejo controllers and services matching the exact column definitions in the spec, implemented the full SaaS onboarding flow (register → email confirmation → Stripe checkout → dashboard), designed the three-layer permission model, and built the Next.js frontend with no provided designs — only written UI descriptions. Also responsible for Docker setup, E2E test coverage with Playwright, and the Excel/PDF export engine.",
+        features: [
+            {
+                title: "19-type cotejo tracking system",
+                description: "Covers every major Puerto Rico tax obligation: IVU mensual, planillas trimestrales, planilla corporativa, estimadas de Hacienda e IRS, informativas de enero y febrero, CRIM, and more. Each type has its own status flow, due-date logic, and assignable preparador. A factory pattern in the frontend routes all 19 types through a unified API layer without duplicating interface code.",
+            },
+            {
+                title: "Granular three-layer permission system",
+                description: "Users are assigned a role (ADMIN, EMPLOYEE, READONLY) and up to six individual capability flags: canCreateClients, canEditClients, canDeleteClients, canManageCotejos, canViewReports, canManageUsers. Backend guards enforce both role and permission on every endpoint, returning specific per-permission error messages rather than generic 403s — so the frontend can surface exactly what action was blocked.",
+            },
+            {
+                title: "Automated deadline agenda",
+                description: "The agenda module aggregates all 19 cotejo types by date and presents a 30-day forward view alongside a monthly calendar. Tasks change status automatically (PENDIENTE → VENCIDO) based on due date, and the notification engine sends configurable email and in-app alerts N days before a deadline — each user sets their own notification preferences and delivery schedule.",
+            },
+            {
+                title: "Multi-tenant architecture with company isolation",
+                description: "Every entity — clients, cotejos, users, exports, notifications — is scoped to a companyId derived from the authenticated user's JWT. Separate accounting firms share the same deployment without any data bleed. The company settings module lets each firm configure its legal name, CPA license number, fiscal year, timezone, and logo.",
+            },
+            {
+                title: "Token-based user invitation workflow",
+                description: "Admins invite team members by email. The system issues a time-limited confirmation token, sends an onboarding email via Resend, and lets the invitee set their own password through a secure link. New users arrive pre-associated to the correct company and pre-configured with the role and permissions the admin defined at invite time.",
+            },
+            {
+                title: "Full SaaS onboarding flow with Stripe",
+                description: "New firms go through a three-step onboarding defined in the client spec: register (account saved as unconfirmed) → click email confirmation link (isConfirmed = true, redirected to plan selection) → Stripe checkout for monthly ($12/mo) or annual ($120/yr) subscription → dashboard. Subscription status gates access to the app, and an expiry alert in the header prompts renewal before the plan lapses.",
+            },
+            {
+                title: "Excel and PDF export engine",
+                description: "An ExcelJS-powered export service generates formatted spreadsheets with applied styles, filters, and column widths ready for review meetings. pdf-lib handles PDF generation for individual cotejo reports. Exports are filtered by cotejo type, date range, client, or status before generation — avoiding bulk dumps of unneeded data.",
+            },
+        ],
+        stack: {
+            frontend: ["Next.js 15", "React 18", "TypeScript", "Tailwind CSS", "Radix UI / shadcn-ui", "React Hook Form", "Zod", "Recharts", "Lucide React"],
+            backend: ["NestJS 11", "TypeScript", "Passport.js", "JWT", "class-validator", "class-transformer", "Swagger / OpenAPI"],
+            database: ["PostgreSQL 16", "Prisma ORM 6", "Prisma Migrations"],
+            payments: ["Stripe"],
+            email: ["Resend"],
+            exports: ["ExcelJS", "pdf-lib"],
+            testing: ["Playwright (E2E)", "Jest (unit)", "Supertest (integration)"],
+            infra: ["Docker", "Docker Compose", "Nginx", "Certbot / Let's Encrypt", "Husky", "lint-staged", "ESLint", "Prettier"],
+        },
+        highlights: [
+            "19 cotejo types with structurally different fields are handled by a single frontend factory: createCotejoApi(type) returns the correct API client, avoiding 19 separate interface files and keeping the UI components reusable across all tax types.",
+            "Permission enforcement is declarative: a @RequirePermission('canCreateClients') decorator on a controller method is all that's needed — the PermissionsGuard reads the JWT payload, checks the flag, and throws a specific exception with a human-readable message mapped per permission.",
+            "The CotejoGeneratorService auto-creates the correct cotejo records when a client task assignment is saved, deriving the applicable types from the client's entity type, the task's periodicity, and the configured date range — no manual record creation needed.",
+            "Multi-tenant isolation is enforced at the service layer, not just the route layer: every query in every service extracts companyId from the authenticated user context before hitting the database, making cross-tenant data leaks structurally impossible.",
+            "The client's spec described 19 cotejos with domain-specific columns (e.g. Informativas de febrero lists 480.6A–G and 480.7 series individually; Planillas Trimestrales conditionally adds CFSE and 940 fields in Q2 and Q4 only). Each became its own Prisma model and NestJS controller — no generic catch-all schema that would lose the domain fidelity the client required.",
+            "The Playwright E2E suite covers all major workflows: login/auth guard, client CRUD, cotejo status updates, permission enforcement (logged as READONLY and asserting that mutation buttons are absent), agenda calendar navigation, and settings. Jest unit tests cover the permission guards and cotejo generator service logic.",
+            "The entire production stack runs in Docker Compose: PostgreSQL 16 with health checks, NestJS API with Prisma migrate deploy on startup, and a Next.js standalone image built with baked-in NEXT_PUBLIC_ env vars. All three are behind Nginx with SSL terminated by Certbot — zero manual steps after docker compose up.",
+        ],
+        demoNote: {
+            status: "Live demo with pre-seeded data: 13 Puerto Rico clients, 345+ cotejo records across all 19 tax types, 15 months of realistic history. Three roles available.",
+            steps: [
+                { label: "Login as Admin", detail: "eric@contablepr.com · 12345678 — full access to all modules" },
+                { label: "Explore Clients", detail: "13 clients pre-loaded: corporations, LLCs, individuals, non-profits. One is inactive. Open any client to see their assigned cotejo types and filing history." },
+                { label: "Open Cotejos", detail: "Filter by status (ATRASADO, PENDIENTE, COMPLETADO…) or by type. Monthly types like IVU Mensual and Depósitos de Nómina have 15 months of records each. Quarterly types show conditional fields in Q2 and Q4." },
+                { label: "Try the Agenda", detail: "The agenda shows upcoming deadlines across all 19 cotejo types in a 30-day view and monthly calendar. Click any entry to see client + filing details." },
+                { label: "Check Permissions", detail: "Log out, then log in as carlos@contablepr.com (READONLY). All mutation buttons (create, edit, delete) disappear — enforced by the backend, not just hidden in the UI." },
+                { label: "Try as Employee", detail: "Log in as maria@contablepr.com. Can create and edit clients and cotejos, but the Users module and delete actions are blocked with per-permission error messages." },
+                { label: "Export", detail: "As Admin or Employee, go to Cotejos and use the Export button to download a formatted Excel or PDF report filtered by type, client, or date range." },
+                { label: "Settings", detail: "Under Settings (Admin only): company info, user management with invite-by-email flow, and notification preferences per user." },
+            ],
+        },
+    },
 ]
 
 export const getProjectBySlug = (slug) => projects.find((p) => p.slug === slug)

@@ -246,13 +246,20 @@ export const projects = [
         screenshots: [],
         github: PROFILE,
         githubPrivate: true,
-        link: "",
-        tags: ["PHP", "MySQL", "Tailwind CSS", "jQuery", "PHPRunner", "SweetAlert2", "AJAX", "FPDF"],
+        link: "https://vivu.hanner.dev/VIVU/login.php",
+        tags: ["PHP 8.2", "MySQL", "Tailwind CSS", "jQuery", "PHPRunner", "SweetAlert2", "AJAX", "FPDF"],
+        demoNote: {
+            status: "Live demo with pre-loaded data — 80 users across 5 population types, 25 courses, 334 enrollments, and institutional agreements with ICBF, INPEC, and Armed Forces. Login field is 'documento' (national ID).",
+            steps: [
+                { label: "Administrator", detail: "documento: 1075289634 · password: Admin2025 — full access: courses, users, agreements, news, CMS, and conflict victim dashboards" },
+                { label: "Aprendiz", detail: "documento: 1075301102 · password: Aprendiz2025 — student view: course catalog and enrollment" },
+            ],
+        },
         overview:
-            "Full-stack platform built for SENA (Colombia's national vocational training institution) to manage the complete lifecycle of complementary courses across multiple municipalities. VIVU covers course creation and scheduling, instructor assignment, student enrollment, institutional agreement tracking, certification generation, and a database-driven public homepage — all under a multi-role authentication system.\n\nThe system handles non-standard enrollment business rules required by the institution: a 20% cap on conflict-victim slots per course enforced at the database level via a MySQL trigger, conditional document verification per population type (Displaced, Disabled, Indigenous, INPEC inmates, ICBF beneficiaries), and per-entity branching for institutional partners.\n\nBuilt on a PHPRunner RAD base with 8+ custom modules following a strict five-layer MVC architecture (service / controller / process / page / JS), VIVU replaced manual spreadsheet-based processes and gave staff a unified admin interface for courses, agreements, users, news, and dynamic content management.",
+            "Full-stack platform built for SENA (Colombia's national vocational training institution) to manage the complete lifecycle of complementary courses across multiple municipalities. VIVU covers course creation and scheduling, instructor assignment, student enrollment, institutional agreement tracking, certification generation, and a database-driven public homepage — all under a multi-role authentication system. Deployed to production on a Ubuntu 24.04 VPS running Nginx and PHP 8.2.\n\nThe system handles non-standard enrollment business rules required by the institution: a 20% cap on conflict-victim slots per course checked via a MySQL stored function called from the service layer, conditional document verification per population type (Displaced, Disabled, Indigenous, INPEC inmates, ICBF beneficiaries), and per-entity branching for institutional partners.\n\nBuilt on a PHPRunner RAD base with 8+ custom modules following a strict five-layer MVC architecture (service / controller / process / page / JS), VIVU replaced manual spreadsheet-based processes and gave staff a unified admin interface for courses, agreements, users, news, and dynamic content management.",
         problem:
             "SENA's regional training center tracked dozens of complementary courses across multiple municipalities with no unified system. Enrollment was handled manually, institutional agreements with ICBF, INPEC, and the Armed Forces had no shared management layer, and producing demographic reports on vulnerable population coverage required significant manual effort.\n\nThe institution also needed to enforce enrollment rules that off-the-shelf LMS platforms don't support: skipping document verification for INPEC-linked courses, applying different requirements for ICBF beneficiaries, and hard-capping conflict victim enrollment at 20% per course — a legal compliance requirement.",
-        role: "Sole developer on a greenfield internal platform. Designed the database schema, built all PHP service classes, implemented the frontend with Tailwind CSS and jQuery, and integrated custom modules with the PHPRunner-generated base layer.\n\nDelivered 8+ domain modules from scratch, implemented the vulnerable population verification service with per-type branching, built the institutional agreements module, enforced the 20% cap via DB trigger, added image upload for the CMS modules, and managed all SQL migrations and git workflow.",
+        role: "Sole developer on a greenfield internal platform. Designed the database schema, built all PHP service classes, implemented the frontend with Tailwind CSS and jQuery, and integrated custom modules with the PHPRunner-generated base layer.\n\nDelivered 8+ domain modules from scratch, implemented the vulnerable population verification service with per-type branching, built the institutional agreements module, enforced the 20% cap via stored function, added image upload for the CMS modules, and managed all SQL migrations and git workflow.",
         features: [
             {
                 title: "Course lifecycle management",
@@ -267,8 +274,8 @@ export const projects = [
                 description: "Enrollment branches by population type — Displaced, Disabled, Indigenous, INPEC, ICBF, Conflict Victim, and others. Each type carries specific document verification requirements. INPEC and ICBF enrollments bypass standard verification; conflict victims are subject to the 20% per-course cap.",
             },
             {
-                title: "20% conflict victim cap via DB trigger",
-                description: "The enrollment limit for conflict victims is not enforced in application code — a MySQL trigger fires on every INSERT to the enrollments table and rejects the record if the conflict victim ratio for that course would exceed 20%. The rule holds regardless of entry point.",
+                title: "20% conflict victim cap via stored function",
+                description: "The enrollment limit for conflict victims is enforced through a MySQL stored function `verificar_limite_victimas()` that reads the current victim count and course capacity. The service layer calls the function before every enrollment and blocks it if the ratio would exceed 20%. The check also powers a real-time ALERTA / LÍMITE ALCANZADO status visible in the admin dashboard.",
             },
             {
                 title: "Database-driven homepage CMS",
@@ -288,15 +295,15 @@ export const projects = [
             },
         ],
         stack: {
-            backend: ["PHP 7.4", "PHPRunner (RAD base)", "Custom service-layer MVC"],
-            database: ["MySQL / MariaDB 10.4", "Stored triggers", "SQL migration scripts"],
+            backend: ["PHP 8.2", "PHPRunner (RAD base)", "Custom service-layer MVC"],
+            database: ["MySQL 8.0", "Stored functions", "SQL migration scripts"],
             frontend: ["Tailwind CSS (CDN)", "jQuery 3.6", "Vanilla JavaScript"],
             ui: ["SweetAlert2", "Font Awesome 6"],
             exports: ["FPDF (PDF certificate generation)"],
-            tooling: ["XAMPP (Apache + PHP + MySQL)", "Git"],
+            tooling: ["Nginx", "PHP-FPM", "Ubuntu 24.04 VPS", "Git"],
         },
         highlights: [
-            "The 20% conflict victim enrollment cap is enforced by a MySQL trigger on the enrollments table — any INSERT that would push the ratio past the limit is rejected at the DB engine level, making it impossible to bypass through direct inserts, bulk imports, or API calls that skip the application layer.",
+            "The 20% conflict victim enrollment cap is enforced through a MySQL stored function called from the service layer on every enrollment attempt. The function reads the live victim count and course capacity, returns an 'excedido' status if the threshold is breached, and the service blocks the INSERT — keeping the rule centralised and callable from any entry point.",
             "Each of the 8+ custom modules follows a strict five-layer separation (services / controllers / handlers / pages / js) that keeps all business logic decoupled from the PHPRunner-generated base, making it safe to regenerate the scaffolded output without overwriting custom code.",
             "The enrollment verification service uses per-entity branching through a single EnrollmentVerificationService::verify() call — prison-program courses skip the document check, child-welfare courses require it, and conflict victim enrollments additionally trigger the 20% ratio check — no scattered conditionals across controllers.",
             "Schema evolution is tracked through named SQL migration scripts rather than ad-hoc ALTER TABLE statements, giving a clear audit trail of every structural change made to the production database.",

@@ -47,7 +47,7 @@ const skills = [
     },
     {
         category: "frontend",
-        icon: "https://cdn.simpleicons.org/framermotion/0055FF",
+        icon: "https://cdn.simpleicons.org/framer/0055FF",
         name: "Framer Motion",
         level: "Intermediate",
         note: "Scroll animations, transitions, gesture interactions",
@@ -65,6 +65,20 @@ const skills = [
         name: "GSAP",
         level: "Intermediate",
         note: "ScrollTrigger, timelines, RAF-throttled animations",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/redux/764ABC",
+        name: "Redux Toolkit",
+        level: "Intermediate",
+        note: "Slices, async thunks, RTK Query, global state management",
+    },
+    {
+        category: "frontend",
+        icon: "https://cdn.simpleicons.org/sass/CC6699",
+        name: "SASS",
+        level: "Advanced",
+        note: "Nesting, mixins, variables, BEM-compatible stylesheets",
     },
     {
         category: "frontend",
@@ -162,6 +176,20 @@ const skills = [
         name: "Nginx",
         level: "Intermediate",
         note: "Reverse proxy, SSL termination, static file serving, virtual hosts",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/jest/C21325",
+        name: "Jest",
+        level: "Intermediate",
+        note: "Unit and integration testing, mocks, coverage reports",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/playwright/2EAD33",
+        name: "Playwright",
+        level: "Intermediate",
+        note: "E2E testing, cross-browser automation, CI integration",
     },
     {
         category: "devops",

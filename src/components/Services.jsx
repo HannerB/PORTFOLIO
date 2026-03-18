@@ -14,8 +14,8 @@ const services = [
     {
         icon: "⬡",
         title: "Payment Integration",
-        desc: "Stripe and PayPal integrations including webhooks, subscription lifecycle, checkout sessions and tax handling.",
-        tags: ["Stripe", "PayPal", "Webhooks"],
+        desc: "Stripe, PayPal and Wompi integrations including webhooks, subscription lifecycle, checkout sessions and tax handling.",
+        tags: ["Stripe", "PayPal", "Wompi", "Webhooks"],
     },
     {
         icon: "⬡",

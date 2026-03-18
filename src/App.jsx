@@ -11,7 +11,20 @@ function App() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    AOS.init({ duration: 1000 })
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 80,
+      anchorPlacement: 'top-bottom',
+    })
+
+    const onLoad = () => AOS.refreshHard()
+    if (document.readyState === 'complete') {
+      AOS.refreshHard()
+    } else {
+      window.addEventListener('load', onLoad)
+      return () => window.removeEventListener('load', onLoad)
+    }
   }, [])
 
   useEffect(() => {

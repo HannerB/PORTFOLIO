@@ -117,12 +117,20 @@ export default function ProjectDetail() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        {project.link && (
-                            <a href={project.link} target="_blank" rel="noopener noreferrer"
-                                className="flex items-center gap-1.5 font-mono text-xs text-white border border-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-800 transition-colors duration-200">
-                                <FiExternalLink size={12} /> Live
-                            </a>
-                        )}
+                        {project.liveLinks
+                            ? project.liveLinks.map((ll) => (
+                                <a key={ll.label} href={ll.url} target="_blank" rel="noopener noreferrer"
+                                    className="flex items-center gap-1.5 font-mono text-xs text-white border border-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-800 transition-colors duration-200">
+                                    <FiExternalLink size={12} /> {ll.label}
+                                </a>
+                            ))
+                            : project.link && (
+                                <a href={project.link} target="_blank" rel="noopener noreferrer"
+                                    className="flex items-center gap-1.5 font-mono text-xs text-white border border-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-800 transition-colors duration-200">
+                                    <FiExternalLink size={12} /> Live
+                                </a>
+                            )
+                        }
                         {project.github && (
                             <a href={project.github} target="_blank" rel="noopener noreferrer"
                                 className="flex items-center gap-1.5 font-mono text-xs text-gray-300 border border-gray-700 px-3 py-1.5 rounded-full hover:border-gray-500 hover:text-white transition-colors duration-200">
@@ -301,12 +309,20 @@ export default function ProjectDetail() {
                     </button>
 
                     <div className="flex gap-3">
-                        {project.link && (
-                            <a href={project.link} target="_blank" rel="noopener noreferrer"
-                                className="flex items-center gap-2 font-mono text-sm text-white border border-purple-700 px-5 py-2 rounded-full hover:bg-purple-800 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300">
-                                <FiExternalLink size={14} /> Live preview
-                            </a>
-                        )}
+                        {project.liveLinks
+                            ? project.liveLinks.map((ll) => (
+                                <a key={ll.label} href={ll.url} target="_blank" rel="noopener noreferrer"
+                                    className="flex items-center gap-2 font-mono text-sm text-white border border-purple-700 px-5 py-2 rounded-full hover:bg-purple-800 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300">
+                                    <FiExternalLink size={14} /> {ll.label}
+                                </a>
+                            ))
+                            : project.link && (
+                                <a href={project.link} target="_blank" rel="noopener noreferrer"
+                                    className="flex items-center gap-2 font-mono text-sm text-white border border-purple-700 px-5 py-2 rounded-full hover:bg-purple-800 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300">
+                                    <FiExternalLink size={14} /> Live preview
+                                </a>
+                            )
+                        }
                         {project.github && (
                             <a href={project.github} target="_blank" rel="noopener noreferrer"
                                 className="flex items-center gap-2 font-mono text-sm text-gray-300 border border-gray-700 px-5 py-2 rounded-full hover:border-gray-500 hover:text-white transition-all duration-300">

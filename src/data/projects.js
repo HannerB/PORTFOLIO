@@ -246,13 +246,16 @@ export const projects = [
         screenshots: [],
         github: PROFILE,
         githubPrivate: true,
-        link: "https://vivu.hanner.dev/VIVU/index.php",
+        liveLinks: [
+            { label: "Live · Public", url: "https://vivu.hanner.dev/VIVU/index.php" },
+            { label: "Live · Admin", url: "https://vivu.hanner.dev/login.php" },
+        ],
         tags: ["PHP 8.2", "MySQL", "Tailwind CSS", "jQuery", "PHPRunner", "SweetAlert2", "AJAX", "FPDF"],
         demoNote: {
             status: "Live demo with pre-loaded data — 80 users across 5 population types, 25 courses, 334 enrollments, and institutional agreements with ICBF, INPEC, and Armed Forces. Login field is 'documento' (national ID).",
             steps: [
                 { label: "Administrator", detail: "documento: 1075289634 · password: Admin2025 — full access: courses, users, agreements, news, CMS, and conflict victim dashboards", link: "https://vivu.hanner.dev/login.php" },
-                { label: "Aprendiz", detail: "documento: 1075301102 · password: Aprendiz2025 — student view: course catalog and enrollment", link: "https://vivu.hanner.dev/VIVU/index.php" },
+                { label: "Student", detail: "documento: 1075301102 · password: Aprendiz2025 — public view: course catalog and enrollment", link: "https://vivu.hanner.dev/VIVU/index.php" },
             ],
         },
         overview:

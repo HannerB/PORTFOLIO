@@ -153,8 +153,15 @@ const skills = [
         category: "devops",
         icon: "https://cdn.simpleicons.org/githubactions/2088FF",
         name: "GitHub Actions",
+        level: "Advanced",
+        note: "CI/CD pipelines, build in CI, SCP deploys, secrets management",
+    },
+    {
+        category: "devops",
+        icon: "https://cdn.simpleicons.org/nginx/009639",
+        name: "Nginx",
         level: "Intermediate",
-        note: "CI/CD pipelines for staging and production deploys",
+        note: "Reverse proxy, SSL termination, static file serving, virtual hosts",
     },
     {
         category: "devops",

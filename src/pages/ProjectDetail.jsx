@@ -218,6 +218,12 @@ export default function ProjectDetail() {
                                         <div>
                                             <span className="text-white font-medium">{step.label} — </span>
                                             <span className="text-gray-400">{step.detail}</span>
+                                            {step.link && (
+                                                <a href={step.link} target="_blank" rel="noopener noreferrer"
+                                                    className="ml-2 font-mono text-[10px] text-purple-400 border border-purple-800/50 px-1.5 py-0.5 rounded hover:bg-purple-900/30 transition-colors whitespace-nowrap">
+                                                    open →
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 ))}

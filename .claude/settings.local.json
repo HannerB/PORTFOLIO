@@ -1,32 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm create vite@latest . -- --template react 2>&1)",
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && echo \"y\" | npm create vite@latest . -- --template react 2>&1)",
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npx --yes create-vite@latest . --template react 2>&1)",
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm init -y 2>&1)",
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm install react react-dom 2>&1 && npm install -D vite @vitejs/plugin-react 2>&1)",
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npx vite --version 2>&1)",
-      "Bash(cd /c/xampp/htdocs/PORTFOLIO && npm install -D tailwindcss @tailwindcss/vite 2>&1)",
-      "Bash(git ls-remote:*)",
-      "Bash(git:*)",
-      "WebFetch(domain:m.aliexpress.com)",
-      "WebSearch",
-      "WebFetch(domain:www.iemranking.com)",
-      "WebFetch(domain:kz-audio.com)",
-      "Bash(gh auth:*)",
-      "WebFetch(domain:unsplash.com)",
+      "Bash(ssh:*)",
+      "Bash(rsync:*)",
+      "Bash(where rsync:*)",
+      "Bash(where scp:*)",
+      "Bash(tar czf:*)",
+      "Bash(grep:*)",
+      "Bash(scp:*)",
+      "Read(//c/Users/Usuario/Downloads/**)",
       "Bash(curl:*)",
-      "Bash(cmdkey:*)",
-      "Bash(grep \"\"path\"\":*)",
-      "Bash(do:*)",
-      "Bash(npm install:*)",
-      "Bash(npm run:*)",
-      "WebFetch(domain:tld-list.com)",
-      "WebFetch(domain:domaintyper.com)",
-      "WebFetch(domain:tldprice.org)",
-      "WebFetch(domain:tldes.com)",
-      "WebFetch(domain:www.domnest.com)"
-    ]
+      "Bash(ping -n 3 ecpl.hanner.dev)"
+    ],
+    "defaultMode": "bypassPermissions"
   }
 }

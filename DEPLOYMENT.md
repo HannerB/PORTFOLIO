@@ -43,7 +43,7 @@ por lo que el portafolio en Vercel no se ve afectado.
 | IP           | `72.60.214.49`                                               |
 | Puerto SSH   | `2277` (no el default 22)                                    |
 | OS           | Ubuntu 24.04 LTS                                             |
-| SSH          | `ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49`        |
+| SSH          | `ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49`         |
 | Provider     | Hostinger KVM 8                                              |
 | RAM          | 32 GB                                                        |
 | Auth         | Solo clave SSH — contraseña desactivada                      |

@@ -204,39 +204,6 @@ export const projects = [
         ],
     },
     {
-        slug: "seguros-abc",
-        category: "webapp",
-        year: "2026",
-        title: "Seguros ABC Management",
-        tagline: "REST API for insurance policyholder management in .NET 10",
-        image: "https://picsum.photos/seed/seguros/1200/600",
-        screenshots: [],
-        github: "https://github.com/HannerB/SEGUROS_ABC_MANAGEMENT",
-        githubPrivate: false,
-        link: "",
-        tags: ["C#", ".NET 10", "Entity Framework", "SQL Server", "REST API"],
-        overview:
-            "A clean REST API built as a technical challenge for an insurance company. Manages policyholder (asegurado) records with full CRUD operations, server-side pagination, and proper separation of concerns via DTOs. The project demonstrates .NET API architecture with Entity Framework Code First migrations.",
-        problem:
-            "Insurers need reliable, paginated access to policyholder data with consistent validation and a maintainable codebase that follows .NET best practices.",
-        role: "Full backend developer. Designed the data model, implemented the API with DTOs and controller layer, configured EF Core with Code First migrations and set up the full project structure.",
-        features: [
-            { title: "Full CRUD for policyholders", description: "Create, read, update and delete asegurado records with proper HTTP semantics (GET, POST, PUT, DELETE)." },
-            { title: "Server-side pagination", description: "PaginatedResponse<T> wrapper returns page metadata alongside results — total count, current page, page size." },
-            { title: "DTO layer", description: "Separate DTOs for create, update and read operations — entities never exposed directly from the API." },
-            { title: "EF Code First migrations", description: "Database schema managed through migrations, reproducible across environments from a single command." },
-        ],
-        stack: {
-            backend: ["C#", ".NET 10", "ASP.NET Core Web API"],
-            database: ["SQL Server", "Entity Framework Core", "Code First Migrations"],
-            tooling: ["Visual Studio", "Swagger / OpenAPI"],
-        },
-        highlights: [
-            "PaginatedResponse<T> generic wrapper makes the pagination contract reusable across any list endpoint in the API.",
-            "DTO separation ensures internal domain models are never leaked through the API surface — changes to the DB schema don't break API consumers.",
-        ],
-    },
-    {
         slug: "vivu",
         category: "platform",
         year: "Jun 27 – Dec 20, 2025",

@@ -101,7 +101,7 @@ export const projects = [
             "Vimeo Player API drives lesson playback: the `ended` event starts a visual countdown that auto-advances to the next lesson, resets when the lesson changes, and can be cancelled — all managed in a React hook without polling.",
             "Stripe webhook handler verifies the Stripe-Signature HMAC before any processing. The Supabase stripe_session_id column acts as an idempotency key, making the handler safe against retries and duplicate events.",
             "Supabase RLS policies enforce access at the database row level. A student querying lessons they haven't paid for gets an empty result set — not a 403 — eliminating a class of IDOR vulnerabilities without extra server-side filters.",
-            "After the original VPS was compromised by an XMRig miner via SSH brute force, the full stack was migrated to a new server: non-standard SSH port (2277), key-only auth, fail2ban, UFW and all secrets rotated. GitHub Actions now deploys without a password.",
+            "After the original VPS was compromised by an XMRig miner via SSH brute force, the full stack was migrated to a new server: non-standard SSH port, key-only auth, fail2ban, UFW and all secrets rotated. GitHub Actions now deploys without a password.",
         ],
         demoNote: {
             status: "Fully deployed at 1tomillion.com. Explore the marketing site or log into the platform with the demo account below.",

@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { FiMenu, FiX } from 'react-icons/fi'
+import { useTranslation } from 'react-i18next'
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
     const [activeSection, setActiveSection] = useState('home')
+    const { t, i18n } = useTranslation()
+
+    const toggleLang = () => {
+        const next = i18n.language === 'en' ? 'es' : 'en'
+        i18n.changeLanguage(next)
+        localStorage.setItem('lang', next)
+    }
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20)
@@ -28,10 +36,10 @@ export default function Navbar() {
     }, [])
 
     const NavbarLinks = [
-        { id: 1, name: 'Home', link: '#home', section: 'home' },
-        { id: 2, name: 'About', link: '#about', section: 'about' },
-        { id: 3, name: 'Skills', link: '#skills', section: 'skills' },
-        { id: 4, name: 'Projects', link: '#projects', section: 'projects' },
+        { id: 1, name: t('navbar.home'),     link: '#home',     section: 'home' },
+        { id: 2, name: t('navbar.about'),    link: '#about',    section: 'about' },
+        { id: 3, name: t('navbar.skills'),   link: '#skills',   section: 'skills' },
+        { id: 4, name: t('navbar.projects'), link: '#projects', section: 'projects' },
     ]
 
     return (
@@ -67,11 +75,20 @@ export default function Navbar() {
                             }`} />
                         </a>
                     ))}
+
+                    {/* Language toggle */}
+                    <button
+                        onClick={toggleLang}
+                        className='font-mono text-xs text-gray-400 hover:text-purple-400 border border-gray-800 hover:border-purple-700 px-2.5 py-1 rounded transition-all duration-200 cursor-pointer'
+                    >
+                        {i18n.language === 'en' ? 'ES' : 'EN'}
+                    </button>
+
                     <a
                         href="#contact"
                         className='font-mono text-sm text-white border border-purple-700 py-1.5 px-5 hover:bg-purple-800 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] rounded-full transition-all duration-300'
                     >
-                        Contact
+                        {t('navbar.contact')}
                     </a>
                 </nav>
             </div>
@@ -82,7 +99,7 @@ export default function Navbar() {
                     <FiX className='w-6 h-6' />
                 </button>
 
-                <span className='font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]'>// navigation</span>
+                <span className='font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]'>{t('navbar.navigation')}</span>
 
                 {NavbarLinks.map((link) => (
                     <a
@@ -105,8 +122,16 @@ export default function Navbar() {
                     className='font-mono text-sm text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 rounded-full transition-all duration-300'
                     onClick={() => setIsOpen(false)}
                 >
-                    Contact
+                    {t('navbar.contact')}
                 </a>
+
+                {/* Language toggle mobile */}
+                <button
+                    onClick={() => { toggleLang(); setIsOpen(false) }}
+                    className='font-mono text-xs text-gray-400 border border-gray-700 px-4 py-1.5 rounded hover:border-purple-600 hover:text-purple-400 transition-all duration-200 cursor-pointer'
+                >
+                    {i18n.language === 'en' ? 'Cambiar a Español' : 'Switch to English'}
+                </button>
             </div>
         </header>
     )

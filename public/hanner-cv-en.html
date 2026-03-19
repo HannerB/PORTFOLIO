@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hanner Barros — Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 10pt;
+      line-height: 1.55;
+      color: #111827;
+      background: #fff;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 44px 52px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 22px;
+      gap: 20px;
+    }
+
+    .header-name {
+      font-size: 28pt;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .header-title {
+      font-size: 11pt;
+      font-weight: 500;
+      color: #4338CA;
+    }
+
+    .header-contact {
+      text-align: right;
+      font-size: 9pt;
+      color: #374151;
+      line-height: 2.1;
+    }
+
+    .header-contact a {
+      color: #4338CA;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .sep { color: #D1D5DB; margin: 0 5px; }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 16px 0;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    .section-label {
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4338CA;
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E5E7EB;
+    }
+
+    .section-label .label-note {
+      font-size: 8pt;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      color: #9CA3AF;
+    }
+
+    /* ── PROFILE ── */
+    .profile p {
+      font-size: 9.5pt;
+      color: #374151;
+      line-height: 1.75;
+    }
+
+    .profile strong { color: #111827; }
+
+    /* ── EXPERIENCE ── */
+    .exp-entry { margin-bottom: 16px; }
+    .exp-entry:last-child { margin-bottom: 0; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .exp-title {
+      font-size: 10.5pt;
+      font-weight: 600;
+    }
+
+    .exp-dates {
+      font-size: 8.5pt;
+      color: #6B7280;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .exp-company {
+      font-size: 9pt;
+      font-weight: 500;
+      color: #4338CA;
+      margin: 1px 0 6px;
+    }
+
+    .exp-bullets { padding-left: 14px; }
+
+    .exp-bullets li {
+      font-size: 9.5pt;
+      color: #374151;
+      line-height: 1.65;
+      margin-bottom: 3px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .project-card {
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .project-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+      gap: 6px;
+    }
+
+    .project-name {
+      font-size: 10pt;
+      font-weight: 600;
+    }
+
+    .project-link {
+      font-size: 8pt;
+      font-weight: 600;
+      color: #4338CA;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .project-tagline {
+      font-size: 9pt;
+      color: #374151;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .tag {
+      font-size: 7.5pt;
+      font-weight: 500;
+      color: #4338CA;
+      background: #EEF2FF;
+      border-radius: 3px;
+      padding: 2px 6px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px 32px;
+    }
+
+    .skill-group-label {
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6B7280;
+      margin-bottom: 5px;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .skill-tag {
+      font-size: 8pt;
+      font-weight: 400;
+      color: #374151;
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-entry { margin-bottom: 8px; }
+    .edu-entry:last-child { margin-bottom: 0; }
+
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .edu-degree { font-size: 10pt; font-weight: 600; }
+    .edu-dates  { font-size: 8.5pt; color: #6B7280; white-space: nowrap; }
+    .edu-inst   { font-size: 9pt; color: #6B7280; margin-top: 1px; }
+
+    /* ── PRINT ── */
+    @media print {
+      @page { size: A4; margin: 14mm 16mm; }
+      body  { print-color-adjust: exact; -webkit-print-color-adjust: exact; font-size: 9.5pt; }
+      .page { padding: 0; max-width: 100%; }
+      .section { padding: 11px 0; }
+      .section-label { margin-bottom: 10px; break-after: avoid; page-break-after: avoid; }
+      .exp-entry { margin-bottom: 11px; }
+      .projects-grid { gap: 9px; page-break-inside: avoid; break-inside: avoid; }
+      .project-card { padding: 10px 12px; page-break-inside: avoid; break-inside: avoid; }
+      .skills-grid { gap: 9px 28px; }
+      .header { margin-bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-name">Hanner Barros</div>
+      <div class="header-title">Full Stack Developer</div>
+    </div>
+    <div class="header-contact">
+      <div>hannerb48@gmail.com <span class="sep">·</span> +57 301 198 9727</div>
+      <div>
+        <a href="https://www.hanner.dev">hanner.dev</a>
+        <span class="sep">·</span>
+        <a href="https://github.com/HannerB">github.com/HannerB</a>
+      </div>
+      <div style="font-size:8pt;color:#9CA3AF">Barranquilla, Colombia — available for remote work</div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="section">
+    <div class="section-label">Profile</div>
+    <div class="profile">
+      <p>
+        Full Stack Developer with a proven production track record: I've built complete SaaS platforms —
+        database architecture, REST APIs, frontend and infrastructure — as a <strong>sole developer</strong> for clients
+        in <strong>Spain, the United States and Kenya</strong>. I handle the full cycle from schema design to VPS
+        deployment with CI/CD. My projects are live in production with real users and real payments.
+        Main stack: <strong>NestJS · React · TypeScript · PostgreSQL</strong>.
+        Interactive portfolio with live demos at <a href="https://www.hanner.dev" style="color:#4338CA;font-weight:600">hanner.dev</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-label">Experience</div>
+
+    <div class="exp-entry">
+      <div class="exp-header">
+        <div class="exp-title">Full Stack Developer — Internship</div>
+        <div class="exp-dates">Jul 2025 – Jan 2026</div>
+      </div>
+      <div class="exp-company">Fullstack Labs · Tecnoparque SENA</div>
+      <ul class="exp-bullets">
+        <li>Built <strong>ECPL</strong>, a labor competency certification platform with Excel document generation including digital signature insertion (PhpSpreadsheet) and PDF pipeline — 28+ candidates in production, fully digitalized process.</li>
+        <li>Developed <strong>VIVU</strong>, a SENA course management platform with institutional agreement modules (ICBF, INPEC, Armed Forces), a 20% enrollment cap for conflict victims (MySQL stored function) and executive dashboard — live in production.</li>
+      </ul>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-header">
+        <div class="exp-title">Backend Developer — Remote</div>
+        <div class="exp-dates">Apr 2025 – Feb 2026</div>
+      </div>
+      <div class="exp-company">Proveify</div>
+      <ul class="exp-bullets">
+        <li>Implemented <strong>Wompi</strong> payment gateway with SHA256 webhook verification, quotes, favorites and PublicRequest modules in a B2B NestJS marketplace following repository pattern architecture with abstract interfaces.</li>
+        <li>Refactored 7 services to the repository pattern and built <strong>OptionalJwtAuthGuard</strong> — eliminating duplicate API endpoints. Full Jest coverage across all owned modules (13 unit test suites).</li>
+      </ul>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-header">
+        <div class="exp-title">Full Stack Developer — Remote</div>
+        <div class="exp-dates">Dec 2024 – Jun 2025</div>
+      </div>
+      <div class="exp-company">Akademia</div>
+      <ul class="exp-bullets">
+        <li>Built an automated academic schedule generation engine with a multi-constraint algorithm (teacher availability, classroom capacity, hour quotas) and bidirectional integration with a legacy Oracle system.</li>
+        <li>Developed 58 Livewire components for program, teacher, resource and course projection management on a 48-table schema.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <div class="section-label">
+      Featured Projects
+      <span class="label-note">— interactive demos at hanner.dev</span>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">Sistema Contable PR</div>
+          <a href="https://sistema-contable-pr.hanner.dev" class="project-link">↗ demo</a>
+        </div>
+        <div class="project-tagline">Multi-tenant SaaS for CPA firms in Puerto Rico. 19 tax obligation types, Stripe subscriptions, granular per-flag permissions, Excel/PDF export. Built from a 10-page client spec as sole developer.</div>
+        <div class="tag-row">
+          <span class="tag">Next.js 15</span>
+          <span class="tag">NestJS</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Stripe</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Playwright</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">1TOMILLION</div>
+          <a href="https://1tomillion.com" class="project-link">↗ production</a>
+        </div>
+        <div class="project-tagline">E-learning SaaS in production with real Stripe payments (107 EUR), Vimeo video with autoplay, PDF library and CI/CD to own VPS. Includes handling of a real security incident in production.</div>
+        <div class="tag-row">
+          <span class="tag">React</span>
+          <span class="tag">NestJS</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">Stripe</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Nginx</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">WeDoItBranding</div>
+          <a href="https://wedoitweb.hanner.dev" class="project-link">↗ demo</a>
+        </div>
+        <div class="project-tagline">AI branding SaaS for an international client (Fiverr). Custom WebGL Three.js hero with no wrappers, 13-step immersive questionnaire and live Google Cloud Run integration.</div>
+        <div class="tag-row">
+          <span class="tag">React</span>
+          <span class="tag">Three.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Framer Motion</span>
+          <span class="tag">Vite</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-name">GREYTHIUM</div>
+          <a href="https://greythium.com" class="project-link">↗ production</a>
+        </div>
+        <div class="project-tagline">B2B/B2C international trade platform. Dual payment gateway (Stripe + PayPal OAuth2), import/export modules with HS codes and incoterms, 22-table schema. Built without a framework.</div>
+        <div class="tag-row">
+          <span class="tag">PHP</span>
+          <span class="tag">MariaDB</span>
+          <span class="tag">Stripe</span>
+          <span class="tag">PayPal API</span>
+          <span class="tag">Apache</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid">
+
+      <div>
+        <div class="skill-group-label">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Vite</span>
+          <span class="skill-tag">Three.js</span>
+          <span class="skill-tag">Framer Motion</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">Livewire</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Backend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">NestJS</span>
+          <span class="skill-tag">Laravel</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">REST API</span>
+          <span class="skill-tag">JWT</span>
+          <span class="skill-tag">Swagger</span>
+          <span class="skill-tag">Stripe / Wompi</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Database</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Prisma</span>
+          <span class="skill-tag">Supabase</span>
+          <span class="skill-tag">Eloquent</span>
+          <span class="skill-tag">RLS</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Infrastructure & Testing</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">GitHub Actions</span>
+          <span class="skill-tag">Nginx</span>
+          <span class="skill-tag">VPS Ubuntu</span>
+          <span class="skill-tag">PM2</span>
+          <span class="skill-tag">Jest</span>
+          <span class="skill-tag">Playwright</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-label">Education</div>
+
+    <div class="edu-entry">
+      <div class="edu-header">
+        <div class="edu-degree">Software Analysis & Development</div>
+        <div class="edu-dates">2023 – 2025</div>
+      </div>
+      <div class="edu-inst">Servicio Nacional de Aprendizaje, SENA</div>
+    </div>
+
+    <div class="edu-entry">
+      <div class="edu-header">
+        <div class="edu-degree" style="font-size:9.5pt">Software Programming — Technical High School</div>
+        <div class="edu-dates">2020 – 2021</div>
+      </div>
+      <div class="edu-inst">Servicio Nacional de Aprendizaje, SENA &nbsp;·&nbsp; Certifications: Power BI · Office Suite (2024)</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

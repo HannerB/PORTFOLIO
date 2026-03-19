@@ -1,16 +1,12 @@
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { FaTimes, FaBriefcase, FaGraduationCap, FaCertificate, FaArrowRight, FaCode } from "react-icons/fa"
+import { useTranslation } from "react-i18next"
 
-const experience = [
+const experienceStructure = [
     {
         company: "Fullstack Labs — Tecnoparque, SENA",
-        role: "Full Stack Developer · Professional Internship",
         period: "Jul 2025 – Jan 2026",
-        bullets: [
-            "Built ECPL, a labor competency certification system with candidate, project and NCL standards management.",
-            "Implemented VIVU, the SENA academic management platform with executive dashboard, user verification and QR code generator for courses.",
-        ],
         tags: ["Laravel", "PHP", "MySQL", "Livewire"],
         projects: [
             { slug: "ecpl", label: "ECPL" },
@@ -19,13 +15,7 @@ const experience = [
     },
     {
         company: "Akademia",
-        role: "Full Stack Developer · Remote",
         period: "Dec 2024 – Jun 2025",
-        bullets: [
-            "Automatic academic schedule generator with multi-constraint validation and optimization algorithms.",
-            "Bidirectional integration with a legacy Oracle system for academic data management.",
-            "Automatic conflict detection and real-time resource occupancy reports.",
-        ],
         tags: ["Laravel", "Livewire", "MySQL", "Oracle"],
         projects: [
             { slug: "app-akadem-ia", label: "app-akadem-ia" },
@@ -33,13 +23,7 @@ const experience = [
     },
     {
         company: "Proveify",
-        role: "Backend Developer · Remote",
         period: "Apr 2024 – Dec 2025",
-        bullets: [
-            "B2B marketplace REST API with JWT authentication, refresh token rotation and Google Cloud Storage integration.",
-            "Multi-level categorization system and full Jest unit test suite across all modules.",
-            "Real-time WebSockets for quote submission and status tracking.",
-        ],
         tags: ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "GCS"],
         projects: [
             { slug: "proveify-back", label: "Proveify" },
@@ -47,13 +31,7 @@ const experience = [
     },
     {
         company: "Semillero — Tecnoparque, SENA",
-        role: "Web Developer",
         period: "Apr 2024 – Sep 2024",
-        bullets: [
-            "Developed multiple web apps and landing pages for internal tech incubator projects.",
-            "Lab Sensorial SENA: laboratory management system with inventory control and reservations.",
-            "Web projects for startups and organizations: Agrosena, CONTEB, TVD, Alerta Roja.",
-        ],
         tags: ["PHP", "HTML", "CSS", "JavaScript", "MySQL"],
         projects: [
             { slug: "lab-sensorial-sena", label: "Lab Sensorial" },
@@ -64,72 +42,37 @@ const experience = [
     },
 ]
 
-const freelance = [
-    {
-        slug: "1tomilion",
-        title: "1TOMILLION",
-        desc: "Educational platform with Stripe payments, JWT auth, CI/CD to VPS and a PDF book library.",
-        tags: ["NestJS", "React", "Supabase", "Stripe"],
-    },
-    {
-        slug: "wedoitweb",
-        title: "WeDoItBranding",
-        period: "Dec 2025 – Jan 2026",
-        desc: "Built from reference sites alone — no designs or wireframes. Client initially dissatisfied with first delivery; rebuilt with custom Three.js WebGL hero, scroll-driven interactions and split-screen AI questionnaire. Final verdict: 'the result was excellent.'",
-        tags: ["React", "Three.js", "Framer Motion", "Vite"],
-    },
-    {
-        slug: "sistema-contable-pr",
-        title: "Sistema Contable PR",
-        desc: "Accounting platform with 15+ fiscal cotejo types, client management and full Playwright E2E test suite.",
-        tags: ["Next.js", "Prisma", "PostgreSQL", "Playwright"],
-    },
-    {
-        slug: "greythium",
-        title: "GREYTHIUM",
-        desc: "B2B/B2C international trade platform with dual payment gateway (Stripe + PayPal) across 51 tax jurisdictions.",
-        tags: ["PHP", "MySQL", "Stripe", "PayPal"],
-    },
-    {
-        slug: "school-management-app",
-        title: "School Management",
-        desc: "Multi-module school management system with academic calendar, parent portal and payroll processing.",
-        tags: ["React", "NestJS", "PostgreSQL", "ApexCharts"],
-    },
-    {
-        slug: "crystalberylmedia",
-        title: "CrystalBeryl Media",
-        desc: "Landing page for a media agency with brand identity design, scroll animations and contact form.",
-        tags: ["React", "Tailwind", "Vite"],
-    },
+const freelanceStructure = [
+    { slug: "1tomilion",            title: "1TOMILLION",           tags: ["NestJS", "React", "Supabase", "Stripe"] },
+    { slug: "wedoitweb",            title: "WeDoItBranding",       period: "Dec 2025 – Jan 2026", tags: ["React", "Three.js", "Framer Motion", "Vite"] },
+    { slug: "sistema-contable-pr",  title: "Sistema Contable PR",  tags: ["Next.js", "Prisma", "PostgreSQL", "Playwright"] },
+    { slug: "greythium",            title: "GREYTHIUM",            tags: ["PHP", "MySQL", "Stripe", "PayPal"] },
+    { slug: "school-management-app",title: "School Management",    tags: ["React", "NestJS", "PostgreSQL", "ApexCharts"] },
+    { slug: "crystalberylmedia",    title: "CrystalBeryl Media",   tags: ["React", "Tailwind", "Vite"] },
 ]
 
-const education = [
-    {
-        title: "Software Analysis & Development",
-        institution: "SENA",
-        period: "2023 – 2025",
-        note: "Technical Degree · Full Stack, REST APIs, relational databases, Git, Docker",
-    },
-    {
-        title: "Software Programming",
-        institution: "SENA",
-        period: "2020 – 2021",
-        note: "Technical High School · Java, MySQL, NetBeans",
-    },
+const educationStructure = [
+    { institution: "SENA", period: "2023 – 2025" },
+    { institution: "SENA", period: "2020 – 2021" },
 ]
 
 const certifications = [
-    { name: "Power BI", issuer: "SENA", year: "2024" },
+    { name: "Power BI",     issuer: "SENA", year: "2024" },
     { name: "Office Suite", issuer: "SENA", year: "2024" },
 ]
 
 const languages = [
-    { name: "Spanish", level: "Native", bar: 100 },
+    { name: "Spanish", level: "Native",                bar: 100 },
     { name: "English", level: "B2 — Upper Intermediate", bar: 72 },
 ]
 
 export default function ExperienceModal({ onClose }) {
+    const { t } = useTranslation()
+
+    const experienceI18n  = t('modal.experienceItems',  { returnObjects: true })
+    const freelanceI18n   = t('modal.freelanceItems',   { returnObjects: true })
+    const educationI18n   = t('modal.educationItems',   { returnObjects: true })
+
     useEffect(() => {
         const handler = (e) => { if (e.key === "Escape") onClose() }
         window.addEventListener("keydown", handler)
@@ -159,7 +102,7 @@ export default function ExperienceModal({ onClose }) {
                         <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
                         <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
                         <span className="ml-3 font-mono text-[11px] text-purple-400 uppercase tracking-widest">
-                            // hanner_barros.profile
+                            {t('modal.title')}
                         </span>
                     </div>
                     <button
@@ -177,14 +120,14 @@ export default function ExperienceModal({ onClose }) {
                         <div className="flex items-center gap-2 mb-5">
                             <FaBriefcase size={11} className="text-purple-400" />
                             <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                                Experience
+                                {t('modal.experience')}
                             </span>
                         </div>
 
                         <div className="relative space-y-4">
                             <div className="absolute left-[5px] top-2 bottom-2 w-px bg-gray-800" />
 
-                            {experience.map((item, i) => (
+                            {experienceStructure.map((item, i) => (
                                 <div key={i} className="pl-6 relative">
                                     <div className="absolute left-0 top-2 w-2.5 h-2.5 rounded-full bg-gray-950 border border-purple-600" />
 
@@ -195,7 +138,7 @@ export default function ExperienceModal({ onClose }) {
                                                     {item.company}
                                                 </h3>
                                                 <p className="text-purple-400 font-mono text-[11px] mt-0.5">
-                                                    {item.role}
+                                                    {experienceI18n[i]?.role}
                                                 </p>
                                             </div>
                                             <span className="font-mono text-[10px] text-gray-600 border border-gray-800 px-2 py-1 rounded shrink-0">
@@ -204,7 +147,7 @@ export default function ExperienceModal({ onClose }) {
                                         </div>
 
                                         <ul className="space-y-1.5 mb-3">
-                                            {item.bullets.map((b, j) => (
+                                            {(experienceI18n[i]?.bullets ?? []).map((b, j) => (
                                                 <li key={j} className="text-gray-500 text-xs leading-relaxed flex gap-2">
                                                     <span className="text-purple-700 shrink-0 mt-0.5">▸</span>
                                                     {b}
@@ -248,12 +191,12 @@ export default function ExperienceModal({ onClose }) {
                         <div className="flex items-center gap-2 mb-4">
                             <FaCode size={11} className="text-purple-400" />
                             <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                                Freelance &amp; Fiverr
+                                {t('modal.freelance')}
                             </span>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {freelance.map((item) => (
+                            {freelanceStructure.map((item, i) => (
                                 <Link
                                     key={item.slug}
                                     to={`/projects/${item.slug}`}
@@ -271,7 +214,9 @@ export default function ExperienceModal({ onClose }) {
                                         </div>
                                         <FaArrowRight size={9} className="text-gray-700 group-hover:text-purple-400 transition-colors duration-200" />
                                     </div>
-                                    <p className="text-gray-600 text-[11px] leading-relaxed flex-1">{item.desc}</p>
+                                    <p className="text-gray-600 text-[11px] leading-relaxed flex-1">
+                                        {freelanceI18n[i]?.desc}
+                                    </p>
                                     <div className="flex flex-wrap gap-1.5 mt-1">
                                         {item.tags.map((tag) => (
                                             <span
@@ -292,19 +237,23 @@ export default function ExperienceModal({ onClose }) {
                         <div className="flex items-center gap-2 mb-4">
                             <FaGraduationCap size={11} className="text-purple-400" />
                             <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                                Education
+                                {t('modal.education')}
                             </span>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {education.map((item, i) => (
+                            {educationStructure.map((item, i) => (
                                 <div key={i} className="border border-gray-800 bg-gray-900/30 rounded p-4">
                                     <div className="flex justify-between items-start gap-2 mb-1">
-                                        <h3 className="text-white text-sm font-semibold leading-snug">{item.title}</h3>
+                                        <h3 className="text-white text-sm font-semibold leading-snug">
+                                            {educationI18n[i]?.title}
+                                        </h3>
                                         <span className="font-mono text-[10px] text-gray-600 shrink-0">{item.period}</span>
                                     </div>
                                     <p className="font-mono text-[11px] text-purple-400">{item.institution}</p>
-                                    {item.note && (
-                                        <p className="text-gray-600 text-[11px] mt-1.5 leading-relaxed">{item.note}</p>
+                                    {educationI18n[i]?.note && (
+                                        <p className="text-gray-600 text-[11px] mt-1.5 leading-relaxed">
+                                            {educationI18n[i].note}
+                                        </p>
                                     )}
                                 </div>
                             ))}
@@ -318,7 +267,7 @@ export default function ExperienceModal({ onClose }) {
                             <div className="flex items-center gap-2 mb-4">
                                 <FaCertificate size={11} className="text-purple-400" />
                                 <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                                    Certifications
+                                    {t('modal.certifications')}
                                 </span>
                             </div>
                             <div className="flex flex-col gap-2">
@@ -338,7 +287,7 @@ export default function ExperienceModal({ onClose }) {
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="text-purple-400 text-[11px]">◈</span>
                                 <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                                    Languages
+                                    {t('modal.languages')}
                                 </span>
                             </div>
                             <div className="flex flex-col gap-3">

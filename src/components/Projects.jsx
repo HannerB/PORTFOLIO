@@ -4,13 +4,7 @@ import { Link } from "react-router-dom"
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 import { projects } from "../data/projects"
 import ProjectTimeline from "./ProjectTimeline"
-
-const CATEGORIES = [
-    { id: "all", label: "All" },
-    { id: "platform", label: "Full-Stack Platforms" },
-    { id: "webapp", label: "Web Applications" },
-    { id: "landing", label: "Landings & Websites" },
-]
+import { useTranslation } from "react-i18next"
 
 const CATEGORY_DOT = {
     platform: "bg-purple-500",
@@ -26,7 +20,7 @@ const PLACEHOLDER_STYLES = {
 
 const MotionLink = motion.create(Link)
 
-const ProjectPlaceholder = ({ title, category, tags }) => {
+const ProjectPlaceholder = ({ title, category, tags, viewLabel }) => {
     const s = PLACEHOLDER_STYLES[category]
     return (
         <figure className="relative overflow-hidden shrink-0">
@@ -54,14 +48,14 @@ const ProjectPlaceholder = ({ title, category, tags }) => {
             </div>
             <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
-                    → view project
+                    {viewLabel}
                 </span>
             </div>
         </figure>
     )
 }
 
-const ProjectCard = ({ slug, image, title, tagline, tags, category, index }) => {
+const ProjectCard = ({ slug, image, title, tagline, tags, category, index, viewLabel }) => {
     const [imgFailed, setImgFailed] = useState(false)
     const showImage = image && !imgFailed
 
@@ -93,12 +87,12 @@ const ProjectCard = ({ slug, image, title, tagline, tags, category, index }) => 
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
-                            → view project
+                            {viewLabel}
                         </span>
                     </div>
                 </figure>
             ) : (
-                <ProjectPlaceholder title={title} category={category} tags={tags} />
+                <ProjectPlaceholder title={title} category={category} tags={tags} viewLabel={viewLabel} />
             )}
 
             {/* Content */}
@@ -132,16 +126,26 @@ export { ProjectCard, MotionLink, PLACEHOLDER_STYLES, CATEGORY_DOT }
 export default function Projects() {
     const [activeCategory, setActiveCategory] = useState("all")
     const [view, setView] = useState("grid")
+    const { t } = useTranslation()
+
+    const CATEGORIES = [
+        { id: "all",      label: t('projects.categories.all') },
+        { id: "platform", label: t('projects.categories.platform') },
+        { id: "webapp",   label: t('projects.categories.webapp') },
+        { id: "landing",  label: t('projects.categories.landing') },
+    ]
 
     useEffect(() => {
-        const t = setTimeout(() => AOS.refresh(), 350)
-        return () => clearTimeout(t)
+        const timer = setTimeout(() => AOS.refresh(), 350)
+        return () => clearTimeout(timer)
     }, [view])
 
     const filtered =
         activeCategory === "all"
             ? projects
             : projects.filter((p) => p.category === activeCategory)
+
+    const viewLabel = t('projects.viewProject')
 
     return (
         <section id="projects" className="relative py-20 px-4 text-white overflow-hidden">
@@ -159,13 +163,13 @@ export default function Projects() {
                 {/* Header */}
                 <header data-aos="fade-up" data-aos-delay="300" className="text-center mb-10">
                     <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                        // 04 — projects
+                        {t('projects.label')}
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-bold mt-2 tracking-tight">
-                        My <span className="text-purple-400">Projects</span>
+                        {t('projects.title')} <span className="text-purple-400">{t('projects.titleHighlight')}</span>
                     </h2>
                     <p className="text-gray-500 mt-3 text-sm sm:text-base max-w-xl mx-auto">
-                        From production platforms to landing pages — real work across the full stack.
+                        {t('projects.subtitle')}
                     </p>
                 </header>
 
@@ -174,9 +178,9 @@ export default function Projects() {
                     {/* Legend */}
                     <div className="flex gap-5">
                         {[
-                            { dot: "bg-purple-500", label: "Platform" },
-                            { dot: "bg-blue-500", label: "Web App" },
-                            { dot: "bg-emerald-500", label: "Landing" },
+                            { dot: "bg-purple-500", label: t('projects.legend.platform') },
+                            { dot: "bg-blue-500",   label: t('projects.legend.webapp') },
+                            { dot: "bg-emerald-500",label: t('projects.legend.landing') },
                         ].map(({ dot, label }) => (
                             <div key={label} className="flex items-center gap-1.5">
                                 <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />
@@ -188,8 +192,8 @@ export default function Projects() {
                     {/* Toggle */}
                     <div className="flex gap-1.5">
                         {[
-                            { id: "grid",     icon: "⊞", label: "Grid" },
-                            { id: "timeline", icon: "≡", label: "Timeline" },
+                            { id: "grid",     icon: "⊞", label: t('projects.views.grid') },
+                            { id: "timeline", icon: "≡", label: t('projects.views.timeline') },
                         ].map(({ id, icon, label }) => (
                             <button
                                 key={id}
@@ -240,7 +244,7 @@ export default function Projects() {
                                 {/* Cards */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                                     {filtered.map((project, index) => (
-                                        <ProjectCard key={project.slug} {...project} index={index} />
+                                        <ProjectCard key={project.slug} {...project} index={index} viewLabel={viewLabel} />
                                     ))}
                                 </div>
                             </motion.div>

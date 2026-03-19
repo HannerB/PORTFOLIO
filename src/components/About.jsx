@@ -1,16 +1,18 @@
 import React, { useState } from "react"
 import aboutAvatar from "/about-avatar.png"
 import ExperienceModal from "./ExperienceModal"
-
-const stats = [
-    { label: 'location', value: 'Colombia' },
-    { label: 'experience', value: '2+ years' },
-    { label: 'specialty', value: 'FullStack' },
-    { label: 'status', value: 'Available' },
-]
+import { useTranslation } from "react-i18next"
 
 export default function About() {
     const [showModal, setShowModal] = useState(false)
+    const { t } = useTranslation()
+
+    const stats = [
+        { label: t('about.stats.location'), value: 'Colombia' },
+        { label: t('about.stats.experience'), value: '2+ years' },
+        { label: t('about.stats.specialty'), value: 'FullStack' },
+        { label: t('about.stats.status'), value: t('about.stats.available') },
+    ]
 
     return (
         <>
@@ -52,21 +54,18 @@ export default function About() {
                     <div className="relative z-10">
                         <div className="flex items-center gap-2 mb-3 justify-center lg:justify-start">
                             <span className="font-mono text-[10px] text-purple-400 uppercase tracking-[0.2em]">
-                                // 01 — about
+                                {t('about.label')}
                             </span>
                         </div>
 
                         <header>
                             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 tracking-tight">
-                                About <span className="text-purple-400">Me</span>
+                                {t('about.title')} <span className="text-purple-400">{t('about.titleHighlight')}</span>
                             </h2>
                         </header>
 
                         <p className="text-base sm:text-lg text-gray-400 mb-7 leading-relaxed">
-                            I'm a Full Stack Developer with hands-on experience building real-world applications
-                            from scratch. I've developed educational platforms, B2B marketplaces and academic
-                            management systems using React, NestJS, TypeScript, PostgreSQL and MySQL — working
-                            across the entire stack, from scalable API design to clean, responsive interfaces.
+                            {t('about.description')}
                         </p>
 
                         {/* Stats grid */}
@@ -89,7 +88,7 @@ export default function About() {
                                 onClick={() => setShowModal(true)}
                                 className="inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300 cursor-pointer"
                             >
-                                <span className="text-purple-400">$</span> learn_more
+                                <span className="text-purple-400">$</span> {t('about.learnMore')}
                             </button>
                         </footer>
                     </div>

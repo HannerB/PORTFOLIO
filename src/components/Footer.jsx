@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FaGithub, FaLinkedin, FaArrowUp } from 'react-icons/fa'
-
-const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-]
+import { useTranslation } from 'react-i18next'
 
 const socialLinks = [
     {
@@ -28,6 +22,7 @@ const socialLinks = [
 
 export default function Footer() {
     const [showTop, setShowTop] = useState(false)
+    const { t } = useTranslation()
 
     useEffect(() => {
         const onScroll = () => setShowTop(window.scrollY > 400)
@@ -36,6 +31,13 @@ export default function Footer() {
     }, [])
 
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    const navLinks = [
+        { name: t('navbar.home'),     href: '#home' },
+        { name: t('navbar.about'),    href: '#about' },
+        { name: t('navbar.skills'),   href: '#skills' },
+        { name: t('navbar.projects'), href: '#projects' },
+    ]
 
     return (
         <>
@@ -87,9 +89,9 @@ export default function Footer() {
                                 </h2>
                             </div>
                             <p className="text-gray-500 text-sm font-mono leading-relaxed">
-                                FullStack Developer<br />
-                                <span className="text-purple-400">Building digital experiences</span><br />
-                                <span className="text-gray-700">{'// one commit at a time'}</span>
+                                {t('footer.tagline1')}<br />
+                                <span className="text-purple-400">{t('footer.tagline2')}</span><br />
+                                <span className="text-gray-700">{t('footer.tagline3')}</span>
                             </p>
                             {/* Available badge */}
                             <div className="inline-flex items-center gap-2 border border-gray-800 rounded-full px-3 py-1">
@@ -97,19 +99,19 @@ export default function Footer() {
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                                     <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
                                 </span>
-                                <span className="text-xs text-gray-400 font-mono">Available for work</span>
+                                <span className="text-xs text-gray-400 font-mono">{t('footer.available')}</span>
                             </div>
                         </div>
 
                         {/* Navigation */}
                         <div className="space-y-4">
                             <h3 className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.2em]">
-                                Navigation
+                                {t('footer.navigation')}
                             </h3>
                             <nav className="space-y-[10px]">
                                 {navLinks.map((link) => (
                                     <a
-                                        key={link.name}
+                                        key={link.href}
                                         href={link.href}
                                         className="flex items-center gap-2 text-gray-500 hover:text-white text-sm group transition-colors duration-200"
                                     >
@@ -125,7 +127,7 @@ export default function Footer() {
                         {/* Connect */}
                         <div className="space-y-4">
                             <h3 className="text-[10px] font-mono text-purple-400 uppercase tracking-[0.2em]">
-                                Connect
+                                {t('footer.connect')}
                             </h3>
                             <div className="space-y-3">
                                 {socialLinks.map((social) => (
@@ -150,10 +152,10 @@ export default function Footer() {
                     <div className="border-t border-gray-800/50 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
                         <p className="text-xs text-gray-700 font-mono">
                             <span className="text-purple-700">©</span>{' '}
-                            {new Date().getFullYear()} Hanner Barros. All rights reserved.
+                            {new Date().getFullYear()} Hanner Barros. {t('footer.rights')}
                         </p>
                         <p className="text-xs text-gray-700 font-mono">
-                            Designed &amp; Built with{' '}
+                            {t('footer.builtWith')}{' '}
                             <span className="text-purple-500">♥</span>
                         </p>
                     </div>

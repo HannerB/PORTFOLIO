@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Navbar from './Navbar'
 import imghero from '/imghero.png'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import Hanner from '/hanner.pdf'
+import { useTranslation } from 'react-i18next'
 
-const TITLES = ['FullStack Developer', 'Frontend Developer', 'Backend Developer']
-
-function useTyping() {
+function useTyping(titles) {
     const [titleIndex, setTitleIndex] = useState(0)
     const [displayed, setDisplayed] = useState('')
     const [deleting, setDeleting] = useState(false)
 
     useEffect(() => {
-        const current = TITLES[titleIndex]
+        setTitleIndex(0)
+        setDisplayed('')
+        setDeleting(false)
+    }, [titles])
+
+    useEffect(() => {
+        const current = titles[titleIndex] ?? ''
         let timeout
 
         if (!deleting && displayed.length < current.length) {
@@ -23,17 +28,19 @@ function useTyping() {
             timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), 45)
         } else if (deleting && displayed.length === 0) {
             setDeleting(false)
-            setTitleIndex((i) => (i + 1) % TITLES.length)
+            setTitleIndex((i) => (i + 1) % titles.length)
         }
 
         return () => clearTimeout(timeout)
-    }, [displayed, deleting, titleIndex])
+    }, [displayed, deleting, titleIndex, titles])
 
     return displayed
 }
 
 export default function Hero() {
-    const typedTitle = useTyping()
+    const { t } = useTranslation()
+    const titles = useMemo(() => t('hero.titles', { returnObjects: true }), [t])
+    const typedTitle = useTyping(titles)
 
     return (
         <div className='relative overflow-hidden min-h-[100svh] sm:min-h-[600px] flex flex-col items-center bg-gray-950'>
@@ -65,7 +72,7 @@ export default function Hero() {
 
                     {/* Terminal label */}
                     <div className='flex items-center gap-2 mb-4'>
-                        <span className='font-mono text-purple-400 text-xs'>// hello, world</span>
+                        <span className='font-mono text-purple-400 text-xs'>{t('hero.greeting')}</span>
                     </div>
 
                     <header>
@@ -82,9 +89,7 @@ export default function Hero() {
                     </header>
 
                     <p className='text-base md:text-lg text-gray-300 mb-4 md:mb-6 leading-relaxed max-w-md'>
-                        Full Stack Developer with 2+ years of experience building production-ready web platforms.
-                        Specialized in React, NestJS and TypeScript — from REST APIs and Stripe integrations
-                        to relational databases and clean, responsive UIs.
+                        {t('hero.description')}
                     </p>
 
                     <div className='flex items-center space-x-3 mb-4 md:mb-7'>
@@ -116,7 +121,7 @@ export default function Hero() {
 
                     <a href={Hanner} download>
                         <button className='inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300 cursor-pointer'>
-                            <span className='text-purple-400'>$</span> download_cv
+                            <span className='text-purple-400'>$</span> {t('hero.downloadCv')}
                         </button>
                     </a>
                 </section>

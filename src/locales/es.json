@@ -1,0 +1,179 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "navigation": "// navegación"
+  },
+  "hero": {
+    "greeting": "// hola, mundo",
+    "titles": ["Desarrollador FullStack", "Desarrollador Frontend", "Desarrollador Backend"],
+    "description": "Desarrollador Full Stack con más de 2 años de experiencia construyendo plataformas web listas para producción. Especializado en React, NestJS y TypeScript — desde APIs REST e integraciones con Stripe hasta bases de datos relacionales e interfaces limpias y responsivas.",
+    "downloadCv": "descargar_cv"
+  },
+  "about": {
+    "label": "// 01 — sobre mí",
+    "title": "Sobre",
+    "titleHighlight": "Mí",
+    "description": "Soy un Desarrollador Full Stack con experiencia práctica construyendo aplicaciones reales desde cero. He desarrollado plataformas educativas, marketplaces B2B y sistemas de gestión académica usando React, NestJS, TypeScript, PostgreSQL y MySQL — trabajando en toda la pila, desde el diseño de APIs escalables hasta interfaces limpias y responsivas.",
+    "stats": {
+      "location": "ubicación",
+      "experience": "experiencia",
+      "specialty": "especialidad",
+      "status": "estado",
+      "available": "Disponible"
+    },
+    "learnMore": "ver_más"
+  },
+  "services": {
+    "label": "// 02 — servicios",
+    "title": "Lo que",
+    "titleHighlight": "Ofrezco",
+    "subtitle": "De la idea a producción — servicios que ofrezco como desarrollador full stack freelance.",
+    "items": [
+      {
+        "title": "Desarrollo Full Stack",
+        "desc": "Aplicaciones web de extremo a extremo con React, NestJS y TypeScript — desde el esquema de base de datos hasta el despliegue en producción."
+      },
+      {
+        "title": "Diseño de APIs REST",
+        "desc": "APIs escalables y bien documentadas con autenticación JWT, control de acceso basado en roles y documentación Swagger."
+      },
+      {
+        "title": "Integración de Pagos",
+        "desc": "Integraciones con Stripe, PayPal y Wompi incluyendo webhooks, ciclo de vida de suscripciones, sesiones de checkout y manejo de impuestos."
+      },
+      {
+        "title": "Landing Pages y Sitios Web",
+        "desc": "Landing pages y sitios corporativos rápidos, responsivos y visualmente pulidos con animaciones modernas."
+      },
+      {
+        "title": "Diseño de Bases de Datos",
+        "desc": "Modelado de bases de datos relacionales, migraciones, optimización de consultas y políticas de seguridad a nivel de fila."
+      },
+      {
+        "title": "Desarrollo Frontend",
+        "desc": "Interfaces basadas en componentes con React o Next.js, sistemas de diseño responsivos y animaciones interactivas."
+      }
+    ]
+  },
+  "skills": {
+    "label": "// 03 — habilidades",
+    "title": "Mi Experiencia y",
+    "titleHighlight": "Habilidades",
+    "subtitle": "Tecnologías que uso en toda la pila — desde interfaces interactivas hasta infraestructura de producción.",
+    "categories": {
+      "all": "Todas",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de Datos y ORM",
+      "devops": "DevOps y Herramientas"
+    }
+  },
+  "projects": {
+    "label": "// 04 — proyectos",
+    "title": "Mis",
+    "titleHighlight": "Proyectos",
+    "subtitle": "Desde plataformas en producción hasta landing pages — trabajo real en toda la pila.",
+    "legend": {
+      "platform": "Plataforma",
+      "webapp": "App Web",
+      "landing": "Landing"
+    },
+    "views": {
+      "grid": "Cuadrícula",
+      "timeline": "Línea de tiempo"
+    },
+    "categories": {
+      "all": "Todas",
+      "platform": "Plataformas Full-Stack",
+      "webapp": "Aplicaciones Web",
+      "landing": "Landings y Sitios"
+    },
+    "viewProject": "→ ver proyecto"
+  },
+  "contact": {
+    "title": "Contáctame",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "email": "Correo",
+    "emailPlaceholder": "Tu correo",
+    "message": "Mensaje",
+    "messagePlaceholder": "Tu mensaje",
+    "send": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "success": "✓ Mensaje enviado — te respondo pronto.",
+    "error": "Algo salió mal. Intenta de nuevo o escríbeme directamente."
+  },
+  "footer": {
+    "available": "Disponible para trabajar",
+    "tagline1": "Desarrollador FullStack",
+    "tagline2": "Construyendo experiencias digitales",
+    "tagline3": "// un commit a la vez",
+    "navigation": "Navegación",
+    "connect": "Redes",
+    "rights": "Todos los derechos reservados.",
+    "builtWith": "Diseñado y Desarrollado con"
+  },
+  "modal": {
+    "title": "// hanner_barros.perfil",
+    "experience": "Experiencia",
+    "freelance": "Freelance y Fiverr",
+    "education": "Educación",
+    "certifications": "Certificaciones",
+    "languages": "Idiomas",
+    "experienceItems": [
+      {
+        "role": "Desarrollador Full Stack · Práctica Profesional",
+        "bullets": [
+          "Desarrollé ECPL, un sistema de certificación de competencias laborales con gestión de candidatos, proyectos y normas NCL.",
+          "Implementé VIVU, la plataforma de gestión académica del SENA con dashboard ejecutivo, verificación de usuarios y generador de códigos QR para cursos."
+        ]
+      },
+      {
+        "role": "Desarrollador Full Stack · Remoto",
+        "bullets": [
+          "Generador automático de horarios académicos con validación multi-restricción y algoritmos de optimización.",
+          "Integración bidireccional con un sistema Oracle legado para la gestión de datos académicos.",
+          "Detección automática de conflictos e informes de ocupación de recursos en tiempo real."
+        ]
+      },
+      {
+        "role": "Desarrollador Backend · Remoto",
+        "bullets": [
+          "API REST para marketplace B2B con autenticación JWT, rotación de refresh tokens e integración con Google Cloud Storage.",
+          "Sistema de categorización multinivel y suite completa de pruebas unitarias Jest en todos los módulos.",
+          "WebSockets en tiempo real para envío de cotizaciones y seguimiento de estado."
+        ]
+      },
+      {
+        "role": "Desarrollador Web",
+        "bullets": [
+          "Desarrollé múltiples aplicaciones web y landing pages para proyectos internos de la incubadora tecnológica.",
+          "Lab Sensorial SENA: sistema de gestión de laboratorio con control de inventario y reservas.",
+          "Proyectos web para startups y organizaciones: Agrosena, CONTEB, TVD, Alerta Roja."
+        ]
+      }
+    ],
+    "freelanceItems": [
+      { "desc": "Plataforma educativa con pagos Stripe, autenticación JWT, CI/CD a VPS y biblioteca de libros en PDF." },
+      { "desc": "Construido solo con sitios de referencia — sin diseños ni wireframes. El cliente quedó insatisfecho con la primera entrega; se rehízo con un hero WebGL personalizado en Three.js, interacciones basadas en scroll y un cuestionario IA de pantalla dividida. Veredicto final: 'el resultado fue excelente'." },
+      { "desc": "Plataforma contable con más de 15 tipos de cotejo fiscal, gestión de clientes y suite completa de pruebas E2E con Playwright." },
+      { "desc": "Plataforma de comercio internacional B2B/B2C con doble pasarela de pago (Stripe + PayPal) en 51 jurisdicciones fiscales." },
+      { "desc": "Sistema de gestión escolar multi-módulo con calendario académico, portal para padres y procesamiento de nómina." },
+      { "desc": "Landing page para una agencia de medios con diseño de identidad de marca, animaciones de scroll y formulario de contacto." }
+    ],
+    "educationItems": [
+      {
+        "title": "Análisis y Desarrollo de Software",
+        "note": "Técnico · Full Stack, APIs REST, bases de datos relacionales, Git, Docker"
+      },
+      {
+        "title": "Programación de Software",
+        "note": "Técnico de Bachillerato · Java, MySQL, NetBeans"
+      }
+    ]
+  }
+}

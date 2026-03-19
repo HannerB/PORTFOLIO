@@ -1,0 +1,179 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "navigation": "// navigation"
+  },
+  "hero": {
+    "greeting": "// hello, world",
+    "titles": ["FullStack Developer", "Frontend Developer", "Backend Developer"],
+    "description": "Full Stack Developer with 2+ years of experience building production-ready web platforms. Specialized in React, NestJS and TypeScript — from REST APIs and Stripe integrations to relational databases and clean, responsive UIs.",
+    "downloadCv": "download_cv"
+  },
+  "about": {
+    "label": "// 01 — about",
+    "title": "About",
+    "titleHighlight": "Me",
+    "description": "I'm a Full Stack Developer with hands-on experience building real-world applications from scratch. I've developed educational platforms, B2B marketplaces and academic management systems using React, NestJS, TypeScript, PostgreSQL and MySQL — working across the entire stack, from scalable API design to clean, responsive interfaces.",
+    "stats": {
+      "location": "location",
+      "experience": "experience",
+      "specialty": "specialty",
+      "status": "status",
+      "available": "Available"
+    },
+    "learnMore": "learn_more"
+  },
+  "services": {
+    "label": "// 02 — services",
+    "title": "What I",
+    "titleHighlight": "Offer",
+    "subtitle": "From idea to production — services I provide as a freelance full stack developer.",
+    "items": [
+      {
+        "title": "Full Stack Development",
+        "desc": "End-to-end web applications built with React, NestJS and TypeScript — from database schema to production deploy."
+      },
+      {
+        "title": "REST API Design",
+        "desc": "Scalable, well-documented APIs with JWT authentication, role-based access control and Swagger documentation."
+      },
+      {
+        "title": "Payment Integration",
+        "desc": "Stripe, PayPal and Wompi integrations including webhooks, subscription lifecycle, checkout sessions and tax handling."
+      },
+      {
+        "title": "Landing Pages & Websites",
+        "desc": "Fast, responsive and visually polished landing pages and corporate websites with modern animations."
+      },
+      {
+        "title": "Database Design",
+        "desc": "Relational database modeling, migrations, query optimization and Row Level Security policies."
+      },
+      {
+        "title": "Frontend Development",
+        "desc": "Component-driven UIs with React or Next.js, responsive design systems and interactive animations."
+      }
+    ]
+  },
+  "skills": {
+    "label": "// 03 — skills",
+    "title": "My Expertise &",
+    "titleHighlight": "Skills",
+    "subtitle": "Technologies I use across the full stack — from interactive UIs to production infrastructure.",
+    "categories": {
+      "all": "All",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database & ORM",
+      "devops": "DevOps & Tools"
+    }
+  },
+  "projects": {
+    "label": "// 04 — projects",
+    "title": "My",
+    "titleHighlight": "Projects",
+    "subtitle": "From production platforms to landing pages — real work across the full stack.",
+    "legend": {
+      "platform": "Platform",
+      "webapp": "Web App",
+      "landing": "Landing"
+    },
+    "views": {
+      "grid": "Grid",
+      "timeline": "Timeline"
+    },
+    "categories": {
+      "all": "All",
+      "platform": "Full-Stack Platforms",
+      "webapp": "Web Applications",
+      "landing": "Landings & Websites"
+    },
+    "viewProject": "→ view project"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "Your email",
+    "message": "Message",
+    "messagePlaceholder": "Your message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "✓ Message sent — I'll get back to you soon.",
+    "error": "Something went wrong. Try again or email me directly."
+  },
+  "footer": {
+    "available": "Available for work",
+    "tagline1": "FullStack Developer",
+    "tagline2": "Building digital experiences",
+    "tagline3": "// one commit at a time",
+    "navigation": "Navigation",
+    "connect": "Connect",
+    "rights": "All rights reserved.",
+    "builtWith": "Designed & Built with"
+  },
+  "modal": {
+    "title": "// hanner_barros.profile",
+    "experience": "Experience",
+    "freelance": "Freelance & Fiverr",
+    "education": "Education",
+    "certifications": "Certifications",
+    "languages": "Languages",
+    "experienceItems": [
+      {
+        "role": "Full Stack Developer · Professional Internship",
+        "bullets": [
+          "Built ECPL, a labor competency certification system with candidate, project and NCL standards management.",
+          "Implemented VIVU, the SENA academic management platform with executive dashboard, user verification and QR code generator for courses."
+        ]
+      },
+      {
+        "role": "Full Stack Developer · Remote",
+        "bullets": [
+          "Automatic academic schedule generator with multi-constraint validation and optimization algorithms.",
+          "Bidirectional integration with a legacy Oracle system for academic data management.",
+          "Automatic conflict detection and real-time resource occupancy reports."
+        ]
+      },
+      {
+        "role": "Backend Developer · Remote",
+        "bullets": [
+          "B2B marketplace REST API with JWT authentication, refresh token rotation and Google Cloud Storage integration.",
+          "Multi-level categorization system and full Jest unit test suite across all modules.",
+          "Real-time WebSockets for quote submission and status tracking."
+        ]
+      },
+      {
+        "role": "Web Developer",
+        "bullets": [
+          "Developed multiple web apps and landing pages for internal tech incubator projects.",
+          "Lab Sensorial SENA: laboratory management system with inventory control and reservations.",
+          "Web projects for startups and organizations: Agrosena, CONTEB, TVD, Alerta Roja."
+        ]
+      }
+    ],
+    "freelanceItems": [
+      { "desc": "Educational platform with Stripe payments, JWT auth, CI/CD to VPS and a PDF book library." },
+      { "desc": "Built from reference sites alone — no designs or wireframes. Client initially dissatisfied with first delivery; rebuilt with custom Three.js WebGL hero, scroll-driven interactions and split-screen AI questionnaire. Final verdict: 'the result was excellent.'" },
+      { "desc": "Accounting platform with 15+ fiscal cotejo types, client management and full Playwright E2E test suite." },
+      { "desc": "B2B/B2C international trade platform with dual payment gateway (Stripe + PayPal) across 51 tax jurisdictions." },
+      { "desc": "Multi-module school management system with academic calendar, parent portal and payroll processing." },
+      { "desc": "Landing page for a media agency with brand identity design, scroll animations and contact form." }
+    ],
+    "educationItems": [
+      {
+        "title": "Software Analysis & Development",
+        "note": "Technical Degree · Full Stack, REST APIs, relational databases, Git, Docker"
+      },
+      {
+        "title": "Software Programming",
+        "note": "Technical High School · Java, MySQL, NetBeans"
+      }
+    ]
+  }
+}

@@ -129,12 +129,8 @@ export default function ProjectTimeline() {
         if (!el) return
         const onWheel = (e) => {
             if (e.deltaY === 0) return
-            const { scrollLeft, scrollWidth, clientWidth } = el
-            const atLeftEnd  = scrollLeft <= 0 && e.deltaY < 0
-            const atRightEnd = scrollLeft + clientWidth >= scrollWidth - 1 && e.deltaY > 0
-            if (atLeftEnd || atRightEnd) return   // let page scroll naturally
-            e.preventDefault()
             el.scrollLeft += e.deltaY
+            // No preventDefault — page scroll propagates normally
         }
         el.addEventListener("wheel", onWheel, { passive: false })
         return () => el.removeEventListener("wheel", onWheel)

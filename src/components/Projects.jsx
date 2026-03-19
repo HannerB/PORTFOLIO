@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import AOS from "aos"
 import { Link } from "react-router-dom"
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 import { projects } from "../data/projects"
@@ -131,6 +132,11 @@ export { ProjectCard, MotionLink, PLACEHOLDER_STYLES, CATEGORY_DOT }
 export default function Projects() {
     const [activeCategory, setActiveCategory] = useState("all")
     const [view, setView] = useState("grid")
+
+    useEffect(() => {
+        const t = setTimeout(() => AOS.refresh(), 350)
+        return () => clearTimeout(t)
+    }, [view])
 
     const filtered =
         activeCategory === "all"

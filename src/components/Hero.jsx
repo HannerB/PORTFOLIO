@@ -2,8 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react'
 import Navbar from './Navbar'
 import imghero from '/imghero.png'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
-import Hanner from '/hanner.pdf'
 import { useTranslation } from 'react-i18next'
+
+const CV = {
+    en: '/hanner.pdf',
+    es: '/hanner-es.pdf',
+}
 
 function useTyping(titles) {
     const [titleIndex, setTitleIndex] = useState(0)
@@ -38,9 +42,10 @@ function useTyping(titles) {
 }
 
 export default function Hero() {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const titles = useMemo(() => t('hero.titles', { returnObjects: true }), [t])
     const typedTitle = useTyping(titles)
+    const cvFile = CV[i18n.language] ?? CV.en
 
     return (
         <div className='relative overflow-hidden min-h-[100svh] sm:min-h-[600px] flex flex-col items-center bg-gray-950'>
@@ -119,9 +124,12 @@ export default function Hero() {
                         </a>
                     </div>
 
-                    <a href={Hanner} download>
+                    <a href={cvFile} download>
                         <button className='inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300 cursor-pointer'>
                             <span className='text-purple-400'>$</span> {t('hero.downloadCv')}
+                            <span className='text-[10px] font-mono text-purple-400 border border-purple-800 bg-purple-950/40 px-1.5 py-0.5 rounded'>
+                                {i18n.language.toUpperCase()}
+                            </span>
                         </button>
                     </a>
                 </section>

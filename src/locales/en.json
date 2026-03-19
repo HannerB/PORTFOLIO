@@ -117,6 +117,63 @@
     "rights": "All rights reserved.",
     "builtWith": "Designed & Built with"
   },
+  "breadcrumb": {
+    "portfolio": "portfolio"
+  },
+  "notFound": {
+    "message": "This page doesn't exist — yet.",
+    "noSuchFile": "No such file or directory",
+    "back": "cd ~/home"
+  },
+  "stats": {
+    "projects": "Projects Shipped",
+    "technologies": "Technologies",
+    "companies": "Companies",
+    "years": "Years Coding"
+  },
+  "timeline": {
+    "view": "→ view"
+  },
+  "detail": {
+    "back": "back",
+    "backToProjects": "back to projects",
+    "live": "Live",
+    "livePreview": "Live preview",
+    "repository": "Repository",
+    "githubProfile": "GitHub Profile",
+    "openLink": "open →",
+    "screenshotsSoon": "// screenshots coming soon",
+    "screenshotsCapturing": "project is deployed — visuals being captured",
+    "liveDemo": "live demo",
+    "theChallenge": "// the challenge",
+    "myRole": "// my role",
+    "overview": "Overview",
+    "keyFeatures": "Key Features",
+    "techStack": "Tech Stack",
+    "highlights": "Technical Highlights",
+    "notFound": "Project not found.",
+    "notFoundBack": "← back to portfolio",
+    "categories": {
+      "platform": "Full-Stack Platform",
+      "webapp": "Web Application",
+      "landing": "Landing & Website"
+    },
+    "stack": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "infra": "Infrastructure",
+      "ui": "UI Libraries",
+      "components": "Components",
+      "modules": "Modules",
+      "packages": "Packages",
+      "storage": "Storage",
+      "payments": "Payments",
+      "base": "Base",
+      "exports": "Exports",
+      "tooling": "Tooling"
+    }
+  },
   "modal": {
     "title": "// hanner_barros.profile",
     "experience": "Experience",

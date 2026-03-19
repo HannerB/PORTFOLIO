@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 export default function NotFound() {
+    const { t } = useTranslation()
+
     return (
         <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4 relative overflow-hidden">
             {/* Grid texture */}
@@ -28,7 +31,7 @@ export default function NotFound() {
                             <span className="text-purple-400">$</span> cd {window.location.pathname}
                         </p>
                         <p className="font-mono text-sm text-red-400 mb-1">
-                            bash: {window.location.pathname}: No such file or directory
+                            bash: {window.location.pathname}: {t('notFound.noSuchFile')}
                         </p>
                         <p className="font-mono text-sm text-gray-700">
                             exit code: <span className="text-red-400">404</span>
@@ -40,14 +43,14 @@ export default function NotFound() {
                     4<span className="text-purple-400">0</span>4
                 </h1>
                 <p className="text-gray-500 text-sm mb-8 font-mono">
-                    This page doesn't exist — yet.
+                    {t('notFound.message')}
                 </p>
 
                 <Link
                     to="/"
                     className="inline-flex items-center gap-2 text-white border border-purple-700 py-2 px-6 hover:bg-purple-800 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] rounded-full text-sm font-mono transition-all duration-300"
                 >
-                    <span className="text-purple-400">$</span> cd ~/home
+                    <span className="text-purple-400">$</span> {t('notFound.back')}
                 </Link>
             </div>
         </div>

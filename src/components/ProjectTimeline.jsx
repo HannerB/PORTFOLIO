@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { projects } from "../data/projects"
+import { useTranslation } from "react-i18next"
 
 const MotionLink = motion.create(Link)
 
@@ -58,6 +59,7 @@ function TimelineCard({ slug, image, title, tagline, tags, category, index, anim
     const [imgFailed, setImgFailed] = useState(false)
     const showImage = image && !imgFailed
     const s = PLACEHOLDER_STYLES[category]
+    const { t } = useTranslation()
 
     return (
         <MotionLink
@@ -84,7 +86,7 @@ function TimelineCard({ slug, image, title, tagline, tags, category, index, anim
                         className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="font-mono text-xs text-white border border-purple-400 px-3 py-1.5 rounded-full">→ view</span>
+                        <span className="font-mono text-xs text-white border border-purple-400 px-3 py-1.5 rounded-full">{t('timeline.view')}</span>
                     </div>
                 </figure>
             ) : (
@@ -99,7 +101,7 @@ function TimelineCard({ slug, image, title, tagline, tags, category, index, anim
                         </div>
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="font-mono text-xs text-white border border-purple-400 px-3 py-1.5 rounded-full">→ view</span>
+                        <span className="font-mono text-xs text-white border border-purple-400 px-3 py-1.5 rounded-full">{t('timeline.view')}</span>
                     </div>
                 </figure>
             )}

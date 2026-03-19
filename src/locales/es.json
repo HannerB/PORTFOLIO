@@ -117,6 +117,63 @@
     "rights": "Todos los derechos reservados.",
     "builtWith": "Diseñado y Desarrollado con"
   },
+  "breadcrumb": {
+    "portfolio": "portafolio"
+  },
+  "notFound": {
+    "message": "Esta página no existe — todavía.",
+    "noSuchFile": "No existe el archivo o directorio",
+    "back": "cd ~/inicio"
+  },
+  "stats": {
+    "projects": "Proyectos Entregados",
+    "technologies": "Tecnologías",
+    "companies": "Empresas",
+    "years": "Años Programando"
+  },
+  "timeline": {
+    "view": "→ ver"
+  },
+  "detail": {
+    "back": "volver",
+    "backToProjects": "volver a proyectos",
+    "live": "En vivo",
+    "livePreview": "Vista en vivo",
+    "repository": "Repositorio",
+    "githubProfile": "Perfil GitHub",
+    "openLink": "abrir →",
+    "screenshotsSoon": "// capturas próximamente",
+    "screenshotsCapturing": "proyecto desplegado — capturando imágenes",
+    "liveDemo": "demo en vivo",
+    "theChallenge": "// el reto",
+    "myRole": "// mi rol",
+    "overview": "Descripción",
+    "keyFeatures": "Características Clave",
+    "techStack": "Stack Tecnológico",
+    "highlights": "Aspectos Técnicos",
+    "notFound": "Proyecto no encontrado.",
+    "notFoundBack": "← volver al portafolio",
+    "categories": {
+      "platform": "Plataforma Full-Stack",
+      "webapp": "Aplicación Web",
+      "landing": "Landing y Sitio"
+    },
+    "stack": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de Datos",
+      "infra": "Infraestructura",
+      "ui": "Librerías UI",
+      "components": "Componentes",
+      "modules": "Módulos",
+      "packages": "Paquetes",
+      "storage": "Almacenamiento",
+      "payments": "Pagos",
+      "base": "Base",
+      "exports": "Exportaciones",
+      "tooling": "Herramientas"
+    }
+  },
   "modal": {
     "title": "// hanner_barros.perfil",
     "experience": "Experiencia",

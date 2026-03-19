@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-
-const stats = [
-    { value: 18, suffix: "+", label: "Projects Shipped" },
-    { value: 25, suffix: "",  label: "Technologies" },
-    { value: 3,  suffix: "",  label: "Companies" },
-    { value: 2,  suffix: "+", label: "Years Coding" },
-]
+import { useTranslation } from "react-i18next"
 
 function Counter({ value, suffix }) {
     const [count, setCount] = useState(0)
@@ -46,6 +40,15 @@ function Counter({ value, suffix }) {
 }
 
 export default function Stats() {
+    const { t } = useTranslation()
+
+    const stats = [
+        { value: 18, suffix: "+", label: t('stats.projects') },
+        { value: 25, suffix: "",  label: t('stats.technologies') },
+        { value: 3,  suffix: "",  label: t('stats.companies') },
+        { value: 2,  suffix: "+", label: t('stats.years') },
+    ]
+
     return (
         <section className="relative py-14 px-4 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-950/20 via-gray-950 to-purple-950/20" />

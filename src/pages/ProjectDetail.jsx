@@ -2,12 +2,7 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { getProjectBySlug } from "../data/projects"
 import { FiArrowLeft, FiGithub, FiExternalLink, FiCode, FiLayers, FiZap, FiStar, FiChevronLeft, FiChevronRight } from "react-icons/fi"
-
-const CATEGORY_LABELS = {
-    platform: "Full-Stack Platform",
-    webapp: "Web Application",
-    landing: "Landing & Website",
-}
+import { useTranslation } from "react-i18next"
 
 const CATEGORY_COLORS = {
     platform: "text-purple-400 border-purple-800 bg-purple-950/30",
@@ -15,21 +10,22 @@ const CATEGORY_COLORS = {
     landing: "text-emerald-400 border-emerald-800 bg-emerald-950/30",
 }
 
-const StackSection = ({ stack }) => {
+function StackSection({ stack }) {
+    const { t } = useTranslation()
     const labels = {
-        frontend: "Frontend",
-        backend: "Backend",
-        database: "Database",
-        infra: "Infrastructure",
-        ui: "UI Libraries",
-        components: "Components",
-        modules: "Modules",
-        packages: "Packages",
-        storage: "Storage",
-        payments: "Payments",
-        base: "Base",
-        exports: "Exports",
-        tooling: "Tooling",
+        frontend:   t('detail.stack.frontend'),
+        backend:    t('detail.stack.backend'),
+        database:   t('detail.stack.database'),
+        infra:      t('detail.stack.infra'),
+        ui:         t('detail.stack.ui'),
+        components: t('detail.stack.components'),
+        modules:    t('detail.stack.modules'),
+        packages:   t('detail.stack.packages'),
+        storage:    t('detail.stack.storage'),
+        payments:   t('detail.stack.payments'),
+        base:       t('detail.stack.base'),
+        exports:    t('detail.stack.exports'),
+        tooling:    t('detail.stack.tooling'),
     }
 
     return (
@@ -56,6 +52,7 @@ const StackSection = ({ stack }) => {
 }
 
 function ScreenshotViewer({ project }) {
+    const { t } = useTranslation()
     const shots = project.screenshots ?? []
     const [current, setCurrent] = useState(0)
     const [imgFailed, setImgFailed] = useState(false)
@@ -155,10 +152,20 @@ function ScreenshotViewer({ project }) {
                 />
             ) : (
                 <div className="relative h-64 sm:h-80 flex flex-col items-center justify-center gap-2">
-                    <span className="font-mono text-xs text-gray-600">// screenshots coming soon</span>
-                    <span className="font-mono text-[10px] text-gray-700">project is deployed — visuals being captured</span>
+                    <span className="font-mono text-xs text-gray-600">{t('detail.screenshotsSoon')}</span>
+                    <span className="font-mono text-[10px] text-gray-700">{t('detail.screenshotsCapturing')}</span>
                 </div>
             )}
+        </div>
+    )
+}
+
+function SectionLabel({ icon, label }) {
+    return (
+        <div className="flex items-center gap-2 text-white">
+            <span className="text-purple-400">{icon}</span>
+            <h2 className="text-lg font-bold tracking-tight">{label}</h2>
+            <div className="flex-1 h-px bg-gray-800 ml-2" />
         </div>
     )
 }
@@ -167,6 +174,7 @@ export default function ProjectDetail() {
     const { slug } = useParams()
     const navigate = useNavigate()
     const project = getProjectBySlug(slug)
+    const { t } = useTranslation()
 
     const metaDescRef = useRef(document.querySelector('meta[name="description"]'))
 
@@ -194,9 +202,9 @@ export default function ProjectDetail() {
         return (
             <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center text-white gap-4">
                 <span className="font-mono text-purple-400 text-4xl">404</span>
-                <p className="text-gray-400">Project not found.</p>
+                <p className="text-gray-400">{t('detail.notFound')}</p>
                 <Link to="/" className="font-mono text-sm text-purple-400 hover:text-purple-300 transition-colors">
-                    ← back to portfolio
+                    {t('detail.notFoundBack')}
                 </Link>
             </div>
         )
@@ -212,14 +220,14 @@ export default function ProjectDetail() {
                         className="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors duration-200 group"
                     >
                         <FiArrowLeft className="group-hover:-translate-x-0.5 transition-transform duration-200" />
-                        <span className="font-mono text-xs">back</span>
+                        <span className="font-mono text-xs">{t('detail.back')}</span>
                     </button>
 
                     {/* Breadcrumb */}
                     <div className="hidden sm:flex items-center gap-2 font-mono text-[11px] text-gray-600">
-                        <Link to="/" className="hover:text-gray-400 transition-colors">portfolio</Link>
+                        <Link to="/" className="hover:text-gray-400 transition-colors">{t('breadcrumb.portfolio')}</Link>
                         <span>/</span>
-                        <Link to="/#projects" className="hover:text-gray-400 transition-colors">projects</Link>
+                        <Link to="/#projects" className="hover:text-gray-400 transition-colors">{t('navbar.projects').toLowerCase()}</Link>
                         <span>/</span>
                         <span className="text-gray-400">{project.slug}</span>
                     </div>
@@ -235,14 +243,14 @@ export default function ProjectDetail() {
                             : project.link && (
                                 <a href={project.link} target="_blank" rel="noopener noreferrer"
                                     className="flex items-center gap-1.5 font-mono text-xs text-white border border-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-800 transition-colors duration-200">
-                                    <FiExternalLink size={12} /> Live
+                                    <FiExternalLink size={12} /> {t('detail.live')}
                                 </a>
                             )
                         }
                         {project.github && (
                             <a href={project.github} target="_blank" rel="noopener noreferrer"
                                 className="flex items-center gap-1.5 font-mono text-xs text-gray-300 border border-gray-700 px-3 py-1.5 rounded-full hover:border-gray-500 hover:text-white transition-colors duration-200">
-                                <FiGithub size={12} /> {project.githubPrivate ? "GitHub Profile" : "Repository"}
+                                <FiGithub size={12} /> {project.githubPrivate ? t('detail.githubProfile') : t('detail.repository')}
                             </a>
                         )}
                     </div>
@@ -255,7 +263,7 @@ export default function ProjectDetail() {
                 <header className="space-y-5">
                     <div className="flex flex-wrap items-center gap-3">
                         <span className={`font-mono text-[11px] border px-2.5 py-1 rounded ${CATEGORY_COLORS[project.category]}`}>
-                            {CATEGORY_LABELS[project.category]}
+                            {t(`detail.categories.${project.category}`)}
                         </span>
                         <span className="font-mono text-[11px] text-gray-600">{project.year}</span>
                     </div>
@@ -285,7 +293,7 @@ export default function ProjectDetail() {
 
                 {/* ── OVERVIEW ─────────────────────────────────── */}
                 <section className="space-y-4">
-                    <SectionLabel icon={<FiLayers size={13} />} label="Overview" />
+                    <SectionLabel icon={<FiLayers size={13} />} label={t('detail.overview')} />
                     <p className="text-gray-300 leading-relaxed text-base max-w-3xl whitespace-pre-line">
                         {project.overview}
                     </p>
@@ -295,7 +303,7 @@ export default function ProjectDetail() {
                             <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
                                 <span className="font-mono text-[11px] text-purple-400 uppercase tracking-widest">
-                                    live demo
+                                    {t('detail.liveDemo')}
                                 </span>
                             </div>
                             <p className="text-sm text-gray-300">{project.demoNote.status}</p>
@@ -311,7 +319,7 @@ export default function ProjectDetail() {
                                             {step.link && (
                                                 <a href={step.link} target="_blank" rel="noopener noreferrer"
                                                     className="ml-2 font-mono text-[10px] text-purple-400 border border-purple-800/50 px-1.5 py-0.5 rounded hover:bg-purple-900/30 transition-colors whitespace-nowrap">
-                                                    open →
+                                                    {t('detail.openLink')}
                                                 </a>
                                             )}
                                         </div>
@@ -326,13 +334,13 @@ export default function ProjectDetail() {
                 <div className="grid sm:grid-cols-2 gap-6">
                     <section className="border border-gray-800 bg-gray-900/30 rounded p-6 space-y-3">
                         <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest block">
-                            // the challenge
+                            {t('detail.theChallenge')}
                         </span>
                         <p className="text-gray-400 text-sm leading-relaxed">{project.problem}</p>
                     </section>
                     <section className="border border-gray-800 bg-gray-900/30 rounded p-6 space-y-3">
                         <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest block">
-                            // my role
+                            {t('detail.myRole')}
                         </span>
                         <p className="text-gray-400 text-sm leading-relaxed">{project.role}</p>
                     </section>
@@ -340,7 +348,7 @@ export default function ProjectDetail() {
 
                 {/* ── KEY FEATURES ─────────────────────────────── */}
                 <section className="space-y-6">
-                    <SectionLabel icon={<FiStar size={13} />} label="Key Features" />
+                    <SectionLabel icon={<FiStar size={13} />} label={t('detail.keyFeatures')} />
                     <div className="grid sm:grid-cols-2 gap-4">
                         {project.features.map((feature, i) => (
                             <div key={i}
@@ -363,14 +371,14 @@ export default function ProjectDetail() {
 
                 {/* ── TECH STACK ───────────────────────────────── */}
                 <section className="space-y-6">
-                    <SectionLabel icon={<FiCode size={13} />} label="Tech Stack" />
+                    <SectionLabel icon={<FiCode size={13} />} label={t('detail.techStack')} />
                     <StackSection stack={project.stack} />
                 </section>
 
                 {/* ── TECHNICAL HIGHLIGHTS ─────────────────────── */}
                 {project.highlights?.length > 0 && (
                     <section className="space-y-6">
-                        <SectionLabel icon={<FiZap size={13} />} label="Technical Highlights" />
+                        <SectionLabel icon={<FiZap size={13} />} label={t('detail.highlights')} />
                         <div className="space-y-3">
                             {project.highlights.map((h, i) => (
                                 <div key={i}
@@ -387,7 +395,7 @@ export default function ProjectDetail() {
                     <button onClick={() => navigate(-1)}
                         className="flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors duration-200 group">
                         <FiArrowLeft className="group-hover:-translate-x-0.5 transition-transform duration-200" />
-                        <span className="font-mono text-xs">back to projects</span>
+                        <span className="font-mono text-xs">{t('detail.backToProjects')}</span>
                     </button>
 
                     <div className="flex gap-3">
@@ -401,29 +409,19 @@ export default function ProjectDetail() {
                             : project.link && (
                                 <a href={project.link} target="_blank" rel="noopener noreferrer"
                                     className="flex items-center gap-2 font-mono text-sm text-white border border-purple-700 px-5 py-2 rounded-full hover:bg-purple-800 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300">
-                                    <FiExternalLink size={14} /> Live preview
+                                    <FiExternalLink size={14} /> {t('detail.livePreview')}
                                 </a>
                             )
                         }
                         {project.github && (
                             <a href={project.github} target="_blank" rel="noopener noreferrer"
                                 className="flex items-center gap-2 font-mono text-sm text-gray-300 border border-gray-700 px-5 py-2 rounded-full hover:border-gray-500 hover:text-white transition-all duration-300">
-                                <FiGithub size={14} /> {project.githubPrivate ? "GitHub Profile" : "View Repository"}
+                                <FiGithub size={14} /> {project.githubPrivate ? t('detail.githubProfile') : t('detail.repository')}
                             </a>
                         )}
                     </div>
                 </footer>
             </div>
-        </div>
-    )
-}
-
-function SectionLabel({ icon, label }) {
-    return (
-        <div className="flex items-center gap-2 text-white">
-            <span className="text-purple-400">{icon}</span>
-            <h2 className="text-lg font-bold tracking-tight">{label}</h2>
-            <div className="flex-1 h-px bg-gray-800 ml-2" />
         </div>
     )
 }

@@ -22,3 +22,32 @@ html::-webkit-scrollbar {
 .modal-scroll::-webkit-scrollbar-thumb:hover {
     background: rgba(139, 92, 246, 0.7);
 }
+
+/* ── Card enter animation (grid ↔ timeline switch) ───────── */
+@keyframes cardEnter {
+    from { opacity: 0; transform: translateY(18px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+}
+.card-enter {
+    animation: cardEnter 420ms ease both;
+}
+
+/* ── Timeline horizontal scrollbar ───────────────────────── */
+.timeline-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+.timeline-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.timeline-scroll::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.35);
+    border-radius: 999px;
+}
+.timeline-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.7);
+}
+/* Firefox */
+.timeline-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 92, 246, 0.35) transparent;
+}

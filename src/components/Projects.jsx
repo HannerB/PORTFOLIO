@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 import { projects } from "../data/projects"
+import ProjectTimeline from "./ProjectTimeline"
 
 const CATEGORIES = [
     { id: "all", label: "All" },
@@ -20,6 +22,8 @@ const PLACEHOLDER_STYLES = {
     webapp:   { bg: "from-blue-950 to-gray-900",   text: "text-blue-400",   border: "border-blue-900/40"   },
     landing:  { bg: "from-emerald-950 to-gray-900", text: "text-emerald-400", border: "border-emerald-900/40" },
 }
+
+const MotionLink = motion.create(Link)
 
 const ProjectPlaceholder = ({ title, category, tags }) => {
     const s = PLACEHOLDER_STYLES[category]
@@ -61,70 +65,72 @@ const ProjectCard = ({ slug, image, title, tagline, tags, category, index }) => 
     const showImage = image && !imgFailed
 
     return (
-    <Link
-        to={`/projects/${slug}`}
-        className="relative border border-gray-800 hover:border-purple-600 bg-gray-900/40 hover:bg-gray-900/70 rounded overflow-hidden group transition-all duration-300 flex flex-col"
-    >
-        {/* Terminal chrome */}
-        <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-gray-800/60 bg-gray-900/60 shrink-0">
-            <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-red-500 transition-colors duration-300" />
-            <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-yellow-400 transition-colors duration-300" />
-            <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-green-400 transition-colors duration-300" />
-            <span className="ml-auto font-mono text-[10px] text-gray-700">
-                project_{String(index + 1).padStart(2, "0")}
-            </span>
-        </div>
+        <MotionLink
+            layoutId={`card-${slug}`}
+            to={`/projects/${slug}`}
+            className="relative border border-gray-800 hover:border-purple-600 bg-gray-900/40 hover:bg-gray-900/70 rounded overflow-hidden group flex flex-col"
+            transition={{ type: "spring", stiffness: 180, damping: 26 }}
+        >
+            {/* Terminal chrome */}
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-gray-800/60 bg-gray-900/60 shrink-0">
+                <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-red-500 transition-colors duration-300" />
+                <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-yellow-400 transition-colors duration-300" />
+                <span className="w-2 h-2 rounded-full bg-gray-800 group-hover:bg-green-400 transition-colors duration-300" />
+                <span className="ml-auto font-mono text-[10px] text-gray-700">
+                    project_{String(index + 1).padStart(2, "0")}
+                </span>
+            </div>
 
-        {/* Image or styled placeholder */}
-        {showImage ? (
-            <figure className="relative overflow-hidden shrink-0">
-                <img
-                    src={image}
-                    alt={title}
-                    onError={() => setImgFailed(true)}
-                    className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
-                        → view project
-                    </span>
+            {/* Image or placeholder */}
+            {showImage ? (
+                <figure className="relative overflow-hidden shrink-0">
+                    <img
+                        src={image}
+                        alt={title}
+                        onError={() => setImgFailed(true)}
+                        className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-purple-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="font-mono text-xs text-white border border-purple-400 px-4 py-2 rounded-full">
+                            → view project
+                        </span>
+                    </div>
+                </figure>
+            ) : (
+                <ProjectPlaceholder title={title} category={category} tags={tags} />
+            )}
+
+            {/* Content */}
+            <div className="px-5 py-4 flex flex-col gap-2 flex-1">
+                <div className="flex items-center gap-2">
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${CATEGORY_DOT[category]}`} />
+                    <h3 className="text-white font-bold text-sm group-hover:text-purple-300 transition-colors duration-200 leading-snug">
+                        {title}
+                    </h3>
                 </div>
-            </figure>
-        ) : (
-            <ProjectPlaceholder title={title} category={category} tags={tags} />
-        )}
-
-        {/* Content */}
-        <div className="px-5 py-4 flex flex-col gap-2 flex-1">
-            <div className="flex items-center gap-2">
-                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${CATEGORY_DOT[category]}`} />
-                <h3 className="text-white font-bold text-sm group-hover:text-purple-300 transition-colors duration-200 leading-snug">
-                    {title}
-                </h3>
+                <p className="text-gray-500 text-xs leading-relaxed flex-1">{tagline}</p>
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                    {tags.slice(0, 4).map((tag) => (
+                        <span key={tag} className="font-mono text-[10px] text-purple-400/70 border border-purple-900/50 bg-purple-950/20 px-2 py-0.5 rounded">
+                            {tag}
+                        </span>
+                    ))}
+                    {tags.length > 4 && (
+                        <span className="font-mono text-[10px] text-gray-600 px-1 py-0.5">
+                            +{tags.length - 4}
+                        </span>
+                    )}
+                </div>
             </div>
-            <p className="text-gray-500 text-xs leading-relaxed flex-1">{tagline}</p>
-            <div className="flex flex-wrap gap-1.5 mt-1">
-                {tags.slice(0, 4).map((tag) => (
-                    <span
-                        key={tag}
-                        className="font-mono text-[10px] text-purple-400/70 border border-purple-900/50 bg-purple-950/20 px-2 py-0.5 rounded"
-                    >
-                        {tag}
-                    </span>
-                ))}
-                {tags.length > 4 && (
-                    <span className="font-mono text-[10px] text-gray-600 px-1 py-0.5">
-                        +{tags.length - 4}
-                    </span>
-                )}
-            </div>
-        </div>
-    </Link>
+        </MotionLink>
     )
 }
 
+export { ProjectCard, MotionLink, PLACEHOLDER_STYLES, CATEGORY_DOT }
+
 export default function Projects() {
     const [activeCategory, setActiveCategory] = useState("all")
+    const [view, setView] = useState("grid")
 
     const filtered =
         activeCategory === "all"
@@ -157,54 +163,96 @@ export default function Projects() {
                     </p>
                 </header>
 
-                {/* Legend */}
-                <div data-aos="fade-up" data-aos-delay="350" className="flex justify-center gap-5 mb-6">
-                    {[
-                        { dot: "bg-purple-500", label: "Platform" },
-                        { dot: "bg-blue-500", label: "Web App" },
-                        { dot: "bg-emerald-500", label: "Landing" },
-                    ].map(({ dot, label }) => (
-                        <div key={label} className="flex items-center gap-1.5">
-                            <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />
-                            <span className="font-mono text-[10px] text-gray-600">{label}</span>
-                        </div>
-                    ))}
+                {/* View toggle + legend row */}
+                <div data-aos="fade-up" data-aos-delay="350" className="flex items-center justify-between flex-wrap gap-3 mb-6">
+                    {/* Legend */}
+                    <div className="flex gap-5">
+                        {[
+                            { dot: "bg-purple-500", label: "Platform" },
+                            { dot: "bg-blue-500", label: "Web App" },
+                            { dot: "bg-emerald-500", label: "Landing" },
+                        ].map(({ dot, label }) => (
+                            <div key={label} className="flex items-center gap-1.5">
+                                <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />
+                                <span className="font-mono text-[10px] text-gray-600">{label}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Toggle */}
+                    <div className="flex gap-1.5">
+                        {[
+                            { id: "grid",     icon: "⊞", label: "Grid" },
+                            { id: "timeline", icon: "≡", label: "Timeline" },
+                        ].map(({ id, icon, label }) => (
+                            <button
+                                key={id}
+                                onClick={() => setView(id)}
+                                className={`font-mono text-xs px-3 py-1.5 rounded border transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                                    view === id
+                                        ? "border-purple-500 bg-purple-600/20 text-purple-300"
+                                        : "border-gray-700 text-gray-500 hover:border-gray-600 hover:text-gray-400"
+                                }`}
+                            >
+                                <span>{icon}</span>
+                                {label}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Category filters */}
-                <div
-                    data-aos="fade-up"
-                    data-aos-delay="400"
-                    className="flex flex-wrap justify-center gap-2 mb-10"
-                >
-                    {CATEGORIES.map((cat) => (
-                        <button
-                            key={cat.id}
-                            onClick={() => setActiveCategory(cat.id)}
-                            className={`font-mono text-xs px-4 py-2 rounded border transition-all duration-200 cursor-pointer ${
-                                activeCategory === cat.id
-                                    ? "border-purple-500 bg-purple-600/20 text-purple-300"
-                                    : "border-gray-700 text-gray-500 hover:border-gray-500 hover:text-gray-300"
-                            }`}
-                        >
-                            {cat.label}
-                            <span className="ml-2 text-[10px] opacity-50">
-                                ({cat.id === "all" ? projects.length : projects.filter((p) => p.category === cat.id).length})
-                            </span>
-                        </button>
-                    ))}
-                </div>
+                <LayoutGroup>
+                    <AnimatePresence mode="popLayout" initial={false}>
+                        {view === "grid" && (
+                            <motion.div
+                                key="grid-wrapper"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.15 }}
+                            >
+                                {/* Category filters */}
+                                <div className="flex flex-wrap justify-center gap-2 mb-10">
+                                    {CATEGORIES.map((cat) => (
+                                        <button
+                                            key={cat.id}
+                                            onClick={() => setActiveCategory(cat.id)}
+                                            className={`font-mono text-xs px-4 py-2 rounded border transition-all duration-200 cursor-pointer ${
+                                                activeCategory === cat.id
+                                                    ? "border-purple-500 bg-purple-600/20 text-purple-300"
+                                                    : "border-gray-700 text-gray-500 hover:border-gray-500 hover:text-gray-300"
+                                            }`}
+                                        >
+                                            {cat.label}
+                                            <span className="ml-2 text-[10px] opacity-50">
+                                                ({cat.id === "all" ? projects.length : projects.filter((p) => p.category === cat.id).length})
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
 
-                {/* Cards */}
-                <div
-                    data-aos="fade-up"
-                    data-aos-delay="500"
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-                >
-                    {filtered.map((project, index) => (
-                        <ProjectCard key={project.slug} {...project} index={index} />
-                    ))}
-                </div>
+                                {/* Cards */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {filtered.map((project, index) => (
+                                        <ProjectCard key={project.slug} {...project} index={index} />
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {view === "timeline" && (
+                            <motion.div
+                                key="timeline-wrapper"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.15 }}
+                            >
+                                <ProjectTimeline />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </LayoutGroup>
             </div>
         </section>
     )

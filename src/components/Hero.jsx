@@ -5,8 +5,8 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 
 const CV = {
-    en: '/hanner.pdf',
-    es: '/hanner-es.pdf',
+    en: '/cv/general/Hanner Barros — Full Stack Developer.pdf',
+    es: '/cv/general/Hanner Barros — Desarrollador Full Stack.pdf',
 }
 
 function useTyping(titles) {

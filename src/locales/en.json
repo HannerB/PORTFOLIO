@@ -169,6 +169,10 @@
       "packages": "Packages",
       "storage": "Storage",
       "payments": "Payments",
+      "performance": "Performance",
+      "styling": "Styling & UI",
+      "forms": "Forms & Validation",
+      "media": "Media & Visualization",
       "base": "Base",
       "exports": "Exports",
       "tooling": "Tooling"

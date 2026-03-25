@@ -4,22 +4,22 @@ export const projects = [
     {
         slug: "1tomilion",
         category: "platform",
-        year: "5 Dec 2025 – 27 Feb 2026",
+        year: "5 Dec 2025 – 24 Mar 2026",
         dateStart: "2025-12-05",
-        dateEnd: "2026-02-27",
+        dateEnd: "2026-03-24",
         title: "1TOMILION",
-        tagline: "Full-stack e-learning SaaS — video courses, Stripe payments, digital library and admin panel in production",
+        tagline: "Full-stack e-learning SaaS — video courses, Stripe payments, digital library, admin panel and production-grade performance optimization (91 mobile / 98 desktop on PageSpeed)",
         image: "/screenshots/1tomilion/thumbnail.png",
         screenshots: [],
         github: PROFILE,
         githubPrivate: true,
         link: "https://1tomillion.com",
-        tags: ["React", "NestJS", "Supabase", "Stripe", "TypeScript", "Vite"],
+        tags: ["React", "NestJS", "Supabase", "Stripe", "TypeScript", "Vite", "Core Web Vitals", "PageSpeed 91+"],
         overview:
-            "1TOMILION is a production SaaS learning platform built entirely from scratch. Students browse a video course catalog organized into modules and lessons, purchase full access through Stripe, track their progress lesson by lesson, and read books from a digital library with an in-browser PDF viewer. A NestJS backend handles authentication, course-access guards, payment webhooks and file uploads, while Supabase (PostgreSQL + RLS) stores all user and content data. Admins have a dedicated dashboard for managing users, courses, books, categories and notifications. The application runs on a hardened VPS with automated CI/CD via GitHub Actions.",
+            "1TOMILION is a production SaaS learning platform built entirely from scratch. Students browse a video course catalog organized into modules and lessons, purchase full access through Stripe, track their progress lesson by lesson, and read books from a digital library with an in-browser PDF viewer. A NestJS backend handles authentication, course-access guards, payment webhooks and file uploads, while Supabase (PostgreSQL + RLS) stores all user and content data. Admins have a dedicated dashboard for managing users, courses, books, categories and notifications. The application runs on a hardened VPS with automated CI/CD via GitHub Actions.\n\nAfter launch, I ran a full Core Web Vitals optimization pass targeting Google PageSpeed Insights on mobile (the hardest benchmark — throttled 4G, emulated Moto G Power). The platform went from a 71 Performance score to 91, Accessibility from 77 to a perfect 100, and SEO from 83 to 92. On desktop, Performance reached 98 with a 0.6 s LCP.",
         problem:
             "The client needed a complete, monetized e-learning platform: users had to be able to buy access, consume video lessons with progress tracking, read digital books in-browser, and be managed by an admin — all in production with real Stripe payments and reliable uptime. There was no existing system; the product had to be designed and built from zero, including infrastructure, security hardening and a CI/CD pipeline.",
-        role: "Sole full-stack developer. Architected and built the entire system: React frontend with Vite, NestJS REST API, Supabase database schema with RLS policies, Stripe checkout and webhook integration, Vimeo video player with autoplay flow, in-browser PDF reader, and a hardened VPS deployment with Nginx, PM2 and GitHub Actions CI/CD. Also handled a full infrastructure migration after a security incident.",
+        role: "Sole full-stack developer. Architected and built the entire system: React frontend with Vite, NestJS REST API, Supabase database schema with RLS policies, Stripe checkout and webhook integration, Vimeo video player with autoplay flow, in-browser PDF reader, and a hardened VPS deployment with Nginx, PM2 and GitHub Actions CI/CD. Also handled a full infrastructure migration after a security incident and a post-launch performance optimization that brought PageSpeed mobile from 71 to 91.",
         features: [
             {
                 title: "Video courses with Vimeo and autoplay countdown",
@@ -45,6 +45,10 @@ export const projects = [
                 title: "Automated CI/CD to hardened VPS",
                 description: "On every push to main, GitHub Actions builds the frontend with Vite, compiles the NestJS backend, SCPs both builds to the VPS, injects environment variables, restarts the PM2 process and reloads Nginx — zero manual deploys. After a security incident (XMRig miner via SSH brute force), the server was fully migrated: non-standard SSH port, key-only auth, fail2ban and UFW firewall.",
             },
+            {
+                title: "Core Web Vitals optimization — PageSpeed 71 → 91 (mobile)",
+                description: "Eliminated 116 KB of critical-path JavaScript by replacing Framer Motion with pure CSS animations and native touch gestures. Self-hosted Google Fonts via @fontsource to remove three render-blocking third-party requests. Compressed 25+ images to WebP (93 % payload reduction), implemented responsive hero images with srcset, and added preload hints for the LCP element, logo and primary font. Reordered the HTML output so the browser discovers CSS before scripts. Fixed every Lighthouse accessibility issue (aria-labels, contrast ratios) to reach a perfect 100 score. Final result: FCP 2.3 s, LCP 2.9 s, TBT 0 ms, CLS 0 on mobile; LCP 0.6 s and Performance 98 on desktop.",
+            },
         ],
         stack: {
             frontend: ["React 18", "Vite", "TypeScript", "React Router 7"],
@@ -54,13 +58,15 @@ export const projects = [
             backend: ["NestJS 11", "TypeScript", "class-validator", "Multer", "Swagger/OpenAPI"],
             database: ["Supabase (PostgreSQL)", "RLS Policies", "SQL triggers & migrations"],
             payments: ["Stripe", "Stripe Webhooks (HMAC verification)"],
-            infra: ["VPS Ubuntu 24.04", "Nginx", "PM2", "Let's Encrypt SSL", "GitHub Actions", "fail2ban", "UFW"],
+            performance: ["Lighthouse / PageSpeed Insights", "Core Web Vitals (LCP, FCP, CLS, TBT)", "@fontsource (self-hosted Inter)", "Sharp (WebP conversion)", "Responsive images (srcset)", "Vite preload plugin"],
+            infra: ["VPS Ubuntu 24.04", "Nginx", "Cloudflare CDN", "PM2", "Let's Encrypt SSL", "GitHub Actions", "fail2ban", "UFW"],
         },
         highlights: [
             "Vimeo Player API drives lesson playback: the `ended` event starts a visual countdown that auto-advances to the next lesson, resets when the lesson changes, and can be cancelled — all managed in a React hook without polling.",
             "Stripe webhook handler verifies the Stripe-Signature HMAC before any processing. The Supabase stripe_session_id column acts as an idempotency key, making the handler safe against retries and duplicate events.",
             "Supabase RLS policies enforce access at the database row level. A student querying lessons they haven't paid for gets an empty result set — not a 403 — eliminating a class of IDOR vulnerabilities without extra server-side filters.",
             "After the original VPS was compromised by an XMRig miner via SSH brute force, the full stack was migrated to a new server: non-standard SSH port, key-only auth, fail2ban, UFW and all secrets rotated. GitHub Actions now deploys without a password.",
+            "Took PageSpeed mobile Performance from 71 to 91 on a React SPA — a notoriously hard target because the browser must download, parse and execute JS before any content renders. LCP dropped from 5.6 s to 2.9 s (−48 %) through font self-hosting, responsive image preloading, CSS-first HTML ordering and eliminating all JS-driven animations from the critical path. Accessibility went from 77 to a perfect 100 in the same pass.",
         ],
         demoNote: {
             status: "Fully deployed at 1tomillion.com. Explore the marketing site or log into the platform with the demo account below.",

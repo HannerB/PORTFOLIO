@@ -169,6 +169,10 @@
       "packages": "Paquetes",
       "storage": "Almacenamiento",
       "payments": "Pagos",
+      "performance": "Rendimiento",
+      "styling": "Estilos y UI",
+      "forms": "Formularios y Validación",
+      "media": "Multimedia y Visualización",
       "base": "Base",
       "exports": "Exportaciones",
       "tooling": "Herramientas"

@@ -238,6 +238,30 @@
     .edu-dates  { font-size: 8.5pt; color: #6B7280; white-space: nowrap; }
     .edu-inst   { font-size: 9pt; color: #6B7280; margin-top: 1px; }
 
+    /* ── QR ── */
+    .header-qr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .header-qr img {
+      width: 68px;
+      height: 68px;
+      border: 1px solid #E5E7EB;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .header-qr span {
+      font-size: 7pt;
+      color: #6B7280;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
     /* ── PRINT ── */
     @media print {
       @page { size: A4; margin: 14mm 16mm; }
@@ -262,14 +286,20 @@
       <div class="header-name">Hanner Barros</div>
       <div class="header-title">Full Stack Developer</div>
     </div>
-    <div class="header-contact">
-      <div>hannerb48@gmail.com <span class="sep">·</span> +57 301 198 9727</div>
-      <div>
-        <a href="https://www.hanner.dev">hanner.dev</a>
-        <span class="sep">·</span>
-        <a href="https://github.com/HannerB">github.com/HannerB</a>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="header-contact">
+        <div>hannerb48@gmail.com <span class="sep">·</span> +57 301 198 9727</div>
+        <div>
+          <a href="https://www.hanner.dev">hanner.dev</a>
+          <span class="sep">·</span>
+          <a href="https://github.com/HannerB">github.com/HannerB</a>
+        </div>
+        <div style="font-size:8pt;color:#9CA3AF">Barranquilla, Colombia — available for remote work</div>
       </div>
-      <div style="font-size:8pt;color:#9CA3AF">Barranquilla, Colombia — available for remote work</div>
+      <div class="header-qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https%3A%2F%2Fwww.hanner.dev%2F&margin=4" alt="hanner.dev">
+        <span>hanner.dev</span>
+      </div>
     </div>
   </div>
 

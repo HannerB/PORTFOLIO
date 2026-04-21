@@ -4,8 +4,8 @@
 
 ```
 hanner.dev               →  Portafolio (Vercel) — NO TOCAR
-[slug].hanner.dev        →  Previews de proyectos (VPS 72.60.214.49)
-1tomillion.com           →  1TOMILION producción (VPS 72.60.214.49)
+[slug].hanner.dev        →  Previews de proyectos (VPS 187.124.172.83)
+1tomillion.com           →  1TOMILION producción (VPS 187.124.172.83)
 ```
 
 El portafolio vive en Vercel y se despliega automáticamente desde GitHub.
@@ -14,7 +14,7 @@ separado del espacio de producción de 1TOMILION.
 
 > ⚠️ **Incidente 2026-03-15:** El VPS anterior (72.62.23.134) fue comprometido por
 > SSH brute force — el atacante instaló un minero XMRig. Hostinger lo detuvo.
-> Se migró todo al nuevo VPS (72.60.214.49) con SSH hardening completo.
+> Se migró todo a un VPS temporal (72.60.214.49, KVM8), luego migrado al VPS actual (187.124.172.83, KVM2) en abril 2026.
 > La causa NO fueron los proyectos sino una contraseña débil en SSH.
 > Ver detalles en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md`.
 
@@ -28,7 +28,7 @@ Estado actual de los records DNS:
 |-------|------------|----------------------------------------|-------|
 | A     | `hanner.dev` | `216.198.79.1` (Vercel — no cambiar) | ON    |
 | CNAME | `www`      | `9970e45010c841d1.vercel-dns-017.com`  | ON    |
-| A     | `*`        | `72.60.214.49` (VPS nuevo) ✅          | ON    |
+| A     | `*`        | `187.124.172.83` (VPS actual) ✅       | ON    |
 
 El wildcard `*` cubre automáticamente todos los subdominios hacia el VPS.
 Los records de `hanner.dev` y `www` tienen prioridad sobre el wildcard,
@@ -40,18 +40,17 @@ por lo que el portafolio en Vercel no se ve afectado.
 
 | Detalle      | Valor                                                        |
 |--------------|--------------------------------------------------------------|
-| IP           | `72.60.214.49`                                               |
-| Puerto SSH   | `2277` (no el default 22)                                    |
+| IP           | `187.124.172.83`                                             |
+| Puerto SSH   | `22` (default)                                               |
 | OS           | Ubuntu 24.04 LTS                                             |
-| SSH          | `ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49`         |
-| Provider     | Hostinger KVM 8                                              |
-| RAM          | 32 GB                                                        |
+| SSH          | `ssh root@187.124.172.83`                                    |
+| Provider     | Hostinger KVM 2                                              |
+| RAM          | 8 GB                                                         |
 | Auth         | Solo clave SSH — contraseña desactivada                      |
 
 > Credenciales y claves completas en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md`
 
-> **IMPORTANTE (Claude):** Usar la clave `/tmp/github_actions_key` para conectar:
-> `ssh -i /tmp/github_actions_key -p 2277 -o StrictHostKeyChecking=no root@72.60.214.49`
+> **IMPORTANTE (Claude):** Ver sección de acceso SSH en `C:\xampp\htdocs\1TOMILION\DEPLOYMENT.md` para instrucciones de conexión con askpass.
 
 ---
 
@@ -116,7 +115,7 @@ por lo que el portafolio en Vercel no se ve afectado.
 | Certbot    | —       | SSL automático |
 | PM2        | 6.x     | Backend Node.js (1tomillion) |
 | fail2ban   | —       | Protección SSH |
-| UFW        | —       | Firewall (puertos: 2277, 80, 443) |
+| UFW        | —       | Firewall (puertos: 22, 80, 443) |
 
 ### Backup automático
 
@@ -525,7 +524,7 @@ Corre bajo el usuario `labsrv` con su propio pool (`/etc/php/8.2/fpm/pool.d/labs
 
 **Para actualizar p01 (lab-sensorial-sena):**
 ```bash
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83
 cd /home/srvp/p01
 git pull
 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
@@ -835,10 +834,10 @@ $pageScripts = [
 
 ```bash
 # Subir un archivo
-scp -i ~/.ssh/id_ed25519 -P 2277 local/path/file.php root@72.60.214.49:/home/srvp/p04/ruta/destino/
+scp -i ~/.ssh/id_ed25519 local/path/file.php root@187.124.172.83:/home/srvp/p04/ruta/destino/
 
 # Subir directorio completo
-scp -i ~/.ssh/id_ed25519 -P 2277 -r local/directorio/ root@72.60.214.49:/home/srvp/p04/ruta/destino/
+scp -i ~/.ssh/id_ed25519 -r local/directorio/ root@187.124.172.83:/home/srvp/p04/ruta/destino/
 ```
 
 > Recordar: local `output/archivo.php` → VPS `/home/srvp/p04/archivo.php` (sin el prefijo `output/`).
@@ -890,7 +889,7 @@ El script automatiza: clonar/actualizar repo → build → config Nginx (como `p
 
 ```bash
 # Conectar al VPS
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83
 
 # Uso del script
 ./deploy.sh <id> <slug> <repo> <type> [dist_path] [port]
@@ -989,8 +988,8 @@ image: "/screenshots/[slug].webp",  // archivo en /public/screenshots/[slug].web
 ## Checklist
 
 ### Infraestructura
-- [x] VPS nuevo hardeneado (SSH port 2277, solo clave, fail2ban, UFW)
-- [x] DNS wildcard `A * → 72.60.214.49` actualizado en Cloudflare
+- [x] VPS hardeneado (SSH port 22, solo clave, fail2ban, UFW)
+- [x] DNS wildcard `A * → 187.124.172.83` actualizado en Cloudflare
 - [x] PHP 8.2 + MySQL + Composer + PHP-FPM instalados
 - [ ] **`/var/www/previews/`** — pendiente crear en nuevo VPS
 - [ ] **Script `/root/deploy.sh`** — pendiente recrear en nuevo VPS (para Tipo A/B/C)
@@ -1046,26 +1045,26 @@ du -sh /* 2>/dev/null | sort -rh | head -15
 
 ```bash
 # Conectar al VPS
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83
 
 # Estado general
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "pm2 status && systemctl is-active nginx php8.2-fpm"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "pm2 status && systemctl is-active nginx php8.2-fpm"
 
 # Sitios Nginx activos
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "ls /etc/nginx/sites-enabled/"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "ls /etc/nginx/sites-enabled/"
 
 # Logs de error de un proyecto
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "tail -50 /var/log/nginx/error.log"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "tail -50 /var/log/nginx/error.log"
 
 # Logs del lab-sensorial (Laravel)
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "tail -50 /home/labsrv/app/storage/logs/laravel.log"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "tail -50 /home/labsrv/app/storage/logs/laravel.log"
 
 # RAM y disco
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "free -h && df -h /"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "free -h && df -h /"
 
 # Recargar Nginx
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "nginx -t && systemctl reload nginx"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "nginx -t && systemctl reload nginx"
 
 # Proyectos en previews
-ssh -i ~/.ssh/id_ed25519 -p 2277 root@72.60.214.49 "ls /var/www/previews/"
+ssh -i ~/.ssh/id_ed25519 root@187.124.172.83 "ls /var/www/previews/"
 ```

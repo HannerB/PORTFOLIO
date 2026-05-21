@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jim Barros — Mesero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 10pt;
+      line-height: 1.55;
+      color: #111827;
+      background: #fff;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 44px 52px;
+    }
+
+    /* HEADER */
+    .header {
+      margin-bottom: 22px;
+    }
+
+    .header-name {
+      font-size: 26pt;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .header-title {
+      font-size: 11pt;
+      font-weight: 500;
+      color: #4338CA;
+      margin-bottom: 10px;
+    }
+
+    .header-contact {
+      font-size: 9pt;
+      color: #374151;
+      line-height: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 20px;
+    }
+
+    .header-contact span {
+      display: inline-block;
+    }
+
+    .sep { color: #D1D5DB; margin: 0 6px; }
+
+    /* SECTION */
+    .section {
+      padding: 16px 0;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    .section-label {
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4338CA;
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E5E7EB;
+    }
+
+    /* PROFILE */
+    .profile p {
+      font-size: 9.5pt;
+      color: #374151;
+      line-height: 1.75;
+    }
+
+    .profile strong { color: #111827; }
+
+    /* EXPERIENCE */
+    .exp-entry { margin-bottom: 18px; }
+    .exp-entry:last-child { margin-bottom: 0; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .exp-title {
+      font-size: 10.5pt;
+      font-weight: 600;
+    }
+
+    .exp-dates {
+      font-size: 8.5pt;
+      color: #6B7280;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .exp-company {
+      font-size: 9pt;
+      font-weight: 500;
+      color: #4338CA;
+      margin: 1px 0 7px;
+    }
+
+    .exp-bullets { padding-left: 14px; }
+
+    .exp-bullets li {
+      font-size: 9.5pt;
+      color: #374151;
+      line-height: 1.65;
+      margin-bottom: 4px;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px 36px;
+    }
+
+    .skill-group-label {
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6B7280;
+      margin-bottom: 6px;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .skill-tag {
+      font-size: 8pt;
+      font-weight: 400;
+      color: #374151;
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+
+    /* EDUCATION */
+    .edu-entry { margin-bottom: 10px; }
+    .edu-entry:last-child { margin-bottom: 0; }
+
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .edu-degree { font-size: 10pt; font-weight: 600; }
+    .edu-dates  { font-size: 8.5pt; color: #6B7280; white-space: nowrap; }
+    .edu-inst   { font-size: 9pt; color: #6B7280; margin-top: 2px; }
+
+    /* REFERENCES */
+    .ref-note {
+      font-size: 9.5pt;
+      color: #374151;
+      font-style: italic;
+    }
+
+    /* PRINT */
+    @media print {
+      @page { size: A4; margin: 12mm 15mm; }
+      body  { print-color-adjust: exact; -webkit-print-color-adjust: exact; font-size: 9.5pt; }
+      .page { padding: 0; max-width: 100%; }
+      .header { margin-bottom: 14px; }
+      .header-name { font-size: 22pt; }
+      .header-title { margin-bottom: 8px; }
+      .header-contact { line-height: 1.9; }
+      .section { padding: 11px 0; }
+      .section-label { margin-bottom: 10px; break-after: avoid; page-break-after: avoid; }
+      .profile p { line-height: 1.7; font-size: 9.5pt; }
+      .exp-entry { margin-bottom: 12px; }
+      .exp-bullets li { margin-bottom: 3px; line-height: 1.6; font-size: 9.5pt; }
+      .exp-company { margin-bottom: 5px; }
+      .skills-grid { gap: 11px 28px; }
+      .skill-tag { font-size: 8pt; padding: 2px 6px; }
+      .edu-entry { margin-bottom: 9px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-name">Jim Barros</div>
+    <div class="header-title">Mesero — Servicio de Alimentos y Bebidas</div>
+    <div class="header-contact">
+      <span>jimbabarros08@gmail.com</span>
+      <span class="sep">·</span>
+      <span>350 796 7933</span>
+      <span class="sep">·</span>
+      <span>Barranquilla, Atlántico</span>
+    </div>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="section">
+    <div class="section-label">Perfil Profesional</div>
+    <div class="profile">
+      <p>
+        Mesero con experiencia en atención y servicio al cliente en establecimientos de alimentos y bebidas en Barranquilla.
+        Habilidad para gestionar múltiples mesas simultáneamente, tomar pedidos con precisión y garantizar una
+        <strong>experiencia satisfactoria al cliente</strong> en todo momento. Comprometido con los estándares de
+        higiene, presentación personal y trabajo en equipo. Disponibilidad inmediata.
+      </p>
+    </div>
+  </div>
+
+  <!-- EXPERIENCIA -->
+  <div class="section">
+    <div class="section-label">Experiencia Laboral</div>
+
+    <div class="exp-entry">
+      <div class="exp-header">
+        <div class="exp-title">Mesero / Domiciliario</div>
+        <div class="exp-dates">Enero 2023 – Marzo 2024</div>
+      </div>
+      <div class="exp-company">Kurramba · Barranquilla, Atlántico</div>
+      <ul class="exp-bullets">
+        <li>Atención personalizada a clientes en sala, asegurando tiempos de espera adecuados y satisfacción en cada visita.</li>
+        <li>Toma y transmisión precisa de pedidos a cocina y barra, coordinando con el equipo para garantizar el orden correcto de los platos.</li>
+        <li>Manejo de bandeja para servicio simultáneo de múltiples mesas durante horas pico.</li>
+        <li>Gestión de pedidos a domicilio: coordinación de despachos, entrega oportuna y cobro contraentrega.</li>
+        <li>Gestión de cobro en efectivo y con tarjeta, con cierre de caja al finalizar turno.</li>
+        <li>Preparación y montaje de mesas, verificación de la mise en place antes de cada servicio.</li>
+        <li>Cumplimiento de normas BPM (Buenas Prácticas de Manufactura) y protocolos de higiene del establecimiento.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- HABILIDADES -->
+  <div class="section">
+    <div class="section-label">Habilidades</div>
+    <div class="skills-grid">
+
+      <div>
+        <div class="skill-group-label">Servicio y Atención</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Atención al cliente</span>
+          <span class="skill-tag">Servicio en mesa</span>
+          <span class="skill-tag">Manejo de bandeja</span>
+          <span class="skill-tag">Toma de pedidos</span>
+          <span class="skill-tag">Gestión de reclamos</span>
+          <span class="skill-tag">Upselling</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Operaciones y Cocina</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Mise en place</span>
+          <span class="skill-tag">Manejo de caja</span>
+          <span class="skill-tag">Montaje de mesas</span>
+          <span class="skill-tag">Normas BPM</span>
+          <span class="skill-tag">Manipulación de alimentos</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Competencias Personales</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Trabajo en equipo</span>
+          <span class="skill-tag">Comunicación efectiva</span>
+          <span class="skill-tag">Manejo de presión</span>
+          <span class="skill-tag">Puntualidad</span>
+          <span class="skill-tag">Proactividad</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Disponibilidad</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Turno diurno</span>
+          <span class="skill-tag">Turno nocturno</span>
+          <span class="skill-tag">Fines de semana</span>
+          <span class="skill-tag">Festivos</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDUCACIÓN -->
+  <div class="section">
+    <div class="section-label">Educación</div>
+
+    <div class="edu-entry">
+      <div class="edu-header">
+        <div class="edu-degree">Técnico en Elaboración de Audiovisuales</div>
+        <div class="edu-dates">2023 – 2025</div>
+      </div>
+      <div class="edu-inst">Servicio Nacional de Aprendizaje, SENA</div>
+    </div>
+
+    <div class="edu-entry">
+      <div class="edu-header">
+        <div class="edu-degree">Bachiller Académico</div>
+        <div class="edu-dates">2025</div>
+      </div>
+      <div class="edu-inst">IED San Gabriel · Barranquilla</div>
+    </div>
+
+  </div>
+
+  <!-- REFERENCIAS -->
+  <div class="section">
+    <div class="section-label">Referencias</div>
+    <div class="exp-entry" style="margin-bottom:0">
+      <div style="font-size:10pt;font-weight:600">Dubis Guarín</div>
+      <div style="font-size:9pt;color:#4338CA;margin:1px 0 2px">Referencia personal</div>
+      <div style="font-size:9pt;color:#374151">302 439 9707</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

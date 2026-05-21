@@ -3,531 +3,218 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hanner Barros — Desarrollador Full Stack</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Hanner Barros — Hoja de Vida</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      font-size: 10pt;
-      line-height: 1.55;
-      color: #111827;
+    html, body {
       background: #fff;
+      color: #000;
+      font-family: 'EB Garamond', Garamond, 'Times New Roman', Times, serif;
+      font-size: 11pt;
+      line-height: 1.32;
     }
 
     .page {
-      max-width: 800px;
+      max-width: 8.5in;
       margin: 0 auto;
-      padding: 44px 52px;
+      padding: 0.75in 0.85in;
     }
 
     /* ── HEADER ── */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 22px;
-      gap: 20px;
-    }
+    .header { text-align: center; margin-bottom: 12px; }
 
     .header-name {
-      font-size: 28pt;
+      font-size: 18pt;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1;
-      margin-bottom: 5px;
-    }
-
-    .header-title {
-      font-size: 11pt;
-      font-weight: 500;
-      color: #4338CA;
-    }
-
-    .header-contact {
-      text-align: right;
-      font-size: 9pt;
-      color: #374151;
-      line-height: 2.1;
-    }
-
-    .header-contact a {
-      color: #4338CA;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .sep { color: #D1D5DB; margin: 0 5px; }
-
-    /* ── SECTION ── */
-    .section {
-      padding: 16px 0;
-      border-top: 1px solid #E5E7EB;
-    }
-
-    .section-label {
-      font-size: 7.5pt;
-      font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #4338CA;
-      margin-bottom: 13px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #E5E7EB;
-    }
-
-    .section-label .label-note {
-      font-size: 8pt;
-      font-weight: 400;
-      letter-spacing: 0;
-      text-transform: none;
-      color: #9CA3AF;
-    }
-
-    /* ── PROFILE ── */
-    .profile p {
-      font-size: 9.5pt;
-      color: #374151;
-      line-height: 1.75;
-    }
-
-    .profile strong { color: #111827; }
-
-    /* ── EXPERIENCE ── */
-    .exp-entry { margin-bottom: 16px; }
-    .exp-entry:last-child { margin-bottom: 0; }
-
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .exp-title {
-      font-size: 10.5pt;
-      font-weight: 600;
-    }
-
-    .exp-dates {
-      font-size: 8.5pt;
-      color: #6B7280;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .exp-company {
-      font-size: 9pt;
-      font-weight: 500;
-      color: #4338CA;
-      margin: 1px 0 6px;
-    }
-
-    .exp-bullets { padding-left: 14px; }
-
-    .exp-bullets li {
-      font-size: 9.5pt;
-      color: #374151;
-      line-height: 1.65;
       margin-bottom: 3px;
     }
 
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .header-contact {
+      font-size: 10.5pt;
+      line-height: 1.35;
     }
 
-    .project-card {
-      border: 1px solid #E5E7EB;
-      border-radius: 6px;
-      padding: 12px 14px;
-    }
-
-    .project-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 4px;
-      gap: 6px;
-    }
-
-    .project-name {
-      font-size: 10pt;
-      font-weight: 600;
-    }
-
-    .project-link {
-      font-size: 8pt;
-      font-weight: 600;
-      color: #4338CA;
+    .header-contact a {
+      color: #000;
       text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
     }
 
-    .project-tagline {
-      font-size: 9pt;
-      color: #374151;
-      line-height: 1.5;
-      margin-bottom: 8px;
-    }
+    /* ── SECTION ── */
+    section { margin-top: 9px; }
 
-    .tag-row { display: flex; flex-wrap: wrap; gap: 4px; }
-
-    .tag {
-      font-size: 7.5pt;
-      font-weight: 500;
-      color: #4338CA;
-      background: #EEF2FF;
-      border-radius: 3px;
-      padding: 2px 6px;
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 11px 32px;
-    }
-
-    .skill-group-label {
-      font-size: 7.5pt;
-      font-weight: 600;
+    h2 {
+      font-size: 11.5pt;
+      font-weight: 700;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #6B7280;
+      border-bottom: 1px solid #000;
+      padding-bottom: 2px;
       margin-bottom: 5px;
     }
 
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    /* ── ENTRY ── */
+    .entry { margin-bottom: 7px; }
+    .entry:last-child { margin-bottom: 0; }
 
-    .skill-tag {
-      font-size: 8pt;
-      font-weight: 400;
-      color: #374151;
-      background: #F9FAFB;
-      border: 1px solid #E5E7EB;
-      border-radius: 3px;
-      padding: 2px 7px;
-    }
-
-    /* ── EDUCATION ── */
-    .edu-entry { margin-bottom: 8px; }
-    .edu-entry:last-child { margin-bottom: 0; }
-
-    .edu-header {
+    .entry-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 8px;
+      gap: 12px;
     }
 
-    .edu-degree { font-size: 10pt; font-weight: 600; }
-    .edu-dates  { font-size: 8.5pt; color: #6B7280; white-space: nowrap; }
-    .edu-inst   { font-size: 9pt; color: #6B7280; margin-top: 1px; }
-
-    /* ── QR ── */
-    .header-qr {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
+    .entry-org { font-weight: 700; font-size: 11pt; }
+    .entry-loc { font-style: italic; font-size: 10.5pt; }
+    .entry-role { font-style: italic; font-size: 10.5pt; }
+    .entry-dates {
+      font-size: 10.5pt;
+      white-space: nowrap;
       flex-shrink: 0;
+      font-weight: 700;
     }
 
-    .header-qr img {
-      width: 68px;
-      height: 68px;
-      border: 1px solid #E5E7EB;
-      border-radius: 4px;
-      display: block;
-    }
+    ul { padding-left: 18px; margin-top: 2px; }
+    li { font-size: 10.5pt; line-height: 1.35; margin-bottom: 1px; text-align: justify; }
 
-    .header-qr span {
-      font-size: 7pt;
-      color: #6B7280;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
+    .inline-list { font-size: 10.5pt; line-height: 1.45; }
+    .inline-list p { margin-bottom: 1px; }
+    .inline-list strong { font-weight: 700; }
 
     /* ── PRINT ── */
     @media print {
       @page { size: A4; margin: 14mm 16mm; }
-      body  { print-color-adjust: exact; -webkit-print-color-adjust: exact; font-size: 9.5pt; }
+      body { font-size: 10.5pt; }
       .page { padding: 0; max-width: 100%; }
-      .section { padding: 11px 0; }
-      .section-label { margin-bottom: 10px; break-after: avoid; page-break-after: avoid; }
-      .exp-entry { margin-bottom: 11px; }
-      .projects-grid { gap: 9px; page-break-inside: avoid; break-inside: avoid; }
-      .project-card { padding: 10px 12px; page-break-inside: avoid; break-inside: avoid; }
-      .skills-grid { gap: 9px 28px; }
-      .header { margin-bottom: 16px; }
+      section { margin-top: 7px; }
+      .entry { margin-bottom: 6px; }
+      li { font-size: 10pt; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div>
-      <div class="header-name">Hanner Barros</div>
-      <div class="header-title">Desarrollador Full Stack</div>
+  <!-- ENCABEZADO -->
+  <header class="header">
+    <div class="header-name">Hanner Barros</div>
+    <div class="header-contact">
+      Barranquilla, Colombia &nbsp;|&nbsp; +57 301 198 9727 &nbsp;|&nbsp;
+      <a href="mailto:hannerb48@gmail.com">hannerb48@gmail.com</a> &nbsp;|&nbsp;
+      <a href="https://hanner.dev">hanner.dev</a> &nbsp;|&nbsp;
+      <a href="https://github.com/HannerB">github.com/HannerB</a>
     </div>
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div class="header-contact">
-        <div>hannerb48@gmail.com <span class="sep">·</span> 301 198 9727</div>
-        <div>
-          <a href="https://www.hanner.dev">hanner.dev</a>
-          <span class="sep">·</span>
-          <a href="https://github.com/HannerB">github.com/HannerB</a>
-        </div>
-        <div style="font-size:8pt;color:#9CA3AF">Barranquilla, Colombia — disponible para trabajo remoto</div>
-      </div>
-      <div class="header-qr">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAklEQVR4AewaftIAAAOOSURBVO3BwZHjSAxFwacKWoAbPID/1sAD3L4L2uYBFwabolTdM7MRlfl4fmH52GCZMlimDJYpg2XKYJmy8Q3z4KeoklfMgyNVcsY82KmSZh40VdLMg5+iSo4Gy5TBMmXjBlXyCfNghnlwRpXszIO7VMknzIMrg2XKYJmy8Sbz4IoquWIenFElR+ZBUyU/xTy4okruGixTNv4nzIOmSo5Uyd8wWKYMlikb/zBV0syDI1XSzIOmSv6UwTJlsEzZeJMq+U3mwSvmwZEquUuV/JTBMmWwTNm4wTz4DaqkmQc7VdLMg6ZKmnmwUyXNPGiq5Mg8+A2DZcrj+YU/yDy4S5XcZR40VfKnDJYpg2XK4/mFE+ZBUyXNPHiXKnnFPNipkmYeXFElr5gH71Ildw2WKYNlysY3VMknVMmRefAJVXKXeXBGlezMg6ZKrpgHTZVcGSxTBsuUx/MLJ8yDpkqOzIMzqqSZBztV0syDT6iSZh4cqZJmHnxClezMgzOq5GiwTHk8v/CDzIOmSo7MgzOqZIZ5cEaV7MyDpkruMg+aKjkaLFMGy5TH8wtvMA92quQV82CnSl4xD3aqpJkHV1TJGfPgLlXSzIMrquRosEwZLFM2vmEeNFVyxTw4o0p25kFTJXepkrvMgzOqZGceNFXSzIOmSnbmQVMlVwbLlMEyZeNNquQu82CnSpp5cEaV7MyDM6qkmQd3mQdH5sFd5kFTJUeDZcrGh8yDpkqumAdNlZwxD45UyV2qpJkHTZXszIMzquRIlTTz4MpgmTJYpmy8yTy4Yh78BvPginlwxjy4yzzYqZKmSq4MlimDZcrj+YU/yDxoquSKedBUSTMPrqiSK+bBGVXyrsEyZbBM2fiGefBTVElTJWfMg50qaaqkmQdHqqSZB2fMg50qOaNKmnlwRZUcDZYpGzeokk+YB0fmQVMlTZUcmQdNlXxClVwxD5oq2ZkHTZVcGSxTBsuUjTeZB1dUyV3mQVMlV8yDpkp25sEZ8+AuVdLMgyPzoKmSo8EyZbBM2fiLVEkzD3aqpKmSZh5cUSVnzIOdKmnmQTMPZgyWKYNlysY/QpXszINXzIMj86CpkqZKjlRJMw+OVEkzD64Mlikbb1IlM1RJMw+aKjlSJWfMgyvmQVMlO/PgFVXyrsEyZbBM2bjBPPgp5sFd5kFTJU2V/Abz4F2DZcpgmfJ4fmH52GCZMlimDJYpg2XKf8b4iFuveFD8AAAAAElFTkSuQmCC" alt="hanner.dev">
-        <span>hanner.dev</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PERFIL -->
-  <div class="section">
-    <div class="section-label">Perfil</div>
-    <div class="profile">
-      <p>
-        Desarrollador Full Stack con historial demostrable en producción: he construido plataformas SaaS completas —
-        arquitectura de BD, API REST, frontend e infraestructura — como <strong>desarrollador único</strong> para clientes
-        de <strong>España, Estados Unidos y Kenia</strong>. Manejo el ciclo completo desde el diseño del esquema hasta el
-        despliegue en VPS con CI/CD. Mis proyectos están en producción con usuarios y pagos reales.
-        Stack principal: <strong>NestJS · React · TypeScript · PostgreSQL</strong>.
-        Portfolio interactivo con demos en vivo en <a href="https://www.hanner.dev" style="color:#4338CA;font-weight:600">hanner.dev</a>.
-      </p>
-    </div>
-  </div>
+  </header>
 
   <!-- EXPERIENCIA -->
-  <div class="section">
-    <div class="section-label">Experiencia</div>
+  <section>
+    <h2>Experiencia</h2>
 
-    <div class="exp-entry">
-      <div class="exp-header">
-        <div class="exp-title">Desarrollador Full Stack — Prácticas Profesionales</div>
-        <div class="exp-dates">Jul 2025 – Ene 2026</div>
+    <div class="entry">
+      <div class="entry-row">
+        <div class="entry-org">Trabajo Independiente</div>
+        <div class="entry-dates">Abril 2025 &ndash; Marzo 2026</div>
       </div>
-      <div class="exp-company">Fullstack Labs · Tecnoparque SENA</div>
-      <ul class="exp-bullets">
-        <li>Construí <strong>ECPL</strong>, plataforma de certificación de competencias laborales con generación de documentos Excel con inserción de firma digital (PhpSpreadsheet) y pipeline PDF — 28+ candidatos en producción, proceso completamente digitalizado.</li>
-        <li>Desarrollé <strong>VIVU</strong>, plataforma de gestión de cursos complementarios para SENA con módulo de convenios institucionales (ICBF, INPEC, Fuerzas Militares), cupo al 20% para víctimas de conflicto (stored function MySQL) y dashboard ejecutivo — en producción.</li>
+      <div class="entry-row">
+        <div class="entry-role">Desarrollador Full Stack Freelance</div>
+        <div class="entry-loc">Remoto</div>
+      </div>
+      <ul>
+        <li><strong>1TOMILLION</strong> (Dic 2025 &ndash; Mar 2026): Llev&eacute; a producci&oacute;n un SaaS de e-learning con pagos reales de Stripe a 107 EUR por inscripci&oacute;n, reproducci&oacute;n de lecciones por Vimeo y biblioteca de PDFs en navegador; sub&iacute; el Performance de PageSpeed m&oacute;vil de 71 a 91 y la Accesibilidad a 100 mediante self-hosting de fuentes, conversi&oacute;n de 25+ im&aacute;genes a WebP y eliminaci&oacute;n del JavaScript no cr&iacute;tico. Contuve un incidente real de criptominero en el VPS migrando a SSH con llave, fail2ban, UFW y rotaci&oacute;n total de credenciales.</li>
+        <li><strong>Sistema Contable PR</strong> (Dic 2025 &ndash; Feb 2026): Entregu&eacute; un SaaS contable multi-tenant para una firma de CPA en Puerto Rico a partir de una especificaci&oacute;n escrita de 10 p&aacute;ginas, cubriendo 19 tipos de obligaciones fiscales locales, un modelo de permisos en tres capas (rol m&aacute;s seis flags de capacidad), suscripciones Stripe, una agenda automatizada de vencimientos y exportaci&oacute;n a Excel y PDF.</li>
+        <li><strong>GREYTHIUM</strong> (Nov &ndash; Dic 2025): Constru&iacute; una plataforma de comercio en cuatro modelos (retail B2C, mayorista B2B, exportaci&oacute;n, importaci&oacute;n) sobre un esquema de 22 tablas con doble pasarela de pago (Stripe y PayPal OAuth2 v2 Checkout) y documentaci&oacute;n comercial sensible a HS codes e Incoterms, implementada desde cero en PHP con una arquitectura de servicios hecha a mano.</li>
+        <li><strong>CrystalBeryl Media</strong> (Abr 2025): Entregu&eacute; un sitio web multi-p&aacute;gina completo en React y TypeScript para una agencia digital de Nairobi en seis d&iacute;as de primer a &uacute;ltimo commit, incluyendo contadores animados, secciones con parallax Jarallax, carruseles Swiper y una p&aacute;gina de contacto con Google Maps integrado.</li>
       </ul>
     </div>
 
-    <div class="exp-entry">
-      <div class="exp-header">
-        <div class="exp-title">Desarrollador Backend — Remoto</div>
-        <div class="exp-dates">Abr 2025 – Feb 2026</div>
+    <div class="entry">
+      <div class="entry-row">
+        <div class="entry-org">Fullstack Labs &middot; Tecnoparque SENA</div>
+        <div class="entry-dates">Julio 2025 &ndash; Enero 2026</div>
       </div>
-      <div class="exp-company">Proveify</div>
-      <ul class="exp-bullets">
-        <li>Implementé gateway <strong>Wompi</strong> con verificación SHA256 de webhooks, módulos de cotizaciones, favoritos y PublicRequest en marketplace B2B con NestJS siguiendo arquitectura repository pattern + interfaces abstractas.</li>
-        <li>Refactoricé 7 servicios al patrón repositorio y construí <strong>OptionalJwtAuthGuard</strong> — eliminando endpoints duplicados en la API. Cobertura Jest completa en todos los módulos propios (13 suites de unit tests).</li>
+      <div class="entry-row">
+        <div class="entry-role">Desarrollador Full Stack</div>
+        <div class="entry-loc">Barranquilla, Colombia</div>
+      </div>
+      <ul>
+        <li>Constru&iacute; <strong>ECPL</strong> de extremo a extremo, una plataforma de certificaci&oacute;n de competencias laborales que reemplaza un flujo totalmente manual con generaci&oacute;n autom&aacute;tica de Excel y firma digital embebida sobre un esquema de 15 tablas; en producci&oacute;n con 28 candidatos en 4 proyectos regionales y 24 normas de competencia laboral.</li>
+        <li>Entregu&eacute; <strong>VIVU</strong>, una plataforma de gesti&oacute;n de cursos para SENA con 80 usuarios, 25 cursos y 334 inscripciones, que maneja convenios institucionales con ICBF, INPEC y las Fuerzas Militares y aplica un cupo del 20 por ciento para v&iacute;ctimas de conflicto mediante una stored function de MySQL invocada desde la capa de servicio.</li>
       </ul>
     </div>
 
-    <div class="exp-entry">
-      <div class="exp-header">
-        <div class="exp-title">Desarrollador Full Stack — Remoto</div>
-        <div class="exp-dates">Dic 2024 – Jun 2025</div>
+    <div class="entry">
+      <div class="entry-row">
+        <div class="entry-org">Proveify</div>
+        <div class="entry-dates">Abril 2025 &ndash; Febrero 2026</div>
       </div>
-      <div class="exp-company">Akademia</div>
-      <ul class="exp-bullets">
-        <li>Implementé motor de generación automática de horarios académicos con algoritmo multi-restricción (disponibilidad docente, capacidad de aulas, cuotas de horas) e integración bidireccional con sistema legacy Oracle.</li>
-        <li>Construí 58 componentes Livewire para gestión de programas, docentes, recursos y proyección de cursos sobre un esquema de 48 tablas.</li>
+      <div class="entry-row">
+        <div class="entry-role">Desarrollador Backend</div>
+        <div class="entry-loc">Remoto</div>
+      </div>
+      <ul>
+        <li>Asum&iacute; la l&iacute;nea de pagos de un marketplace B2B en NestJS integrando Wompi con verificaci&oacute;n SHA256 de webhooks y construyendo los m&oacute;dulos de cotizaciones, favoritos y solicitudes p&uacute;blicas sobre una arquitectura repository pattern.</li>
+        <li>Refactoric&eacute; 7 servicios (Category, File, Item, Plan, Provider, Subcategory, User) sobre interfaces de repositorio abstractas e introduje un <strong>OptionalJwtAuthGuard</strong> que unific&oacute; los endpoints p&uacute;blicos y autenticados, eliminando los controladores duplicados que serv&iacute;an ambos casos.</li>
+        <li>Escrib&iacute; 13 suites de Jest cubriendo cada m&oacute;dulo bajo mi responsabilidad &mdash; cotizaciones, favoritos, solicitudes p&uacute;blicas, cotizaciones de proveedor e integraci&oacute;n de pagos &mdash; manteniendo el c&oacute;digo a salvo de regresiones durante un ciclo de entrega de diez meses.</li>
       </ul>
     </div>
 
-  </div>
-
-  <!-- PROYECTOS -->
-  <div class="section">
-    <div class="section-label">
-      Proyectos Destacados
-      <span class="label-note">— demos interactivos en hanner.dev</span>
+    <div class="entry">
+      <div class="entry-row">
+        <div class="entry-org">Akademia</div>
+        <div class="entry-dates">Diciembre 2024 &ndash; Junio 2025</div>
+      </div>
+      <div class="entry-row">
+        <div class="entry-role">Desarrollador Full Stack</div>
+        <div class="entry-loc">Remoto</div>
+      </div>
+      <ul>
+        <li>Dise&ntilde;&eacute; un motor de generaci&oacute;n de horarios acad&eacute;micos que resuelve disponibilidad docente, capacidad de aulas, cuotas horarias y requerimientos de recursos como un &uacute;nico problema multi-restricci&oacute;n, y expone registros de conflicto espec&iacute;ficos en lugar de producir un horario inv&aacute;lido en silencio.</li>
+        <li>Conect&eacute; la plataforma con el sistema legacy Oracle Academusoft mediante un servicio dedicado de sincronizaci&oacute;n y entregu&eacute; 58 componentes reactivos Livewire sobre un esquema de 48 tablas que cubre programas, docentes, proyecciones de cursos e inventario de recursos f&iacute;sicos.</li>
+      </ul>
     </div>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <div class="project-card-top">
-          <div class="project-name">Sistema Contable PR</div>
-          <a href="https://sistema-contable-pr.hanner.dev" class="project-link">↗ live preview</a>
-        </div>
-        <div class="project-tagline">SaaS multi-tenant para CPA firms en Puerto Rico. 19 tipos de obligaciones fiscales, Stripe subscriptions, permisos granulares por flag, exportación Excel/PDF. Spec de cliente de 10 páginas, desarrollado en solitario.</div>
-        <div class="tag-row">
-          <span class="tag">Next.js 15</span>
-          <span class="tag">NestJS</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Stripe</span>
-          <span class="tag">Docker</span>
-          <span class="tag">Playwright</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-card-top">
-          <div class="project-name">1TOMILLION</div>
-          <a href="https://1tomillion.com" class="project-link">↗ producción</a>
-        </div>
-        <div class="project-tagline">Plataforma e-learning en producción con pagos Stripe reales (107 EUR), video Vimeo con autoplay, biblioteca PDF y CI/CD a VPS propio. Incluye gestión de incidente de seguridad real en producción.</div>
-        <div class="tag-row">
-          <span class="tag">React</span>
-          <span class="tag">NestJS</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Stripe</span>
-          <span class="tag">GitHub Actions</span>
-          <span class="tag">Nginx</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-card-top">
-          <div class="project-name">WeDoItBranding</div>
-          <a href="https://wedoitweb.hanner.dev" class="project-link">↗ live preview</a>
-        </div>
-        <div class="project-tagline">SaaS de branding IA para cliente internacional (Fiverr). Hero WebGL Three.js desde cero sin wrappers, cuestionario inmersivo 13 pasos e integración live con Google Cloud Run.</div>
-        <div class="tag-row">
-          <span class="tag">React</span>
-          <span class="tag">Three.js</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Framer Motion</span>
-          <span class="tag">Vite</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-card-top">
-          <div class="project-name">GREYTHIUM</div>
-          <a href="https://greythium.com" class="project-link">↗ producción</a>
-        </div>
-        <div class="project-tagline">Plataforma B2B/B2C de comercio internacional. Dual payment gateway (Stripe + PayPal OAuth2), módulos import/export con HS codes e incoterms, 22 tablas. Construido sin framework.</div>
-        <div class="tag-row">
-          <span class="tag">PHP</span>
-          <span class="tag">MariaDB</span>
-          <span class="tag">Stripe</span>
-          <span class="tag">PayPal API</span>
-          <span class="tag">Apache</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  </section>
 
   <!-- SKILLS -->
-  <div class="section">
-    <div class="section-label">Skills</div>
-    <div class="skills-grid">
-
-      <div>
-        <div class="skill-group-label">Frontend</div>
-        <div class="skill-tags">
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Next.js</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Vite</span>
-          <span class="skill-tag">Three.js</span>
-          <span class="skill-tag">Framer Motion</span>
-          <span class="skill-tag">Tailwind CSS</span>
-          <span class="skill-tag">Livewire</span>
-        </div>
-      </div>
-
-      <div>
-        <div class="skill-group-label">Backend</div>
-        <div class="skill-tags">
-          <span class="skill-tag">NestJS</span>
-          <span class="skill-tag">Laravel</span>
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">PHP</span>
-          <span class="skill-tag">REST API</span>
-          <span class="skill-tag">JWT</span>
-          <span class="skill-tag">Swagger</span>
-          <span class="skill-tag">Stripe / Wompi</span>
-        </div>
-      </div>
-
-      <div>
-        <div class="skill-group-label">Base de Datos</div>
-        <div class="skill-tags">
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">Prisma</span>
-          <span class="skill-tag">Supabase</span>
-          <span class="skill-tag">Eloquent</span>
-          <span class="skill-tag">RLS</span>
-        </div>
-      </div>
-
-      <div>
-        <div class="skill-group-label">Infraestructura & Testing</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">GitHub Actions</span>
-          <span class="skill-tag">Nginx</span>
-          <span class="skill-tag">VPS Ubuntu</span>
-          <span class="skill-tag">PM2</span>
-          <span class="skill-tag">Jest</span>
-          <span class="skill-tag">Playwright</span>
-        </div>
-      </div>
-
+  <section>
+    <h2>Habilidades e Intereses</h2>
+    <div class="inline-list">
+      <p><strong>Idiomas:</strong> Espa&ntilde;ol (nativo), Ingl&eacute;s (B2 &mdash; Intermedio Alto).</p>
+      <p><strong>Frontend:</strong> React, Next.js, TypeScript, Vite, Three.js, Framer Motion, Tailwind CSS, Livewire.</p>
+      <p><strong>Backend:</strong> NestJS, Laravel, Node.js, PHP, REST APIs, JWT, Swagger, Stripe, PayPal, Wompi.</p>
+      <p><strong>Bases de Datos:</strong> PostgreSQL, MySQL, MariaDB, Prisma, Supabase, Eloquent, Row Level Security.</p>
+      <p><strong>Infraestructura y Testing:</strong> Docker, GitHub Actions, Nginx, Ubuntu VPS, PM2, Jest, Playwright.</p>
+      <p><strong>Intereses:</strong> Sistemas distribuidos, plataformas de pago, performance web, herramientas para desarrolladores.</p>
     </div>
-  </div>
+  </section>
 
   <!-- EDUCACIÓN -->
-  <div class="section">
-    <div class="section-label">Educación</div>
+  <section>
+    <h2>Educaci&oacute;n</h2>
 
-    <div class="edu-entry">
-      <div class="edu-header">
-        <div class="edu-degree">Análisis y Desarrollo de Software</div>
-        <div class="edu-dates">2023 – 2025</div>
+    <div class="entry">
+      <div class="entry-row">
+        <div class="entry-org">Servicio Nacional de Aprendizaje (SENA)</div>
+        <div class="entry-dates">2023 &ndash; 2025</div>
       </div>
-      <div class="edu-inst">Servicio Nacional de Aprendizaje, SENA</div>
-    </div>
-
-    <div class="edu-entry">
-      <div class="edu-header">
-        <div class="edu-degree" style="font-size:9.5pt">Programación de Software — Media Técnica</div>
-        <div class="edu-dates">2020 – 2021</div>
-      </div>
-      <div class="edu-inst">Servicio Nacional de Aprendizaje, SENA</div>
-    </div>
-
-    <div class="edu-entry" style="margin-top: 12px;">
-      <div style="font-size: 9pt; font-weight: 600; color: #6B7280; margin-bottom: 6px;">Formación Complementaria — SENA</div>
-      <div class="tag-row" style="gap: 5px;">
-        <span class="tag">Modelos Predictivos y Clasificatorios (2025)</span>
-        <span class="tag">Control con Java y Arduino (2024)</span>
-        <span class="tag">Introducción al Cloud Computing (2024)</span>
-        <span class="tag">Construcción de Bases de Datos con MySQL (2024)</span>
-        <span class="tag">Analítica de Datos con Herramientas Computacionales (2024)</span>
-        <span class="tag">Emprendimiento Innovador (2024)</span>
-        <span class="tag">Análisis Exploratorio de Datos en Python (2023)</span>
+      <div class="entry-row">
+        <div class="entry-role">T&eacute;cnico en An&aacute;lisis y Desarrollo de Software</div>
+        <div class="entry-loc">Barranquilla, Colombia</div>
       </div>
     </div>
 
-  </div>
+    <div class="entry">
+      <div class="entry-row">
+        <div class="entry-org">Servicio Nacional de Aprendizaje (SENA)</div>
+        <div class="entry-dates">2020 &ndash; 2021</div>
+      </div>
+      <div class="entry-row">
+        <div class="entry-role">T&eacute;cnico en Programaci&oacute;n de Software (Media T&eacute;cnica)</div>
+        <div class="entry-loc">Barranquilla, Colombia</div>
+      </div>
+    </div>
+  </section>
 
 </div>
 </body>

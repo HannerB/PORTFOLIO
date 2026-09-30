@@ -10,7 +10,17 @@
       "Bash(scp:*)",
       "Read(//c/Users/Usuario/Downloads/**)",
       "Bash(curl:*)",
-      "Bash(ping -n 3 ecpl.hanner.dev)"
+      "Bash(ping -n 3 ecpl.hanner.dev)",
+      "PowerShell(if \\($env:VERCEL_TOKEN\\) { \"VERCEL_TOKEN: presente \\(\" + $env:VERCEL_TOKEN.Length + \" chars\\)\" } else { \"VERCEL_TOKEN: no definido\" }; $paths = @\\(\"$env:USERPROFILE\\\\.vercel\\\\auth.json\", \"$env:APPDATA\\\\com.vercel.cli\\\\auth.json\", \"$env:LOCALAPPDATA\\\\com.vercel.cli\\\\auth.json\", \"$env:USERPROFILE\\\\AppData\\\\Roaming\\\\xdg.config\\\\com.vercel.cli\\\\auth.json\"\\); foreach \\($p in $paths\\) { if \\(Test-Path $p\\) { \"EXISTE: $p\" } }; try { $v = \\(Get-Command vercel -ErrorAction Stop\\).Source; \"vercel CLI: $v\" } catch { \"vercel CLI: no instalado\" })",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell($creds = cmdkey /list | Select-String -Pattern 'vercel' -SimpleMatch; if \\($creds\\) { $creds } else { \"Credential Manager: nada de Vercel\" }; if \\(Test-Path \"$env:USERPROFILE\\\\.config\"\\) { Get-ChildItem \"$env:USERPROFILE\\\\.config\" -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'vercel' } | Select-Object FullName }; if \\(Test-Path \"$env:LOCALAPPDATA\\\\com.vercel.cli\"\\) { \"EXISTE: $env:LOCALAPPDATA\\\\com.vercel.cli\" }; Get-ChildItem \"C:\\\\xampp\\\\htdocs\" -Directory -ErrorAction SilentlyContinue | ForEach-Object { $vp = Join-Path $_.FullName \".vercel\"; if \\(Test-Path $vp\\) { \"Proyecto con .vercel: $\\($_.FullName\\)\" } })",
+      "WebSearch",
+      "WebFetch(domain:www.awwwards.com)",
+      "WebFetch(domain:support.claude.com)",
+      "WebFetch(domain:mikekwal.com)",
+      "WebFetch(domain:www.jeffsu.org)",
+      "WebFetch(domain:www.mindstudio.ai)",
+      "WebFetch(domain:markusstoeger.com)"
     ],
     "defaultMode": "bypassPermissions"
   }
